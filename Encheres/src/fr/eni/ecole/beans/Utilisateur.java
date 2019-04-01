@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fr.eni.ecole.BO;
+package fr.eni.ecole.beans;
 
 /**
  * @author fcatin2018

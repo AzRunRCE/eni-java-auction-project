@@ -16,7 +16,7 @@ public class Utilisateur {
 	String email;
 	String telephone;
 	String rue;
-	String codePastal;
+	String codePostal;
 	String ville;
 	String motDePasse;
 	String credit;
@@ -71,12 +71,12 @@ public class Utilisateur {
 		this.rue = rue;
 	}
 
-	public String getCodePastal() {
-		return codePastal;
+	public String getCodePostal() {
+		return codePostal;
 	}
 
-	public void setCodePastal(String codePastal) {
-		this.codePastal = codePastal;
+	public void setCodePostal(String codePastal) {
+		this.codePostal = codePastal;
 	}
 
 	public String getVille() {

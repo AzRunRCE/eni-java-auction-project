@@ -17,4 +17,10 @@
     <servlet-name>TestConnexion</servlet-name>
     <url-pattern>/TestConnexion</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <description>Inscription</description>
+    <display-name>Register</display-name>
+    <servlet-name>Register</servlet-name>
+    <servlet-class>fr.eni.ecole.servlet.Register</servlet-class>
+  </servlet>
 </web-app>

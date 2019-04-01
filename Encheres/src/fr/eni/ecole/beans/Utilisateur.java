@@ -82,6 +82,12 @@ public class Utilisateur {
 		setAdministrateur(administrateur);
 	}
 
+	public Utilisateur() {
+		// TODO Auto-generated constructor stub
+	}
+
+	
+
 	public String getPseudo() {
 		return pseudo;
 	}

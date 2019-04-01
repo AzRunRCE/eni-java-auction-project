@@ -19,7 +19,7 @@ public class Utilisateur {
 	String codePostal;
 	String ville;
 	String motDePasse;
-	String credit;
+	int credit;
 	Boolean administrateur;
 	
 	
@@ -95,11 +95,11 @@ public class Utilisateur {
 		this.motDePasse = motDePasse;
 	}
 
-	public String getCredit() {
+	public int getCredit() {
 		return credit;
 	}
 
-	public void setCredit(String credit) {
+	public void setCredit(int credit) {
 		this.credit = credit;
 	}
 

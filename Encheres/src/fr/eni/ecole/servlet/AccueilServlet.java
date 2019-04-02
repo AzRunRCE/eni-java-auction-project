@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class AccueilServlet
  */
 @WebServlet( urlPatterns = {
-		"/",
 		"/Accueil"
 })
 public class AccueilServlet extends HttpServlet {

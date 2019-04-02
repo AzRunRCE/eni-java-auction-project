@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +18,7 @@ import fr.eni.ecole.util.AccesBase;
 /**
  * Servlet implementation class TestConnexion
  */
+@WebServlet("/TestConnexion")
 public class TestConnexion extends HttpServlet implements Servlet {
 	private static final long serialVersionUID = 1L;
        

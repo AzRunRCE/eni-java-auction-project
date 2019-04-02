@@ -4,7 +4,7 @@
 <%@taglib prefix="f" uri="http://java.sun.com/jsp/jstl/functions" %>
     
 
-<jsp:include page="./fragments/header.jsp" >
+<jsp:include page="../fragments/header.jsp" >
 	<jsp:param value="Accueil" name="title"/>
 </jsp:include>
 <form>
@@ -24,4 +24,4 @@
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
-<jsp:include page="./fragments/footer.jsp" ></jsp:include>
+<jsp:include page="../fragments/footer.jsp" ></jsp:include>

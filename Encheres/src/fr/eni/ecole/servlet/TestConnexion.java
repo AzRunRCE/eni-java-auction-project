@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.ecole.DAL.DALException;
+import fr.eni.ecole.DAL.DAOFactory;
+import fr.eni.ecole.DAL.IDAOUtilisateur;
+import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.util.AccesBase;
 
 /**
@@ -33,6 +36,7 @@ public class TestConnexion extends HttpServlet implements Servlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
 		response.setContentType("text/plain");
 		PrintWriter out = response.getWriter();
 		Connection cnx = null;
@@ -52,6 +56,16 @@ public class TestConnexion extends HttpServlet implements Servlet {
 				e.printStackTrace();
 			}
 		}
+		
+		IDAOUtilisateur daoUsers;
+		try {
+			daoUsers = DAOFactory.getUtilisateurDAO();
+			Utilisateur p = daoUsers.findByLogin("ApoZLd","hello");
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	/**

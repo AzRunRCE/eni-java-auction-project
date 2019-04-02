@@ -37,10 +37,12 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	public Utilisateur find(int id) {
 		Utilisateur utilisateur = new Utilisateur();        
 	    try {
-	    	ResultSet result = this.connect.createStatement(
-	        ResultSet.TYPE_SCROLL_INSENSITIVE,
-	        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Utilisateur WHERE noUtilisateur = " + id);
-	      if(result.first()) {
+	    	//noUtilisateur
+	    	PreparedStatement preparedStatement = connect.prepareStatement("SELECT * FROM UTILISATEURS WHERE noUtilisateur = ?"); 
+	    	preparedStatement.setInt(1,id); 
+	    	preparedStatement.execute();
+	    	ResultSet result = preparedStatement.executeQuery();
+	    	if(result.next() == true) {
 	    	  utilisateur = new Utilisateur();      
 	      }
 	    } catch (SQLException e) {

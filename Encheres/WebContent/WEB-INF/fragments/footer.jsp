@@ -3,7 +3,7 @@
 
 		</div>
 		<footer>
-			<nav class="navbar navbar-light bg-light justify-content-center">
+			<nav class="navbar navbar-light bg-light justify-content-center mt-3">
 	  			<a class="navbar-brand" href="#">Copyright(c) Eni Ecole</a>
 			</nav>
 		</footer>

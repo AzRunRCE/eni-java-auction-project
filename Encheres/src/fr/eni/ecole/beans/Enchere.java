@@ -1,20 +1,25 @@
 package fr.eni.ecole.beans;
 
-import microsoft.sql.DateTimeOffset;
+import java.time.LocalDateTime;
 
 public class Enchere {
-	DateTimeOffset date;
+	LocalDateTime date;
 	float montant;
-	public DateTimeOffset getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
-	public void setDate(DateTimeOffset date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
 	public float getMontant() {
 		return montant;
 	}
 	public void setMontant(float montant) {
+		this.montant = montant;
+	}
+	public Enchere(LocalDateTime date, float montant) {
+		super();
+		this.date = date;
 		this.montant = montant;
 	}
 	

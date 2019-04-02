@@ -1,13 +1,13 @@
 package fr.eni.ecole.beans;
 
-import microsoft.sql.DateTimeOffset;
+import java.time.LocalDateTime;
 
 public class ArticleVendu {
 	int noArticle;
 	String nomArticle;
 	String description;
-	DateTimeOffset dateDebutEncheres;
-	DateTimeOffset dateFinEncheres;
+	LocalDateTime dateDebutEncheres;
+	LocalDateTime dateFinEncheres;
 	float miseAPrix;
 	float prixVente;
 	Boolean etatVente;
@@ -29,16 +29,16 @@ public class ArticleVendu {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public DateTimeOffset getDateDebutEncheres() {
+	public LocalDateTime getDateDebutEncheres() {
 		return dateDebutEncheres;
 	}
-	public void setDateDebutEncheres(DateTimeOffset dateDebutEncheres) {
+	public void setDateDebutEncheres(LocalDateTime dateDebutEncheres) {
 		this.dateDebutEncheres = dateDebutEncheres;
 	}
-	public DateTimeOffset getDateFinEncheres() {
+	public LocalDateTime getDateFinEncheres() {
 		return dateFinEncheres;
 	}
-	public void setDateFinEncheres(DateTimeOffset dateFinEncheres) {
+	public void setDateFinEncheres(LocalDateTime dateFinEncheres) {
 		this.dateFinEncheres = dateFinEncheres;
 	}
 	public float getMiseAPrix() {

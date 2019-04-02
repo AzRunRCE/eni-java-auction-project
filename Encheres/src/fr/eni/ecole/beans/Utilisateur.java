@@ -3,6 +3,9 @@
  */
 package fr.eni.ecole.beans;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author fcatin2018
  *
@@ -20,7 +23,8 @@ public class Utilisateur {
 	String ville;
 	String motDePasse;
 	int credit;
-	int administrateur;
+	Boolean administrateur;
+	List<Enchere> listeEncheres;
 	
 	
 	
@@ -39,7 +43,7 @@ public class Utilisateur {
 	 * @param administrateur
 	 */
 	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostal, String ville, String motDePasse, int credit, int administrateur) {
+			String rue, String codePostal, String ville, String motDePasse, int credit, Boolean administrateur) {
 		setNoUtilisateur(noUtilisateur);
 		setPseudo(pseudo);
 		setNom(nom);
@@ -52,6 +56,7 @@ public class Utilisateur {
 		setMotDePasse(motDePasse);
 		setCredit(credit);
 		setAdministrateur(administrateur);
+		listeEncheres= new ArrayList();
 	}
 	
 	/**
@@ -68,7 +73,7 @@ public class Utilisateur {
 	 * @param administrateur
 	 */
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostal, String ville, String motDePasse, int credit, int administrateur) {
+			String rue, String codePostal, String ville, String motDePasse, int credit, Boolean administrateur) {
 		setPseudo(pseudo);
 		setNom(nom);
 		setPrenom(prenom);
@@ -80,10 +85,12 @@ public class Utilisateur {
 		setMotDePasse(motDePasse);
 		setCredit(credit);
 		setAdministrateur(administrateur);
+		listeEncheres= new ArrayList();
 	}
 
 	public Utilisateur() {
 		// TODO Auto-generated constructor stub
+		listeEncheres= new ArrayList();
 	}
 
 	
@@ -168,11 +175,11 @@ public class Utilisateur {
 		this.credit = credit;
 	}
 
-	public int getAdministrateur() {
+	public Boolean getAdministrateur() {
 		return administrateur;
 	}
 
-	public void setAdministrateur(int administrateur) {
+	public void setAdministrateur(Boolean administrateur) {
 		this.administrateur = administrateur;
 	}
 
@@ -182,5 +189,15 @@ public class Utilisateur {
 
 	public void setNoUtilisateur(int noUtilisateur) {
 		this.noUtilisateur = noUtilisateur;
+	}
+	
+	public void addEnchere(Enchere enchere) {
+		this.listeEncheres.add(enchere);
+	}
+	public void removeEnchere(int id) {
+		this.listeEncheres.remove(id);
+	}
+	public List<Enchere> getListeEnchere() {
+		return this.listeEncheres;
 	}
 }

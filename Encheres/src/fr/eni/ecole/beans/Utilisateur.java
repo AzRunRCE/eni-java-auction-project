@@ -23,7 +23,7 @@ public class Utilisateur {
 	String ville;
 	String motDePasse;
 	int credit;
-	Boolean administrateur;
+	int administrateur;
 	List<Enchere> listeEncheres;
 	
 	
@@ -43,7 +43,7 @@ public class Utilisateur {
 	 * @param administrateur
 	 */
 	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostal, String ville, String motDePasse, int credit, Boolean administrateur) {
+			String rue, String codePostal, String ville, String motDePasse, int credit, int administrateur) {
 		setNoUtilisateur(noUtilisateur);
 		setPseudo(pseudo);
 		setNom(nom);
@@ -73,7 +73,7 @@ public class Utilisateur {
 	 * @param administrateur
 	 */
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostal, String ville, String motDePasse, int credit, Boolean administrateur) {
+			String rue, String codePostal, String ville, String motDePasse, int credit, int administrateur) {
 		setPseudo(pseudo);
 		setNom(nom);
 		setPrenom(prenom);
@@ -175,11 +175,11 @@ public class Utilisateur {
 		this.credit = credit;
 	}
 
-	public Boolean getAdministrateur() {
+	public int getAdministrateur() {
 		return administrateur;
 	}
 
-	public void setAdministrateur(Boolean administrateur) {
+	public void setAdministrateur(int administrateur) {
 		this.administrateur = administrateur;
 	}
 

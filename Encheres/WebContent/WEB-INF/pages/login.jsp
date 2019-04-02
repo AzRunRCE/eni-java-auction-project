@@ -1,12 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="f" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <jsp:include page="../fragments/header.jsp">
 	<jsp:param value="Connexion" name="title" />
 </jsp:include>
 
 <div class="row justify-content-center">
+	
 	<div class="col-4">
+		<c:if test="${erreur != null}"> 
+			<div class="alert alert-danger" role="alert">
+		  		${erreur}
+			</div>
+		</c:if>
 		<form action="./Login" method="post">
 			<div class="form-group">
 				<label for="login">Pseudo ou email</label>

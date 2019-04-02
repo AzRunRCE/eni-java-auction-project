@@ -4,11 +4,22 @@ import fr.eni.ecole.beans.Utilisateur;
 
 public class CredentialManager {
 
-public Boolean Register(Utilisateur utilisateur) throws DALException {
+	IDAOUtilisateur daoUtilisateurs = DAOFactory.getUtilisateurDAO();
 	
-  DAO<Utilisateur> daoUtilisateurs  = DAOFactory.getUtilisateurDAO();
-  
-  
-  return null;
-}
+	public Boolean Register(Utilisateur utilisateur) throws DALException {
+	
+		
+  		return null;
+	}
+	
+	
+	
+	public Utilisateur connexion (String email_login, String mdp) throws DALException {
+		Utilisateur utilisateur = daoUtilisateurs.findByLogin(email_login);
+		if (utilisateur.getMotDePasse().equals(mdp)) {
+			return utilisateur;
+		}else {
+			return null;
+		}
+	}
 }

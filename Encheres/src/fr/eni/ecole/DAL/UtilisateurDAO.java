@@ -9,7 +9,7 @@ import fr.eni.ecole.beans.Utilisateur;
 
 public class UtilisateurDAO implements IDAOUtilisateur {
 	protected Connection connect = null;
-	   
+	private final String FIND_SQL = "SELECT * FROM UTILISATEURS WHERE noUtilisateur = ?";    
 	public UtilisateurDAO (Connection conn) {
 		
 		this.connect = conn;
@@ -38,7 +38,7 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 		Utilisateur utilisateur = new Utilisateur();        
 	    try {
 	    	//noUtilisateur
-	    	PreparedStatement preparedStatement = connect.prepareStatement("SELECT * FROM UTILISATEURS WHERE noUtilisateur = ?"); 
+	    	PreparedStatement preparedStatement = connect.prepareStatement(FIND_SQL); 
 	    	preparedStatement.setInt(1,id); 
 	    	preparedStatement.execute();
 	    	ResultSet result = preparedStatement.executeQuery();

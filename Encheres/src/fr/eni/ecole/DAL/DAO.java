@@ -1,40 +1,35 @@
 package fr.eni.ecole.DAL;
 
+public interface DAO<T> {
 
-import java.sql.Connection;
-
-public abstract class DAO<T> {
-  protected Connection connect = null;
-   
-  public DAO(Connection conn){
-    this.connect = conn;
-  }
    
   /**
   * Méthode de création
   * @param obj
   * @return boolean 
   */
-  public abstract boolean create(T obj);
+  public  boolean create(T obj);
 
   /**
   * Méthode pour effacer
   * @param obj
   * @return boolean 
   */
-  public abstract boolean delete(T obj);
+  public  boolean delete(T obj);
 
   /**
   * Méthode de mise à jour
   * @param obj
   * @return boolean
   */
-  public abstract boolean update(T obj);
+  public boolean update(T obj);
 
   /**
   * Méthode de recherche des informations
   * @param id
   * @return T
   */
-  public abstract T find(int id);
+  public T find(int id);
+  
+  
 }

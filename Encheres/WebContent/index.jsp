@@ -5,6 +5,5 @@
     
 
 <%
-     
         response.sendRedirect("Accueil");
     %>

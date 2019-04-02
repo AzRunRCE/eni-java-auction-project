@@ -3,6 +3,9 @@
  */
 package fr.eni.ecole.beans;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author fcatin2018
  *
@@ -21,6 +24,7 @@ public class Utilisateur {
 	String motDePasse;
 	int credit;
 	Boolean administrateur;
+	List<Enchere> listeEncheres;
 	
 	
 	
@@ -52,6 +56,7 @@ public class Utilisateur {
 		setMotDePasse(motDePasse);
 		setCredit(credit);
 		setAdministrateur(administrateur);
+		listeEncheres= new ArrayList();
 	}
 	
 	/**
@@ -80,10 +85,12 @@ public class Utilisateur {
 		setMotDePasse(motDePasse);
 		setCredit(credit);
 		setAdministrateur(administrateur);
+		listeEncheres= new ArrayList();
 	}
 
 	public Utilisateur() {
 		// TODO Auto-generated constructor stub
+		listeEncheres= new ArrayList();
 	}
 
 	
@@ -182,5 +189,15 @@ public class Utilisateur {
 
 	public void setNoUtilisateur(int noUtilisateur) {
 		this.noUtilisateur = noUtilisateur;
+	}
+	
+	public void addEnchere(Enchere enchere) {
+		this.listeEncheres.add(enchere);
+	}
+	public void removeEnchere(int id) {
+		this.listeEncheres.remove(id);
+	}
+	public List<Enchere> getListeEnchere() {
+		return this.listeEncheres;
 	}
 }

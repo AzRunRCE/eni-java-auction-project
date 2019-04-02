@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Register
+ * Servlet implementation class Deconnexion
  */
-@WebServlet("/Register")
-public class Register extends HttpServlet {
+@WebServlet(description = "permet de se déconnecter", urlPatterns = { "/Deconnexion" })
+public class Deconnexion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       Boolean log = false;
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Register() {
+    public Deconnexion() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,18 +26,14 @@ public class Register extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		this.getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
-		
-		// TODO Auto-generated method stub
-	//	response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.getSession().invalidate();
+		request.getRequestDispatcher("/Default").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

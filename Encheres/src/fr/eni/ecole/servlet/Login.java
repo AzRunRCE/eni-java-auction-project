@@ -32,7 +32,11 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.getServletContext().getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
+		String userCookie = getCookieValue( request, "userCookie" );
+		if (userCookie != null) {
+			request.setAttribute("login", userCookie);
+		}
+		this.getServletContext().getRequestDispatcher(Constantes.PAGE_LOGIN).forward(request, response);
 	}
 
 	/**
@@ -43,7 +47,7 @@ public class Login extends HttpServlet {
 		String recupPassword = null;
 		Boolean valide = true;
 		Utilisateur utilisateur = null;
-		String recupSouvenir = null;
+		String recupRemberMe = null;
 		
 		if(request.getParameter("login").trim().isEmpty())
 			valide = false;
@@ -68,10 +72,12 @@ public class Login extends HttpServlet {
 			e.printStackTrace();
 		}
 		if (utilisateur != null) {
-			recupSouvenir = request.getParameter("souvenir");
-			if(recupSouvenir != null) {
-				Cookie cookie = new Cookie("rememberMe", "true");
-				response.addCookie(cookie);
+			recupRemberMe = request.getParameter("rememberMe");
+			if(recupRemberMe != null) {
+				Cookie rememberCookie = new Cookie("rememberMe", "true");
+				response.addCookie(rememberCookie);
+				Cookie userCookie = new Cookie("userCookie", recupLogin);
+				response.addCookie(userCookie);	
 			}
 			request.getSession().setAttribute(Constantes.SESS_PSEUDO, utilisateur.getPseudo());
 			//request.getSession().setAttribute(Constantes.SESS_NOM, utilisateur.getNom());
@@ -84,5 +90,21 @@ public class Login extends HttpServlet {
 		}
 		
 	}
+	
+	/**
+     * Méthode utilitaire gérant la récupération de la valeur d'un cookie donné
+     * depuis la requête HTTP.
+     */
+    private static String getCookieValue( HttpServletRequest request, String nom ) {
+        Cookie[] cookies = request.getCookies();
+        if ( cookies != null ) {
+            for ( Cookie cookie : cookies ) {
+                if ( cookie != null && nom.equals( cookie.getName() ) ) {
+                    return cookie.getValue();
+                }
+            }
+        }
+        return null;
+    }
 
 }

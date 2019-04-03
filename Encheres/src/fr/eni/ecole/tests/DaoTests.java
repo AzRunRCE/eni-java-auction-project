@@ -21,7 +21,7 @@ public class DaoTests {
 	@Test
 	public void DAOFactory_test() throws DALException {
 		IDAOUtilisateur daoUsers = DAOFactory.getUtilisateurDAO();
-		Utilisateur p = daoUsers.findByLogin("","");
+		Utilisateur p = daoUsers.findByLogin("");
 		
 	}
 }

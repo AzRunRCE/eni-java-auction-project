@@ -28,7 +28,7 @@ public class Utilisateur implements Serializable{
 	String ville;
 	String motDePasse;
 	int credit;
-	Boolean administrateur;
+	int administrateur;
 	List<Enchere> listeEncheres;
 	List<ArticleVendu> listeArticlesAchetes;
 	List<ArticleVendu> listeArticlesVendus;
@@ -50,7 +50,7 @@ public class Utilisateur implements Serializable{
 	 * @param administrateur
 	 */
 	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostal, String ville, String motDePasse, int credit, Boolean administrateur) {
+			String rue, String codePostal, String ville, String motDePasse, int credit, int administrateur) {
 		setNoUtilisateur(noUtilisateur);
 		setPseudo(pseudo);
 		setNom(nom);
@@ -82,7 +82,7 @@ public class Utilisateur implements Serializable{
 	 * @param administrateur
 	 */
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostal, String ville, String motDePasse, int credit, Boolean administrateur) {
+			String rue, String codePostal, String ville, String motDePasse, int credit, int administrateur) {
 		setPseudo(pseudo);
 		setNom(nom);
 		setPrenom(prenom);
@@ -104,6 +104,7 @@ public class Utilisateur implements Serializable{
 		listeEncheres = new ArrayList();
 		listeArticlesAchetes = new ArrayList();
 		listeArticlesVendus = new ArrayList();
+		listeEncheres= new ArrayList();
 	}
 
 	
@@ -188,11 +189,11 @@ public class Utilisateur implements Serializable{
 		this.credit = credit;
 	}
 
-	public Boolean getAdministrateur() {
+	public int getAdministrateur() {
 		return administrateur;
 	}
 
-	public void setAdministrateur(Boolean administrateur) {
+	public void setAdministrateur(int administrateur) {
 		this.administrateur = administrateur;
 	}
 

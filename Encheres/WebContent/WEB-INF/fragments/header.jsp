@@ -10,6 +10,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<title>ENI Enchères - ${param.title} </title>
+		<script src="${pageContext.request.contextPath }/js/jquery.js"></script>
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/theme/css/style.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/theme/bootstrap-4.1.3/css/bootstrap.min.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/theme/fontawesome/css/fontawesome.min.css">
@@ -29,12 +30,15 @@
 		      </li>
 		    </ul>
 		    <ul class="navbar-nav justify-content-end">
-		      <c:if test="${id != null}">
+		      <c:if test="${no_utilisateur != null}">
 		      	<li class ="nav-item ">		      
-		      		Bonjour ${prenom} ${nom} - <a class="nav-link" href="./Deconnexion">Déconnexion</a>
+		      		Bonjour ${pseudo}- 
+		      	</li>
+		      	<li class ="nav-item ">
+		      		<a class="nav-link" href="./Deconnexion">Déconnexion</a>
 		      	</li>
 		      </c:if>
-		      <c:if test="${id == null}">
+		      <c:if test="${no_utilisateur == null}">
 			      <li class ="nav-item ">
 			      	<a class="nav-link" href="./Login">Connexion</a>
 			      </li>

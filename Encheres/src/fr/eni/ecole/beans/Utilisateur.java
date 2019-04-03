@@ -3,6 +3,7 @@
  */
 package fr.eni.ecole.beans;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +11,12 @@ import java.util.List;
  * @author fcatin2018
  *
  */
-public class Utilisateur {
+public class Utilisateur implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1291525567418393164L;
 	int noUtilisateur;
 	String pseudo;
 	String nom;
@@ -25,6 +30,8 @@ public class Utilisateur {
 	int credit;
 	Boolean administrateur;
 	List<Enchere> listeEncheres;
+	List<ArticleVendu> listeArticlesAchetes;
+	List<ArticleVendu> listeArticlesVendus;
 	
 	
 	
@@ -56,7 +63,9 @@ public class Utilisateur {
 		setMotDePasse(motDePasse);
 		setCredit(credit);
 		setAdministrateur(administrateur);
-		listeEncheres= new ArrayList();
+		listeEncheres = new ArrayList();
+		listeArticlesAchetes = new ArrayList();
+		listeArticlesVendus = new ArrayList();
 	}
 	
 	/**
@@ -85,12 +94,16 @@ public class Utilisateur {
 		setMotDePasse(motDePasse);
 		setCredit(credit);
 		setAdministrateur(administrateur);
-		listeEncheres= new ArrayList();
+		listeEncheres = new ArrayList();
+		listeArticlesAchetes = new ArrayList();
+		listeArticlesVendus = new ArrayList();
 	}
 
 	public Utilisateur() {
 		// TODO Auto-generated constructor stub
-		listeEncheres= new ArrayList();
+		listeEncheres = new ArrayList();
+		listeArticlesAchetes = new ArrayList();
+		listeArticlesVendus = new ArrayList();
 	}
 
 	
@@ -199,5 +212,25 @@ public class Utilisateur {
 	}
 	public List<Enchere> getListeEnchere() {
 		return this.listeEncheres;
+	}
+	
+	public void addArticleAchete(ArticleVendu article) {
+		this.listeArticlesAchetes.add(article);
+	}
+	public void removeArticleAchete(int id) {
+		this.listeArticlesAchetes.remove(id);
+	}
+	public List<ArticleVendu> getListeArticlesAchetes() {
+		return this.listeArticlesAchetes;
+	}
+	
+	public void addArticleVendu(ArticleVendu article) {
+		this.listeArticlesVendus.add(article);
+	}
+	public void removeArticleVendu(int id) {
+		this.listeArticlesVendus.remove(id);
+	}
+	public List<ArticleVendu> getListeArticlesVendus() {
+		return this.listeArticlesVendus;
 	}
 }

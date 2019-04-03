@@ -1,8 +1,13 @@
 package fr.eni.ecole.beans;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Enchere {
+public class Enchere implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -938194704855814866L;
 	LocalDateTime date;
 	float montant;
 	public LocalDateTime getDate() {
@@ -21,6 +26,9 @@ public class Enchere {
 		super();
 		this.date = date;
 		this.montant = montant;
+	}
+	public Enchere() {
+		super();
 	}
 	
 }

@@ -1,8 +1,15 @@
 package fr.eni.ecole.beans;
 
-public class Categorie {
+import java.io.Serializable;
+
+public class Categorie implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3839273316939483795L;
 	int noCategorie;
 	String libelle;
+	
 	public int getNoCategorie() {
 		return noCategorie;
 	}
@@ -15,4 +22,8 @@ public class Categorie {
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
+	public Categorie() {
+		super();
+	}
+	
 }

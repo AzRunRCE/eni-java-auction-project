@@ -12,6 +12,8 @@
 		<title>ENI Enchères - ${param.title} </title>
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/theme/css/style.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/theme/bootstrap-4.1.3/css/bootstrap.min.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath }/theme/fontawesome/css/fontawesome.min.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath }/theme/fontawesome/css/solid.min.css">
 	</head>
 	<body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -44,6 +46,4 @@
 		  </div>
 		</nav>
 		<div class="container">
-			<h2>${param.title}</h2>
-			<hr>
 	

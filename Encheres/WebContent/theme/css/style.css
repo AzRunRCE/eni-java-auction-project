@@ -1,0 +1,12 @@
+
+.accueil .row {
+	margin-left: 0;
+	margin-right: 0;
+}
+#dashboard {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: center;
+  	justify-content: center;
+}

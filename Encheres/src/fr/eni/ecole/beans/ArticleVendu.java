@@ -1,8 +1,9 @@
 package fr.eni.ecole.beans;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class ArticleVendu {
+public class ArticleVendu implements Serializable {
 	int noArticle;
 	String nomArticle;
 	String description;
@@ -59,4 +60,20 @@ public class ArticleVendu {
 	public void setEtatVente(Boolean etatVente) {
 		this.etatVente = etatVente;
 	}
+	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDateTime dateDebutEncheres,
+			LocalDateTime dateFinEncheres, float miseAPrix, float prixVente, Boolean etatVente) {
+		super();
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.prixVente = prixVente;
+		this.etatVente = etatVente;
+	}
+	public ArticleVendu() {
+		super();
+	}
+	
 }

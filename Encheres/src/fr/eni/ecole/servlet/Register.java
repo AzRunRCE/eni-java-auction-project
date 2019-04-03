@@ -10,6 +10,7 @@ import fr.eni.ecole.*;
 import fr.eni.ecole.DAL.DALException;
 import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.bll.CredentialManager;
+import fr.eni.ecole.util.Constantes;
 /**
  * Servlet implementation class Register
  */
@@ -46,7 +47,7 @@ public class Register extends HttpServlet {
 			Utilisateur new_user = new Utilisateur();
 			new_user.setEmail(request.getParameter("inputEmail"));
 			new_user.setMotDePasse(request.getParameter("inputPassword"));
-			new_user.setPseudo(request.getParameter("inputSpeudo"));
+			new_user.setPseudo(request.getParameter("inputPseudo"));
 			new_user.setRue(request.getParameter("inputRue"));
 			new_user.setVille(request.getParameter("inputVille"));
 			new_user.setCodePostal(request.getParameter("inputCodePostal"));
@@ -58,10 +59,15 @@ public class Register extends HttpServlet {
 
 			Boolean result = credMgr.register(new_user);
 			if (result == true) {
-	
+				new_user = credMgr.connexion(new_user.getPseudo(), new_user.getMotDePasse());
+				if (new_user != null) {
+					request.getSession().setAttribute(Constantes.SESS_PSEUDO, new_user.getPseudo());
+					request.getSession().setAttribute(Constantes.SESS_NUM_UTILISATEUR, new_user.getNoUtilisateur());
+					request.getRequestDispatcher(Constantes.PAGE_INDEX).forward(request, response);
+				}
 			}
 			else {
-				request.setAttribute("erreur", "Une erreur s'est produite durant l'enregistrement");
+				request.setAttribute("erreur", "Une erreur s'est produite durant l'enregistrement. Le pseudo est peut-être déjà pris.");
 				request.getRequestDispatcher("WEB-INF/pages/register.jsp").forward(request, response);
 			}
 				

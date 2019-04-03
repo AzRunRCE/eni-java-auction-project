@@ -39,10 +39,6 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	     	preparedStatement.setInt(11,new_user.getAdministrateur());
 	     	
 	    	preparedStatement.execute();
-	    	ResultSet result = preparedStatement.executeQuery();
-	    	if(result.next() == true) {
-	    	  utilisateur = new Utilisateur();      
-	    	}
 	    	return true;
 		} catch (SQLException e) {
 			throw new DALException("probleme avec la methode find",e);

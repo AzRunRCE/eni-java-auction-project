@@ -6,10 +6,31 @@ public class CredentialManager {
 
 	IDAOUtilisateur daoUtilisateurs = DAOFactory.getUtilisateurDAO();
 	
-	public Boolean Register(Utilisateur utilisateur) throws DALException {
+	public Boolean register(String email, String pseudo, String motDePasse) throws DALException {
 	
 		
-  		return null;
+		try {
+		
+			Utilisateur new_user = new Utilisateur();
+			//Set user rigth
+			new_user.setAdministrateur(0);
+			new_user.setEmail(email);
+			new_user.setMotDePasse(motDePasse);
+			new_user.setPseudo(pseudo);
+			Utilisateur emailAlreadyUsed =  daoUtilisateurs.findByLogin(email);
+			Utilisateur pseudoAlreadyUsed =  daoUtilisateurs.findByLogin(pseudo);
+			if (true) {
+				
+			}
+			if (emailAlreadyUsed == null && pseudoAlreadyUsed == null) {
+				daoUtilisateurs.create(new_user);
+			}
+			return true;
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	

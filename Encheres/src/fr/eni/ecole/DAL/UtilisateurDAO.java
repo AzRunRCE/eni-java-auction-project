@@ -11,12 +11,11 @@ import fr.eni.ecole.util.AccesBase;
 public class UtilisateurDAO implements IDAOUtilisateur {
 	
 	//constantes
-	protected Connection connect = null;
+	
 	private final String FIND_SQL = "SELECT * FROM UTILISATEURS WHERE noUtilisateur = ?";    
 	private final String FIND_BY_LOGIN = "SELECT * FROM UTILISATEURS WHERE pseudo = ? OR email = ?";
 	
-	public UtilisateurDAO (Connection conn) {
-		this.connect = conn;
+	public UtilisateurDAO () {
 	}
 
 	@Override
@@ -28,27 +27,29 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	public boolean delete(Utilisateur obj) {
 		return false;
 	}
-
+	
+	@Override
 	public boolean update(Utilisateur obj) {
 		return false;
 	}
 
 	@Override
-	public Utilisateur find(int id) {
-		Utilisateur utilisateur = new Utilisateur();        
-	    try {
-	    	//noUtilisateur
+	public Utilisateur find(int id) throws DALException {
+
+		try(Connection connect = AccesBase.getConnection()) {
+
+			Utilisateur utilisateur = new Utilisateur();        
 	    	PreparedStatement preparedStatement = connect.prepareStatement(FIND_SQL); 
 	    	preparedStatement.setInt(1,id); 
 	    	preparedStatement.execute();
 	    	ResultSet result = preparedStatement.executeQuery();
 	    	if(result.next() == true) {
 	    	  utilisateur = new Utilisateur();      
-	      }
-	    } catch (SQLException e) {
-	      e.printStackTrace();
-	    }
-	    return utilisateur;
+	    	}
+	    	return utilisateur;
+		} catch (SQLException e) {
+			throw new DALException("probleme avec la methode find",e);
+		}
 	  }
 	
 	@Override
@@ -56,7 +57,8 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 		Utilisateur utilisateur = null;   
 		PreparedStatement preparedStatement = null;
 		ResultSet result = null;
-	    try {
+		try(Connection connect = AccesBase.getConnection()) {
+			
 	    	preparedStatement = connect.prepareStatement(FIND_BY_LOGIN); 
 	    	//on assigne un d�cimal au premier param�tre 
 	    	preparedStatement.setString(1,email_or_username); 
@@ -136,9 +138,7 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	      }
 	    } catch (SQLException e) {
 	    	throw new DALException("probleme avec la methode findByLogin",e);
-		} finally {
-			AccesBase.closeAll(preparedStatement, connect);
-		}
+	    }
 	    return utilisateur;
 	}
 

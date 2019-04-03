@@ -14,13 +14,39 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	
 	private final String FIND_SQL = "SELECT * FROM UTILISATEURS WHERE noUtilisateur = ?";    
 	private final String FIND_BY_LOGIN = "SELECT * FROM UTILISATEURS WHERE pseudo = ? OR email = ?";
+	private final String CREATE = "INSERT INTO UTILISATEURS VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 	
 	public UtilisateurDAO () {
 	}
 
 	@Override
-	public boolean create(Utilisateur obj) {
-		return false;
+	public boolean create(Utilisateur new_user) throws DALException {
+		
+		try(Connection connect = AccesBase.getConnection();
+				PreparedStatement preparedStatement = connect.prepareStatement(CREATE)) {
+
+			Utilisateur utilisateur = new Utilisateur();        
+	    	preparedStatement.setString(1,new_user.getPseudo()); 
+	       	preparedStatement.setString(2,new_user.getNom()); 
+	       	preparedStatement.setString(3,new_user.getPrenom()); 
+	     	preparedStatement.setString(4,new_user.getEmail());
+	     	preparedStatement.setString(5,new_user.getTelephone());
+	     	preparedStatement.setString(6,new_user.getRue());
+	      	preparedStatement.setString(7,new_user.getCodePostal());
+	    	preparedStatement.setString(8,new_user.getVille());
+	    	preparedStatement.setString(9,new_user.getMotDePasse());
+	    	preparedStatement.setInt(10,new_user.getCredit());
+	     	preparedStatement.setInt(11,new_user.getAdministrateur());
+	     	
+	    	preparedStatement.execute();
+	    	ResultSet result = preparedStatement.executeQuery();
+	    	if(result.next() == true) {
+	    	  utilisateur = new Utilisateur();      
+	    	}
+	    	return true;
+		} catch (SQLException e) {
+			throw new DALException("probleme avec la methode find",e);
+		}
 	}
 
 	@Override
@@ -36,10 +62,10 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	@Override
 	public Utilisateur find(int id) throws DALException {
 
-		try(Connection connect = AccesBase.getConnection()) {
+		try(Connection connect = AccesBase.getConnection();
+				PreparedStatement preparedStatement = connect.prepareStatement(FIND_SQL)) {
 
 			Utilisateur utilisateur = new Utilisateur();        
-	    	PreparedStatement preparedStatement = connect.prepareStatement(FIND_SQL); 
 	    	preparedStatement.setInt(1,id); 
 	    	preparedStatement.execute();
 	    	ResultSet result = preparedStatement.executeQuery();
@@ -55,11 +81,10 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	@Override
 	public Utilisateur findByLogin(String email_or_username) throws DALException {
 		Utilisateur utilisateur = null;   
-		PreparedStatement preparedStatement = null;
 		ResultSet result = null;
-		try(Connection connect = AccesBase.getConnection()) {
-			
-	    	preparedStatement = connect.prepareStatement(FIND_BY_LOGIN); 
+		try(Connection connect = AccesBase.getConnection();
+				PreparedStatement preparedStatement = connect.prepareStatement(FIND_BY_LOGIN)) {
+
 	    	//on assigne un d�cimal au premier param�tre 
 	    	preparedStatement.setString(1,email_or_username); 
 	    	preparedStatement.setString(2,email_or_username); 

@@ -1,6 +1,12 @@
 package fr.eni.ecole.beans;
 
-public class Retrait {
+import java.io.Serializable;
+
+public class Retrait implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5875689693896847177L;
 	String rue;
 	String code_postal;
 	String ville;
@@ -23,4 +29,8 @@ public class Retrait {
 	public void setVille(String ville) {
 		this.ville = ville;
 	}
+	public Retrait() {
+		super();
+	}
+	
 }

@@ -60,11 +60,9 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 		try(Connection connect = AccesBase.getConnection()) {
 			
 	    	preparedStatement = connect.prepareStatement(FIND_BY_LOGIN); 
-	    	//on assigne un d�cimal au premier param�tre 
 	    	preparedStatement.setString(1,email_or_username); 
 	    	preparedStatement.setString(2,email_or_username); 
-	    	//preparedStatement.setString(3,Password); 
-	    	
+	    		    	
 	    	result = preparedStatement.executeQuery();
 	    	if (result.next()) {
 	    	  utilisateur = new Utilisateur();

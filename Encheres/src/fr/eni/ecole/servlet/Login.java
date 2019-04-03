@@ -1,16 +1,18 @@
 package fr.eni.ecole.servlet;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.ecole.DAL.DALException;
-import fr.eni.ecole.DAL.UtilisateurDAO;
 import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.bll.CredentialManager;
+import fr.eni.ecole.util.Constantes;
 
 /**
  * Servlet implementation class Login
@@ -24,7 +26,6 @@ public class Login extends HttpServlet {
      */
     public Login() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -42,6 +43,7 @@ public class Login extends HttpServlet {
 		String recupPassword = null;
 		Boolean valide = true;
 		Utilisateur utilisateur = null;
+		String recupSouvenir = null;
 		
 		if(request.getParameter("login").trim().isEmpty())
 			valide = false;
@@ -51,7 +53,7 @@ public class Login extends HttpServlet {
 		
 		if (!valide) {
 			request.setAttribute("erreur", "L'email et le mot de passe doivent être saisis");
-			request.getRequestDispatcher("WEB-INF/pages/login.jsp").forward(request, response);
+			request.getRequestDispatcher(Constantes.PAGE_LOGIN).forward(request, response);
 			
 		}
 		
@@ -66,8 +68,21 @@ public class Login extends HttpServlet {
 			e.printStackTrace();
 		}
 		if (utilisateur != null) {
-			
+			recupSouvenir = request.getParameter("souvenir");
+			if(recupSouvenir != null) {
+				Cookie cookie = new Cookie("rememberMe", "true");
+				response.addCookie(cookie);
+			}
+			request.getSession().setAttribute(Constantes.SESS_PSEUDO, utilisateur.getPseudo());
+			//request.getSession().setAttribute(Constantes.SESS_NOM, utilisateur.getNom());
+			//request.getSession().setAttribute(Constantes.SESS_PRENOM, utilisateur.getPrenom());
+			request.getSession().setAttribute(Constantes.SESS_NUM_UTILISATEUR, utilisateur.getNoUtilisateur());
+			request.getRequestDispatcher(Constantes.PAGE_INDEX).forward(request, response);
+		}else {
+			request.setAttribute("erreur", "Login ou mot de passe incorrect!");
+			request.getRequestDispatcher(Constantes.PAGE_LOGIN).forward(request, response);
 		}
+		
 	}
 
 }

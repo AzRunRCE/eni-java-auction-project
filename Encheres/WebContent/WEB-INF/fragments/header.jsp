@@ -28,12 +28,15 @@
 		      </li>
 		    </ul>
 		    <ul class="navbar-nav justify-content-end">
-		      <c:if test="${id != null}">
+		      <c:if test="${no_utilisateur != null}">
 		      	<li class ="nav-item ">		      
-		      		Bonjour ${prenom} ${nom} - <a class="nav-link" href="./Deconnexion">Déconnexion</a>
+		      		Bonjour ${pseudo}- 
+		      	</li>
+		      	<li class ="nav-item ">
+		      		<a class="nav-link" href="./Deconnexion">Déconnexion</a>
 		      	</li>
 		      </c:if>
-		      <c:if test="${id == null}">
+		      <c:if test="${no_utilisateur == null}">
 			      <li class ="nav-item ">
 			      	<a class="nav-link" href="./Login">Connexion</a>
 			      </li>
@@ -45,6 +48,5 @@
 		  </div>
 		</nav>
 		<div class="container">
-			<h2>${param.title}</h2>
-			<hr>
+			
 	

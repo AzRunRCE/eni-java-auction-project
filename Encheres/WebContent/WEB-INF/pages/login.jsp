@@ -6,15 +6,17 @@
 <jsp:include page="../fragments/header.jsp">
 	<jsp:param value="Connexion" name="title" />
 </jsp:include>
-
+<h2>Connexion</h2>
+<hr>
 <div class="row justify-content-center">
-	
-	<div class="col-4">
+	<div class = "col-12">
 		<c:if test="${erreur != null}"> 
 			<div class="alert alert-danger" role="alert">
 		  		${erreur}
 			</div>
 		</c:if>
+	</div>
+	<div class="col-sm-4">
 		<form action="./Login" method="post">
 			<div class="form-group">
 				<label for="login">Pseudo ou email</label>
@@ -27,11 +29,20 @@
 					type="password" class="form-control form-control-sm" id="Password" name="password"
 					placeholder="Mot de passe">
 			</div>
-			<div class="form-group form-check">
-				<input type="checkbox" class="form-check-input" id="souvenir" name="souvenir">
-				<label class="form-check-label" for="souvenir">Se souvenir de moi</label>
+			<div class = "row">
+				<div class ="col-6 align-self-center">
+					<button type="submit" class="btn btn-primary">Se connecter</button>
+				</div>
+				<div class ="col-6">
+					<div class="form-group form-check">
+						<input type="checkbox" class="form-check-input" id="souvenir" name="souvenir">
+						<label class="form-check-label" for="souvenir">Se souvenir de moi</label>
+					</div>
+					<div>
+						<a href="#">Mot de passe oublié</a>
+					</div>
+				</div>
 			</div>
-			<button type="submit" class="btn btn-primary">Se connecter</button>
 		</form>
 	</div>
 </div>

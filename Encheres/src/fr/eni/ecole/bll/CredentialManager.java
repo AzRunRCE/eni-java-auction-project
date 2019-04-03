@@ -34,13 +34,18 @@ public class CredentialManager {
 	}
 	
 	
-	
 	public Utilisateur connexion (String email_login, String mdp) throws DALException {
 		Utilisateur utilisateur = daoUtilisateurs.findByLogin(email_login);
-		if (utilisateur.getMotDePasse().equals(mdp)) {
-			return utilisateur;
+		if(utilisateur != null) {
+			if (utilisateur.getMotDePasse().equals(mdp)) {
+				return utilisateur;
+			}else {
+				return null;
+			}
 		}else {
 			return null;
 		}
+		
+		
 	}
 }

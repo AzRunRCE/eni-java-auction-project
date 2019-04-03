@@ -39,22 +39,17 @@ public class TestConnexion extends HttpServlet implements Servlet {
 	
 		response.setContentType("text/plain");
 		PrintWriter out = response.getWriter();
-		Connection cnx = null;
-		try {
-			cnx = AccesBase.getConnection();
-			out.println("Connexion rÃ©ussie");
+		try( Connection cnx = AccesBase.getConnection() ) {
+			out.println("Connexion réussie");
 			out.flush();
 		} catch (DALException e) {
 			out.println("Connexion KO " + e.getMessage() + "\n");
 			out.println("detail : " + e.getStackTrace()[0].getMethodName() + " - " + e.getLocalizedMessage());
 			out.flush();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
 		}finally {
 			out.close();
-			try {
-				cnx.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 		
 		IDAOUtilisateur daoUsers;

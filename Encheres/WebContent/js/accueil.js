@@ -32,6 +32,8 @@ var lister = function() {
 				succes(xhr.responseText);//xhr.responseXML si réponse XML
 				var listeEncheres = JSON.parse(xhr.responseText);
 				console.log(listeEncheres);
+				
+				//tableau
 				var table = document.getElementById('table');
 				var thead = document.createElement('thead');
 				var tbody = document.createElement('tbody');
@@ -50,9 +52,67 @@ var lister = function() {
 				thead.appendChild(th2);
 				thead.appendChild(th3);
 				thead.appendChild(th4);
+				//dashboard Tiles
+				
+				var dashboard = document.getElementById('dashboard');
 
 				listeEncheres
 						.forEach(function(enchere) {
+							//dashboard Tiles
+							let dashboardTile = document.createElement('div');
+							dashboardTile.setAttribute('class', 'card mb-3 mr-1 ml-1 dashboard-tile');
+							
+							let dashboardTileRow = document.createElement('div');
+							dashboardTileRow.setAttribute('class', 'row no-gutters');
+							
+							let dashboardTileRowImageContainer = document.createElement('div');
+							dashboardTileRowImageContainer.setAttribute('class', 'col-md-4');
+							
+							let image = document.createElement('img');
+							image.setAttribute('src', './img/alienware.jpg');
+							image.setAttribute('class', 'card-img');
+							
+							let container = document.createElement('div');
+							container.setAttribute('class', 'col-md-8')
+							
+							let cardBody = document.createElement('div');
+							cardBody.setAttribute('class', 'card-body')
+							
+							let productName = document.createElement('h5');
+							productName.setAttribute('class', 'card-title');
+							productName.innerText = enchere.nomProduit;
+							
+							let endDate = document.createElement('p');
+							endDate.setAttribute('class', 'card-text');
+							endDate.innerText = "Fin de l'enchère : " 
+												+ enchere.dateFinEnchere.dayOfMonth
+												+ '/'
+												+ enchere.dateFinEnchere.monthValue
+												+ '/' + enchere.dateFinEnchere.year;
+
+							let amount = document.createElement('p');
+							amount.setAttribute('class', 'card-text');
+							amount.innerText = 'Prix : ' + enchere.montant + ' points';
+							
+							let pseudo = document.createElement('p');
+							pseudo.setAttribute('class', 'card-text');
+							pseudo.innerText = 'Vendeur : ' + enchere.pseudoVendeur;
+							
+							cardBody.appendChild(productName);
+							cardBody.appendChild(endDate);
+							cardBody.appendChild(amount);
+							cardBody.appendChild(pseudo);
+							
+							container.appendChild(cardBody);
+							
+							dashboardTileRowImageContainer.appendChild(image);
+							
+							dashboardTileRow.appendChild(dashboardTileRowImageContainer);
+							dashboardTileRow.appendChild(container);
+							
+							dashboardTile.appendChild(dashboardTileRow);
+							
+							// tableau
 							let enchereLigne = document.createElement('tr');
 							let nomProduitCase = document
 									.createElement('td');
@@ -80,9 +140,11 @@ var lister = function() {
 							enchereLigne.appendChild(pseudoVendeurCase);
 
 							tbody.appendChild(enchereLigne);
+							dashboard.appendChild(dashboardTile);
 						});
 				table.appendChild(thead);
 				table.appendChild(tbody);
+				
 			} else {
 				echec(xhr.status, xhr.responseText);
 			}

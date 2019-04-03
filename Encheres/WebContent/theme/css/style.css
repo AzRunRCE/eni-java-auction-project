@@ -10,3 +10,11 @@
 	align-items: center;
   	justify-content: center;
 }
+.dashboard-tile {
+	min-width: 320px; 
+	max-width: 530px;
+}
+.dashboard-tile .card-title{
+	margin-bottom: .75rem;
+	text-decoration: underline;
+}

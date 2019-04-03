@@ -136,10 +136,10 @@
 	</div>
 </form>
 <div id="dashboard" class="justify-content-center">
-	<div class="card mb-3 mr-1 ml-1" style="min-width: 320px; max-width: 530px;">
+	<div class="card mb-3 mr-1 ml-1 dashboard-tile">
 	  <div class="row no-gutters">
-	    <div class="col-md-4">
-	      <img src="..." class="card-img" alt="...">
+	    <div class="col-md-4 border border-info rounded">
+	      <img src="${ pageContext.request.contextPath }/img/alienware.jpg" class="card-img p-1" alt="image ordinateur">
 	    </div>
 	    <div class="col-md-8">
 	      <div class="card-body">

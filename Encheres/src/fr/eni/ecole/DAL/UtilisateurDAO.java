@@ -109,7 +109,7 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	    	  }else {
 	    		  utilisateur.setPseudo(result.getString("pseudo"));
 	    	  }
-	    	  result.getString("no");
+	    	  result.getString("nom");
 	    	  if (result.wasNull()) {
 	    		  utilisateur.setNom("inconnu");
 	    	  }else {

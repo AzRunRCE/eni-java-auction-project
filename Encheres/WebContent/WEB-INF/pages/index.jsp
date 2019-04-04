@@ -12,21 +12,29 @@
 <hr>
 
 <h3>Filtres</h3>
-<form>
+<form id="filterForm" action="/Encheres/webapi/enchere/" method="post">
 	<div class="form-row accueil">
 		<div class="col-md-8">
 			<div class="form-group row">
 				<label for="inputPassword" class="col-md-4 col-form-label">Recherche par nom</label>		
 				<input 
-					type="search" 
+					type="search"
+					name="nameFilter" 
 					class="form-control col-md-8" 
 					placeholder="Le nom de l'article contient"
 				>
 			</div>
 			<div class="form-group row">
 				<label for="SelectCategorie" class="col-md-4 col-form-label">Catégorie</label>
-			    <select class="form-control col-md-8" id="SelectCategorie">
-
+			    <select 
+			    	class="form-control col-md-8" 
+			    	id="SelectCategorie"
+			    	name="categorie" 
+			    >
+					<c:forEach var="cat" items="${ listeCategories}">
+						<option value="${ cat.getNoCategorie() }">${ cat.getLibelle() }</option>
+					</c:forEach>
+						<option value="-1">Toutes</option>
 			    </select>
 			</div>
 
@@ -65,7 +73,7 @@
 					  <input 
 					  		class="form-check-input" 
 					  		type="checkbox" 
-					  		value="" 
+					  		name="encheresOuvertes" 
 					  		id="mesEncheresCheckbox1"
 				  		>
 					  <label class="form-check-label" for="mesEncheresCheckbox1">
@@ -76,7 +84,7 @@
 					  <input 
 					  		class="form-check-input" 
 					  		type="checkbox" 
-					  		value="" 
+					  		name="encheresEnCours" 
 					  		id="mesEncheresCheckbox2"
 			  			>
 					  <label class="form-check-label" for="mesEncheresCheckbox2">
@@ -87,7 +95,7 @@
 					  <input 
 					  		class="form-check-input" 
 					  		type="checkbox" 
-					  		value="" 
+					  		name="encheresRemportees" 
 					  		id="mesEncheresCheckbox3"
 			  			>
 					  <label class="form-check-label" for="mesEncheresCheckbox3">
@@ -100,7 +108,7 @@
 					  <input 
 				  			class="form-check-input" 
 			  				type="checkbox" 
-			  				value="" 
+			  				name="ventesEnCours" 
 			  				id="MesVentesCheckbox1"
 			  				disabled
 		  				>
@@ -112,7 +120,7 @@
 					  <input 
 					  		class="form-check-input" 
 					  		type="checkbox" 
-					  		value="" 
+					  		name="ventesNonRemportees" 
 					  		id="MesVentesCheckbox2"
 					  		disabled
 				  		>
@@ -124,7 +132,7 @@
 					  <input 
 				  			class="form-check-input" 
 			  				type="checkbox" 
-			  				value="" 
+			  				name="ventesTerminees" 
 			  				id="MesVentesCheckbox3"
 			  				disabled
 		  				>
@@ -142,30 +150,30 @@
 	</div>
 </form>
 <div id="dashboard" class="justify-content-center">
-	<div class="card mb-3 mr-1 ml-1 dashboard-tile">
-	  <div class="row no-gutters">
-	    <div class="col-md-4">
-	      <img src="${ pageContext.request.contextPath }/img/alienware.jpg" class="card-img p-1" alt="image ordinateur">
-	    </div>
-	    <div class="col-md-8">
-	      <div class="card-body">
-	        <h5 class="card-title">Object Name</h5>
-	        <p class="card-text">Price</p>
-	        <p class="card-text">End date</p>
-	        <p class="card-text">Pseudo</p>
-	      </div>
-	    </div>
-	  </div>
-	</div>
+<!-- 	<div class="card mb-3 mr-1 ml-1 dashboard-tile"> -->
+<!-- 	  <div class="row no-gutters"> -->
+<!-- 	    <div class="col-md-4"> -->
+<%-- 	      <img src="${ pageContext.request.contextPath }/img/alienware.jpg" class="card-img p-1" alt="image ordinateur"> --%>
+<!-- 	    </div> -->
+<!-- 	    <div class="col-md-8"> -->
+<!-- 	      <div class="card-body"> -->
+<!-- 	        <h5 class="card-title">Object Name</h5> -->
+<!-- 	        <p class="card-text">Price</p> -->
+<!-- 	        <p class="card-text">End date</p> -->
+<!-- 	        <p class="card-text">Pseudo</p> -->
+<!-- 	      </div> -->
+<!-- 	    </div> -->
+<!-- 	  </div> -->
+<!-- 	</div> -->
 </div>
 
 
-<table class="table" id="table">
+<!-- <table class="table" id="table"> -->
 
-</table>
-<pre id="succes">
+<!-- </table> -->
+<!-- <pre id="succes"> -->
 	
-</pre>
+<!-- </pre> -->
 
 <pre id="echec">
 

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
@@ -19,7 +20,7 @@ import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.bll.EncheresManager;
 import fr.eni.ecole.rest.mo.getAccueil;
 
-@Path("/utilisateur")
+@Path("/enchere")
 public class GestionEncheres {
 
 	private static List<getAccueil> listeEncheres;
@@ -34,6 +35,11 @@ public class GestionEncheres {
 	
 	@GET
 	public List<getAccueil> getListeEncheres() {
+		EncheresManager enchereManager = new EncheresManager();
+		return enchereManager.getListeEncheresAccueil();
+	}
+	@POST
+	public List<getAccueil> getListeEncheresWithParams() {
 		EncheresManager enchereManager = new EncheresManager();
 		return enchereManager.getListeEncheresAccueil();
 	}

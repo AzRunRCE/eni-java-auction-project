@@ -6,7 +6,7 @@ import fr.eni.ecole.beans.Enchere;
 import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.rest.mo.getAccueil;
 
-public interface IDAOEnchere extends DAO<Enchere>{
+public interface IDAOEnchere extends DAO<Enchere> {
 	
 	  /**
 	   * Méthode de recherche des informations

@@ -4,32 +4,32 @@ public interface DAO<T> {
 
    
   /**
-  * Méthode de création
+  * Mï¿½thode de crï¿½ation
   * @param obj
   * @return boolean 
   */
-  public  boolean create(T obj) throws DALException;
+  public  boolean create(T obj);
 
   /**
-  * Méthode pour effacer
+  * Mï¿½thode pour effacer
   * @param obj
   * @return boolean 
   */
-  public  boolean delete(T obj) throws DALException;
+  public  boolean delete(T obj);
 
   /**
-  * Méthode de mise à jour
+  * Mï¿½thode de mise ï¿½ jour
   * @param obj
   * @return boolean
   */
-  public boolean update(T obj) throws DALException;
+  public boolean update(T obj);
 
   /**
-  * Méthode de recherche des informations
+  * Mï¿½thode de recherche des informations
   * @param id
   * @return T
   */
-  public T find(int id) throws DALException;
+  public T find(int id);
   
   
 }

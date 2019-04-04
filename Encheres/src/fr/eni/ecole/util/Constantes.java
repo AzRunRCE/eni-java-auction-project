@@ -26,10 +26,12 @@ public class Constantes {
 	public final static String PAGE_REGISTER =  PAGE_SOURCE + "register.jsp";
 	public static final String PAGE_PROFIL =  PAGE_SOURCE + "profil.jsp";
 	public static final String PAGE_EDIT_PROFIL =  PAGE_SOURCE + "editProfil.jsp";
+	public static final String PAGE_DETAIL_VENTE = PAGE_SOURCE + "detailVente.jsp";
 	//attributs
 	public final static String ATT_UTILISATEUR = "utilisateur";
 	
 	//Label & Message
 	public final static String LBL_ERROR_REGISTER = "utilisateur";
+	
 
 }

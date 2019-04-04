@@ -31,7 +31,7 @@ public class Register extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		this.getServletContext().getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(request, response);
+		this.getServletContext().getRequestDispatcher(Constantes.PAGE_REGISTER).forward(request, response);
 		
 		// TODO Auto-generated method stub
 	//	response.getWriter().append("Served at: ").append(request.getContextPath());
@@ -68,7 +68,7 @@ public class Register extends HttpServlet {
 			}
 			else {
 				request.setAttribute("erreur", "Une erreur s'est produite durant l'enregistrement. Le pseudo est peut-être déjà pris.");
-				request.getRequestDispatcher("WEB-INF/pages/register.jsp").forward(request, response);
+				request.getRequestDispatcher(Constantes.PAGE_REGISTER).forward(request, response);
 			}
 				
 		} catch (DALException e) {

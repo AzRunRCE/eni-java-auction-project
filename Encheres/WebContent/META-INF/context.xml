@@ -5,7 +5,7 @@
 		type="javax.sql.DataSource"
 		auth="Container"
 		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-		url="jdbc:sqlserver://10.27.137.24:1433;databasename=db_encheres"
+		url="jdbc:sqlserver://10.27.137.24:1433;databasename=DB_ENCHERES"
 		username="admin"
 		password="ENI2018"
 		maxTotal="10"

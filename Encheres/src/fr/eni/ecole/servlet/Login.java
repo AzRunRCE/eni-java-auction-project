@@ -65,12 +65,7 @@ public class Login extends HttpServlet {
 		recupPassword = request.getParameter("password".trim());
 		
 		CredentialManager credUse = new CredentialManager();		
-		try {
-			utilisateur = credUse.connexion(recupLogin, recupPassword);
-			
-		} catch (DALException e) {
-			e.printStackTrace();
-		}
+		utilisateur = credUse.connexion(recupLogin, recupPassword);
 		if (utilisateur != null) {
 			recupRemberMe = request.getParameter("rememberMe");
 			if(recupRemberMe != null) {

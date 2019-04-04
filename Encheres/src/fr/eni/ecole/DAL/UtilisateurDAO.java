@@ -75,7 +75,7 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	  }
 	
 	@Override
-	public Utilisateur findByLogin(String email_or_username) throws DALException {
+	public Utilisateur findByLogin(String email_or_username)  {
 		Utilisateur utilisateur = null;   
 		ResultSet result = null;
 		try(Connection connect = AccesBase.getConnection();
@@ -93,7 +93,7 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	    	  }else {
 	    		  utilisateur.setPseudo(result.getString("pseudo"));
 	    	  }
-	    	  result.getString("nom");
+	    	  result.getString("no");
 	    	  if (result.wasNull()) {
 	    		  utilisateur.setNom("inconnu");
 	    	  }else {
@@ -154,10 +154,18 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	    		  utilisateur.setAdministrateur(result.getInt("administrateur"));
 	    	  }
 	      }
+	    	return utilisateur;
 	    } catch (SQLException e) {
-	    	throw new DALException("probleme avec la methode findByLogin",e);
+	    	try {
+				throw new DALException("problème avec la méhode findByLogin", e);
+			} catch (DALException e1) {
+				e1.printStackTrace();
+				return null;
+			}
+	    } catch (DALException e1) {
+	    	e1.printStackTrace();
+	    	return null;
 	    }
-	    return utilisateur;
 	}
 
 }

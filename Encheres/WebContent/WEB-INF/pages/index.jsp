@@ -38,7 +38,9 @@
 								type="radio" 
 								id="achatsRadio"
 								name="radioButtons" 
+								value="mesAchats"
 								class="custom-control-input"
+								checked
 							> 
 								<label class="custom-control-label" for="achatsRadio">Mes achats</label>
 						</div>
@@ -49,6 +51,7 @@
 								type="radio" 
 								id="ventesRadio"
 								name="radioButtons" 
+								value="mesVentes"
 								class="custom-control-input"
 							> 
 								<label class="custom-control-label" for="ventesRadio">Mes ventes</label>
@@ -92,13 +95,14 @@
 					  </label>
 					</div>
 				</div>
-				<div class="col-md-6" id="MesVentesCheckboxGroup">
+				<div class="col-md-6" id="mesVentesCheckboxGroup">
 					<div class="form-check">
 					  <input 
 				  			class="form-check-input" 
 			  				type="checkbox" 
 			  				value="" 
 			  				id="MesVentesCheckbox1"
+			  				disabled
 		  				>
 					  <label class="form-check-label" for="MesVentesCheckbox1">
 					    Mes ventes en cours
@@ -110,6 +114,7 @@
 					  		type="checkbox" 
 					  		value="" 
 					  		id="MesVentesCheckbox2"
+					  		disabled
 				  		>
 					  <label class="form-check-label" for="MesVentesCheckbox2">
 					    Ventes non remportées
@@ -121,6 +126,7 @@
 			  				type="checkbox" 
 			  				value="" 
 			  				id="MesVentesCheckbox3"
+			  				disabled
 		  				>
 					  <label class="form-check-label" for="MesVentesCheckbox3">
 					    Ventes terminées
@@ -138,7 +144,7 @@
 <div id="dashboard" class="justify-content-center">
 	<div class="card mb-3 mr-1 ml-1 dashboard-tile">
 	  <div class="row no-gutters">
-	    <div class="col-md-4 border border-info rounded">
+	    <div class="col-md-4">
 	      <img src="${ pageContext.request.contextPath }/img/alienware.jpg" class="card-img p-1" alt="image ordinateur">
 	    </div>
 	    <div class="col-md-8">

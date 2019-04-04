@@ -70,7 +70,7 @@ var lister = function() {
 							
 							let image = document.createElement('img');
 							image.setAttribute('src', './img/alienware.jpg');
-							image.setAttribute('class', 'card-img');
+							image.setAttribute('class', 'card-img p-1');
 							
 							let container = document.createElement('div');
 							container.setAttribute('class', 'col-md-8')
@@ -162,7 +162,72 @@ function echec(codeReponse, reponse) {
 	document.getElementById("echec").innerHTML = reponse;
 	document.getElementById("succes").innerHTML = "";
 }
+function addListeners() {
+	document.getElementById('achatsRadio').addEventListener('click', function(event){
+		console.log(event);
+		let checkboxGroup = document.getElementById('mesEncheresCheckboxGroup');
+		checkboxGroup.childNodes.forEach( function(e1) {
+			console.log(e1.childNodes);
+			console.log('e1 : '+ e1.tagName);
+			if(e1.tagName === 'DIV'){
+				e1.childNodes.forEach( function(e2) {
+					console.log(e2.childNodes);
+					console.log('e2 : '+ e2.tagName);
+					if(e2.tagName === 'INPUT'){
+						e2.removeAttribute("disabled");
+					}
+				});
+			}
+		});
+		checkboxGroup = document.getElementById('mesVentesCheckboxGroup');
+		checkboxGroup.childNodes.forEach( function(e1) {
+			console.log(e1.childNodes);
+			console.log('e1 : '+ e1.tagName);
+			if(e1.tagName === 'DIV'){
+				e1.childNodes.forEach( function(e2) {
+					console.log(e2.childNodes);
+					console.log('e2 : '+ e2.tagName);
+					if(e2.tagName === 'INPUT'){
+						e2.setAttribute('disabled', true);
+					}
+				});
+			}
+		});
+	});
+	document.getElementById('ventesRadio').addEventListener('click', function(event){
+		console.log(event);
+		let checkboxGroup = document.getElementById('mesEncheresCheckboxGroup');
+		checkboxGroup.childNodes.forEach( function(e1) {
+			console.log(e1.childNodes);
+			console.log('e1 : '+ e1.tagName);
+			if(e1.tagName === 'DIV'){
+				e1.childNodes.forEach( function(e2) {
+					console.log(e2.childNodes);
+					console.log('e2 : '+ e2.tagName);
+					if(e2.tagName === 'INPUT'){
+						e2.setAttribute('disabled', true);
+					}
+				});
+			}
+		});
+		checkboxGroup = document.getElementById('mesVentesCheckboxGroup');
+		checkboxGroup.childNodes.forEach( function(e1) {
+			console.log(e1.childNodes);
+			console.log('e1 : '+ e1.tagName);
+			if(e1.tagName === 'DIV'){
+				e1.childNodes.forEach( function(e2) {
+					console.log(e2.childNodes);
+					console.log('e2 : '+ e2.tagName);
+					if(e2.tagName === 'INPUT'){
+						e2.removeAttribute("disabled");
+					}
+				});
+			}
+		});
+	});
+}
 
 window.onload = function() {
 	lister();
+	addListeners();
 }

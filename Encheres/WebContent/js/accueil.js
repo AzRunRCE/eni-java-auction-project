@@ -84,11 +84,11 @@ var lister = function() {
 							
 							let endDate = document.createElement('p');
 							endDate.setAttribute('class', 'card-text');
-							endDate.innerText = "Fin de l'enchère : " 
-												+ enchere.dateFinEnchere.dayOfMonth
-												+ '/'
-												+ enchere.dateFinEnchere.monthValue
-												+ '/' + enchere.dateFinEnchere.year;
+							
+							let dateEnchere = moment(enchere.dateFinEnchere, moment.ISO_8601);
+							dateEnchere.locale('fr');
+							
+							endDate.innerText = "Fin de l'enchère : " + dateEnchere.format('DD/MM/YYYY - h:mm');
 
 							let amount = document.createElement('p');
 							amount.setAttribute('class', 'card-text');
@@ -124,11 +124,8 @@ var lister = function() {
 									.createElement('td');
 
 							nomProduitCase.innerText = enchere.nomProduit;
-
-							dateEnchereCase.innerText = enchere.dateFinEnchere.dayOfMonth
-									+ '-'
-									+ enchere.dateFinEnchere.monthValue
-									+ '-' + enchere.dateFinEnchere.year;
+							
+							dateEnchereCase.innerText = dateEnchere.format('dddd Do MMMM YYYY - h:mm');
 
 							montantEnchereCase.innerText = enchere.montant;
 

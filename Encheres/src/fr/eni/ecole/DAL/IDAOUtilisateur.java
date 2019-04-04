@@ -10,5 +10,5 @@ public interface IDAOUtilisateur  extends DAO<Utilisateur>{
 	   * @return T
 	 * @throws DALException 
 	   */
-	  public Utilisateur findByLogin(String email_or_username) throws DALException;
+	  public Utilisateur findByLogin(String email_or_username);
 }

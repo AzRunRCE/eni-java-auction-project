@@ -20,7 +20,7 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	}
 
 	@Override
-	public boolean create(Utilisateur new_user) throws DALException {
+	public boolean create(Utilisateur new_user) {
 		
 		try(Connection connect = AccesBase.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(CREATE)) {
@@ -41,7 +41,15 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	    	preparedStatement.execute();
 	    	return true;
 		} catch (SQLException e) {
-			throw new DALException("probleme avec la methode find",e);
+			try {
+				throw new DALException("probleme avec la methode find",e);
+			} catch (DALException e1) {
+				e1.printStackTrace();
+				return false;
+			}
+		} catch (DALException e1) {
+			e1.printStackTrace();
+			return false;
 		}
 	}
 
@@ -56,7 +64,7 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	}
 
 	@Override
-	public Utilisateur find(int id) throws DALException {
+	public Utilisateur find(int id) {
 
 		try(Connection connect = AccesBase.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(FIND_SQL)) {
@@ -70,12 +78,20 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	    	}
 	    	return utilisateur;
 		} catch (SQLException e) {
-			throw new DALException("probleme avec la methode find",e);
+			try {
+				throw new DALException("problème avec la méhode find", e);
+			} catch (DALException e1) {
+				e1.printStackTrace();
+				return null;
+			}
+		} catch (DALException e1) {
+			e1.printStackTrace();
+			return null;
 		}
 	  }
 	
 	@Override
-	public Utilisateur findByLogin(String email_or_username) throws DALException {
+	public Utilisateur findByLogin(String email_or_username)  {
 		Utilisateur utilisateur = null;   
 		ResultSet result = null;
 		try(Connection connect = AccesBase.getConnection();
@@ -154,10 +170,18 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	    		  utilisateur.setAdministrateur(result.getInt("administrateur"));
 	    	  }
 	      }
-	    } catch (SQLException e) {
-	    	throw new DALException("probleme avec la methode findByLogin",e);
-	    }
 	    return utilisateur;
+	    } catch (SQLException e) {
+	    	try {
+				throw new DALException("problème avec la méhode findByLogin", e);
+			} catch (DALException e1) {
+				e1.printStackTrace();
+				return null;
+			}
+	    } catch (DALException e1) {
+	    	e1.printStackTrace();
+	    	return null;
+	    }
 	}
 
 }

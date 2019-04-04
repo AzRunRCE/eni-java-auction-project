@@ -22,22 +22,22 @@ public class EnchereDAO implements IDAOEnchere {
 										"e.no_utilisateur = av.no_utilisateur";  
 	
 	@Override
-	public boolean create(Enchere obj) throws DALException {
+	public boolean create(Enchere obj) {
 		return false;
 	}
 
 	@Override
-	public boolean delete(Enchere obj) throws DALException {
+	public boolean delete(Enchere obj) {
 		return false;
 	}
 
 	@Override
-	public boolean update(Enchere obj) throws DALException {
+	public boolean update(Enchere obj) {
 		return false;
 	}
 
 	@Override
-	public Enchere find(int id) throws DALException {
+	public Enchere find(int id) {
 		return null;
 	}
 

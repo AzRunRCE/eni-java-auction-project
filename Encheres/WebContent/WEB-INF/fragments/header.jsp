@@ -26,10 +26,6 @@
 		
 		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 		    <ul class="navbar-nav mr-auto">
-		      <li class="nav-item active">
-		        <a class="nav-link" href="${ pageContext.request.contextPath }/">Accueil<span class="sr-only">(current)</span></a>
-		      </li>
-		   <ul class="navbar-nav mr-auto">
 		      <li class="nav-item"></li>
 		    </ul>
 		    <ul class="navbar-nav justify-content-end">

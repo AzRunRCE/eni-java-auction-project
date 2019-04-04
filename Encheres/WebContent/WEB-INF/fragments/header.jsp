@@ -11,18 +11,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<title>ENI Enchères - ${param.title} </title>
 		<script src="${pageContext.request.contextPath }/js/jquery.js"></script>
-<<<<<<< HEAD
+
 		<link rel="stylesheet" href="${ pageContext.request.contextPath }/theme/css/style.css">
 		<link rel="stylesheet" href="${ pageContext.request.contextPath }/theme/bootstrap-4.1.3/css/bootstrap.min.css">
 		<link rel="stylesheet" href="${ pageContext.request.contextPath }/theme/fontawesome/css/fontawesome.min.css">
 		<link rel="stylesheet" href="${ pageContext.request.contextPath }/theme/fontawesome/css/solid.min.css">
 	</head>
-=======
-		<link rel="stylesheet" href="${pageContext.request.contextPath }/theme/css/style.css">
-		<link rel="stylesheet" href="${pageContext.request.contextPath }/theme/bootstrap-4.1.3/css/bootstrap.min.css">
-		<link rel="stylesheet" href="${pageContext.request.contextPath }/theme/fontawesome/css/fontawesome.min.css">
-		<link rel="stylesheet" href="${pageContext.request.contextPath }/theme/fontawesome/css/solid.min.css">
->>>>>>> branch 'dev' of https://gitlab.com:443/AzzRun/eni-java-project-bid.git
 	<body>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		  <a class="navbar-brand" href="${pageContext.request.contextPath }/">ENI Enchères</a>
@@ -31,15 +25,8 @@
 		  </button>
 		
 		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-<<<<<<< HEAD
 		    <ul class="navbar-nav mr-auto">
-		      <li class="nav-item active">
-		        <a class="nav-link" href="${ pageContext.request.contextPath }/">Accueil<span class="sr-only">(current)</span></a>
-		      </li>
-=======
-		   <ul class="navbar-nav mr-auto">
 		      <li class="nav-item"></li>
->>>>>>> branch 'dev' of https://gitlab.com:443/AzzRun/eni-java-project-bid.git
 		    </ul>
 		    <ul class="navbar-nav justify-content-end">
 		      <c:if test="${no_utilisateur != null}">

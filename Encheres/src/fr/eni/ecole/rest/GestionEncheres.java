@@ -27,9 +27,9 @@ public class GestionEncheres {
 	static {
 		listeEncheres = new ArrayList<>();
 		listeEncheres.add(new getAccueil("pc gamer pour travailler", 
-				LocalDateTime.of(2018, 4, 3, 23, 24), 2300, "ApoZLd", 2, 1));			
+				LocalDateTime.of(2018, 4, 3, 23, 24).toString(), 2300, "ApoZLd", 2, 1));			
 		listeEncheres.add(new getAccueil("Rocket stove pour riz et pates", 
-				LocalDateTime.of(2018, 4, 3, 23, 26), 10, "Fcatin", 3, 2));		
+				LocalDateTime.of(2018, 4, 3, 23, 26).toString(), 10, "Fcatin", 3, 2));		
 	}
 	
 	@GET

@@ -52,9 +52,9 @@ public class EnchereDAO implements IDAOEnchere {
 	    	while(rs.next()) {
 	    		listeMsgObjectsAccueil.add(new getAccueil( 
 	    										rs.getString("nom_article"), 
-	    										rs.getTimestamp("date_fin_encheres").toLocalDateTime(), 
+	    										rs.getTimestamp("date_fin_encheres").toLocalDateTime().toString(), 
 	    										rs.getInt("montant_enchere"),
-	    										rs.getString("pseudo"),
+	    										rs.getString("pseudo"),	
 	    										rs.getInt("no_utilisateur"), 
 	    										rs.getInt("no_article")
 		    									)

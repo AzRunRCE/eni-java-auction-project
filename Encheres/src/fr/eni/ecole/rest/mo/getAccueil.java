@@ -2,6 +2,7 @@ package fr.eni.ecole.rest.mo;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Base64;
 
 public class getAccueil implements Serializable {
 	/**
@@ -10,12 +11,12 @@ public class getAccueil implements Serializable {
 	private static final long serialVersionUID = -8844648449092072102L;
 	
 	private String nomProduit;
-	private LocalDateTime dateFinEnchere;
+	private String dateFinEnchere;
 	private Integer montant;
 	private String pseudoVendeur;
 	private Integer noVendeur;
 	private Integer noArticle;
-	private transient String photo; //base64
+	private transient Base64 photo;
 	
 
 	public Integer getNoVendeur() {
@@ -31,7 +32,7 @@ public class getAccueil implements Serializable {
 
 	
 	
-	public String  getPhoto() {
+	public Base64  getPhoto() {
 		return photo;
 	}
 
@@ -52,7 +53,7 @@ public class getAccueil implements Serializable {
 
 
 
-	public void setPhoto(String photo) {
+	public void setPhoto(Base64 photo) {
 		this.photo = photo;
 	}
 
@@ -72,14 +73,14 @@ public class getAccueil implements Serializable {
 
 
 
-	public LocalDateTime getDateFinEnchere() {
+	public String getDateFinEnchere() {
 		return dateFinEnchere;
 	}
 
 
 
 
-	public void setDateFinEnchere(LocalDateTime dateFinEnchere) {
+	public void setDateFinEnchere(String dateFinEnchere) {
 		this.dateFinEnchere = dateFinEnchere;
 	}
 
@@ -121,7 +122,7 @@ public class getAccueil implements Serializable {
 
 
 
-	public getAccueil(String nomProduit, LocalDateTime dateFinEnchere, Integer montant, String pseudoVendeur,
+	public getAccueil(String nomProduit, String dateFinEnchere, Integer montant, String pseudoVendeur,
 			Integer noVendeur, Integer noArticle) {
 		super();
 		this.nomProduit = nomProduit;
@@ -135,8 +136,8 @@ public class getAccueil implements Serializable {
 
 
 
-	public getAccueil(String nomProduit, LocalDateTime dateFinEnchere, Integer montant, String pseudoVendeur,
-			Integer noVendeur, Integer noArticle, String photo) {
+	public getAccueil(String nomProduit, String dateFinEnchere, Integer montant, String pseudoVendeur,
+			Integer noVendeur, Integer noArticle, Base64 photo) {
 		super();
 		this.nomProduit = nomProduit;
 		this.dateFinEnchere = dateFinEnchere;

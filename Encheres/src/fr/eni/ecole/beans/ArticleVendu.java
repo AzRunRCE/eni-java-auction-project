@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class ArticleVendu implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5072954489557878512L;
 	int noArticle;
 	String nomArticle;
 	String description;
@@ -12,6 +16,7 @@ public class ArticleVendu implements Serializable {
 	float miseAPrix;
 	float prixVente;
 	Boolean etatVente;
+	
 	public int getNoArticle() {
 		return noArticle;
 	}

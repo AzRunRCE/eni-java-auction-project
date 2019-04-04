@@ -7,6 +7,7 @@ import fr.eni.ecole.DAL.DAOFactory;
 import fr.eni.ecole.DAL.IDAOEnchere;
 import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.rest.mo.getAccueil;
+import fr.eni.ecole.rest.mo.getDetailEnchere;
 
 
 public class EncheresManager {
@@ -14,5 +15,9 @@ public class EncheresManager {
 	
 	public List<getAccueil> getListeEncheresAccueil() {
 		return daoEncheres.selectAllWithoutParameters();
+	}
+	
+	public getDetailEnchere getEnchere(int noArticle) {
+		return daoEncheres.selectById(noArticle);
 	}
 }

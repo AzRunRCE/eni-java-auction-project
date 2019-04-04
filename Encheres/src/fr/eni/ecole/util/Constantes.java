@@ -19,4 +19,5 @@ public class Constantes {
 	public final static String PAGE_INDEX = "/WEB-INF/pages/index.jsp";
 	public final static String PAGE_LOGIN = "/WEB-INF/pages/login.jsp";
 	public final static String PAGE_REGISTER = "/WEB-INF/pages/register.jsp";
+	public final static String PAGE_DETAIL_VENTE = "/WEB-INF/pages/detailVente.jsp";
 }

@@ -42,7 +42,7 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	    	return true;
 		} catch (SQLException e) {
 			try {
-				throw new DALException("probleme avec la methode find",e);
+				throw new DALException("probleme avec la methode create",e);
 			} catch (DALException e1) {
 				e1.printStackTrace();
 				return false;

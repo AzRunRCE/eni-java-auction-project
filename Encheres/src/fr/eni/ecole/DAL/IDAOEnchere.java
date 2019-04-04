@@ -5,21 +5,29 @@ import java.util.List;
 import fr.eni.ecole.beans.Enchere;
 import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.rest.mo.getAccueil;
+import fr.eni.ecole.rest.mo.getDetailEnchere;
 
 public interface IDAOEnchere extends DAO<Enchere>{
 	
 	  /**
-	   * Méthode de recherche des informations
+	   * Mï¿½thode de recherche des informations
 	   * @return T
 	 * @throws DALException 
 	   */
 	  public List<getAccueil> selectAllWithoutParameters();
 	  
 	  /**
-	   * Méthode de recherche des informations
+	   * Mï¿½thode de recherche des informations
 	   * @param list[params]
 	   * @return T 
 	 * @throws DALException 
 	   */
 	  public List<getAccueil> selectAllwithParameters(String[] listeParams);
+	  
+	  /**
+	   * Methode de recherche d'une enchÃ¨re pour un article
+	   * @param noArticle
+	   * @return un objet de type getDetailEnchere
+	   */
+	  public getDetailEnchere selectById(int noArticle);
 }

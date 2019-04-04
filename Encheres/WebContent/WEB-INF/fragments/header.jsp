@@ -37,7 +37,7 @@
 		      		<a class="nav-link" href="#">Vendre</a>
 		      	</li>
 		      	<li class ="nav-item ">
-		      		<a class="nav-link" href="#">Mon Profil</a>
+		      		<a class="nav-link" href="Profil">Mon Profil</a>
 		      	</li>
 		      	<li class ="nav-item ">
 		      		<a class="nav-link" href="./Deconnexion">Déconnexion</a>

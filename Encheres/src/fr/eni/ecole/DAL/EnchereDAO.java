@@ -72,12 +72,11 @@ public class EnchereDAO implements IDAOEnchere {
 	    	return listeMsgObjectsAccueil;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
 		} catch (DALException e1) {
 			System.out.println("Probleme dans selectAllWithoutParameters");
 			e1.printStackTrace();
-			return null;
 		}
+		return null;
 	}
 
 	@Override

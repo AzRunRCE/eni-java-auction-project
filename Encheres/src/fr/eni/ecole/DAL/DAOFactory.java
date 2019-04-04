@@ -10,4 +10,7 @@ public class DAOFactory {
 	public static IDAOEnchere getEnchereDAO() {
 		return new EnchereDAO();
 	}
+	public static IDAOCategorie getCategorieDAO() {
+		return new CategorieDAO();
+	}
 }

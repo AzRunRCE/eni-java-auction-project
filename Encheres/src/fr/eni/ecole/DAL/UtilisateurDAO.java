@@ -12,9 +12,11 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	
 	//constantes
 	
-	private final String FIND_SQL = "SELECT * FROM UTILISATEURS WHERE noUtilisateur = ?";    
+	private final String FIND_SQL = "SELECT * FROM UTILISATEURS WHERE no_utilisateur = ?";    
 	private final String FIND_BY_LOGIN = "SELECT * FROM UTILISATEURS WHERE pseudo = ? OR email = ?";
 	private final String CREATE = "INSERT INTO UTILISATEURS VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+	private final String UPDATE = "UPDATE [dbo].[UTILISATEURS] SET [pseudo] = ? ,[nom] = ? ,[prenom] = ? ,[email] = ?,[telephone] = ?,[rue] = ?,[code_postal] = ?,[ville] = ?,[mot_de_passe] = ?,[credit] = ?,[administrateur] = ? WHERE no_utilisateur = ?";
+	private final String DELETE = "delete UTILISATEURS where no_utilisateur = ?";
 	
 	public UtilisateurDAO () {
 	}
@@ -42,7 +44,7 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	    	return true;
 		} catch (SQLException e) {
 			try {
-				throw new DALException("probleme avec la methode create",e);
+				throw new DALException(" DAOUtilisateur probleme avec la methode create",e);
 			} catch (DALException e1) {
 				e1.printStackTrace();
 				return false;
@@ -55,12 +57,57 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 
 	@Override
 	public boolean delete(Utilisateur obj) {
-		return false;
+		try(Connection connect = AccesBase.getConnection();
+				PreparedStatement preparedStatement = connect.prepareStatement(DELETE)) {
+
+	    	preparedStatement.setInt(1,obj.getNoUtilisateur());
+	    	preparedStatement.execute();
+	    	return true;
+		} catch (SQLException e) {
+			try {
+				throw new DALException("DAOUtilisateur probleme avec la methode delete",e);
+			} catch (DALException e1) {
+				e1.printStackTrace();
+				return false;
+			}
+		} catch (DALException e1) {
+			e1.printStackTrace();
+			return false;
+		}
 	}
 	
 	@Override
-	public boolean update(Utilisateur obj) {
-		return false;
+	public boolean update(Utilisateur update_user) {
+		
+		try(Connection connect = AccesBase.getConnection();
+				PreparedStatement preparedStatement = connect.prepareStatement(UPDATE)) {
+
+			Utilisateur utilisateur = new Utilisateur();        
+			preparedStatement.setString(1,update_user.getPseudo()); 
+	       	preparedStatement.setString(2,update_user.getNom()); 
+	       	preparedStatement.setString(3,update_user.getPrenom()); 
+	     	preparedStatement.setString(4,update_user.getEmail());
+	     	preparedStatement.setString(5,update_user.getTelephone());
+	     	preparedStatement.setString(6,update_user.getRue());
+	      	preparedStatement.setString(7,update_user.getCodePostal());
+	    	preparedStatement.setString(8,update_user.getVille());
+	    	preparedStatement.setString(9,update_user.getMotDePasse());
+	    	preparedStatement.setInt(10,update_user.getCredit());
+	     	preparedStatement.setInt(11,update_user.getAdministrateur());
+	    	preparedStatement.setInt(12,update_user.getNoUtilisateur());
+	    	preparedStatement.execute();
+	    	return true;
+		} catch (SQLException e) {
+			try {
+				throw new DALException("DAOUtilisateur probleme avec la methode update",e);
+			} catch (DALException e1) {
+				e1.printStackTrace();
+				return false;
+			}
+		} catch (DALException e1) {
+			e1.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
@@ -74,7 +121,29 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	    	preparedStatement.execute();
 	    	ResultSet result = preparedStatement.executeQuery();
 	    	if(result.next() == true) {
-	    	  utilisateur = new Utilisateur();      
+	    	  utilisateur = new Utilisateur();   
+
+    		  utilisateur.setPseudo(result.getString("pseudo"));
+
+    		  utilisateur.setNom(result.getString("nom"));
+    
+    		  utilisateur.setPrenom(result.getString("prenom"));
+    
+    		  utilisateur.setEmail(result.getString("email"));
+    
+    		  utilisateur.setTelephone(result.getString("telephone"));
+    
+    		  utilisateur.setRue(result.getString("rue"));
+    	
+    		  utilisateur.setCodePostal(result.getString("code_postal"));
+    	 
+    		  utilisateur.setVille(result.getString("ville"));
+    	
+    		  utilisateur.setMotDePasse(result.getString("mot_de_passe"));
+    	 
+    		  utilisateur.setCredit(result.getInt("credit"));
+    		  utilisateur.setNoUtilisateur(result.getInt("no_utilisateur"));
+    		  utilisateur.setAdministrateur(result.getInt("administrateur"));
 	    	}
 	    	return utilisateur;
 		} catch (SQLException e) {

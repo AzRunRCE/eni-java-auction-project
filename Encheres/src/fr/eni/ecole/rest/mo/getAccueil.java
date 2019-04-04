@@ -32,7 +32,7 @@ public class getAccueil implements Serializable {
 
 	
 	
-	public Base64  getPhoto() {
+	public  Base64  getPhoto() {
 		return photo;
 	}
 

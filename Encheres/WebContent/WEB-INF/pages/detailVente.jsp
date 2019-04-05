@@ -6,10 +6,11 @@
 <jsp:include page="../fragments/header.jsp">
 	<jsp:param value="Detail Vente" name="title" />
 </jsp:include>
-<h2>Détail Vente</h2>
-<hr>
+<div class="container">
+	<h2>Détail Vente</h2>
+	<hr>
 
 
-<p>Du <fmt:formatDate value="${f.getDebut()}" pattern="dd/MM/yyyy"/> au <fmt:formatDate value="${f.getFin()}" pattern="dd/MM/yyyy"/></p>
-
+	<p>Du <fmt:formatDate value="${f.getDebut()}" pattern="dd/MM/yyyy"/> au <fmt:formatDate value="${f.getFin()}" pattern="dd/MM/yyyy"/></p>
+</div>div>
 <jsp:include page="../fragments/footer.jsp"></jsp:include>

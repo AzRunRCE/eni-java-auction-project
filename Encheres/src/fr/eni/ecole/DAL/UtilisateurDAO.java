@@ -27,8 +27,7 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 		try(Connection connect = AccesBase.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(CREATE)) {
 
-			Utilisateur utilisateur = new Utilisateur();        
-	    	preparedStatement.setString(1,new_user.getPseudo()); 
+			preparedStatement.setString(1,new_user.getPseudo()); 
 	       	preparedStatement.setString(2,new_user.getNom()); 
 	       	preparedStatement.setString(3,new_user.getPrenom()); 
 	     	preparedStatement.setString(4,new_user.getEmail());
@@ -82,7 +81,6 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 		try(Connection connect = AccesBase.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(UPDATE)) {
 
-			Utilisateur utilisateur = new Utilisateur();        
 			preparedStatement.setString(1,update_user.getPseudo()); 
 	       	preparedStatement.setString(2,update_user.getNom()); 
 	       	preparedStatement.setString(3,update_user.getPrenom()); 

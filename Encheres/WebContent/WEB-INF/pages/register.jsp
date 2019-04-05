@@ -60,10 +60,10 @@
 		    	<input required="required" type="password" class="form-control col-7" id="inputConfirmationPassword"   name="inputConfirmationPassword" placeholder="Entrez à nouveau votre mot de passe ">
 			</div>
 		</div>
-		<div class="col-12">
+		<div class="col-12 mx-auto">
 		  	<div class="d-flex justify-content-center">
-		     	<button type="submit" class="btn btn-success p-2 m-2">Créer</button>                   
-		       	<button type="button" class="btn btn-danger  p-2 m-2">Annuler</button>      
+		     	<button type="submit" class="btn btn-success mr-1 ml-1">Créer</button>    
+		     	<a class="btn btn-danger mr-1 ml-1" href="./" role="button">Annuler</a>       
 		    </div>
 		</div>
 	</form>

@@ -43,7 +43,7 @@
 		<div class="row justify-content-around">
 			<c:if test="${editable != null && editable == true}">
 		   		<div class="col-4">
-		   	 		<a href="EditProfil" class="btn btn-success center">Modifier</a>         
+		   	 		<a href="EditProfil" class="btn btn-success center p-2 m-2">Modifier</a>         
 			    </div>
 			</c:if>
 		</div>

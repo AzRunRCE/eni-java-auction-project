@@ -1,6 +1,13 @@
 package fr.eni.ecole.DAL;
 
-
+import fr.eni.ecole.DAL.Impl.ArticleVenduDAO;
+import fr.eni.ecole.DAL.Impl.CategorieDAO;
+import fr.eni.ecole.DAL.Impl.EnchereDAO;
+import fr.eni.ecole.DAL.Impl.UtilisateurDAO;
+import fr.eni.ecole.DAL.Interface.IDAOArticleVendu;
+import fr.eni.ecole.DAL.Interface.IDAOCategorie;
+import fr.eni.ecole.DAL.Interface.IDAOEnchere;
+import fr.eni.ecole.DAL.Interface.IDAOUtilisateur;
 
 public class DAOFactory {
 	
@@ -12,5 +19,8 @@ public class DAOFactory {
 	}
 	public static IDAOCategorie getCategorieDAO() {
 		return new CategorieDAO();
+	}
+	public static IDAOArticleVendu getArticleVenduDAO() {
+		return new ArticleVenduDAO();
 	}
 }

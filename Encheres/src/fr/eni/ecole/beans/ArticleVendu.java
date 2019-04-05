@@ -1,6 +1,7 @@
 package fr.eni.ecole.beans;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class ArticleVendu implements Serializable {
@@ -11,12 +12,26 @@ public class ArticleVendu implements Serializable {
 	int noArticle;
 	String nomArticle;
 	String description;
-	LocalDateTime dateDebutEncheres;
-	LocalDateTime dateFinEncheres;
+	Timestamp dateDebutEncheres;
+	Timestamp dateFinEncheres;
 	float miseAPrix;
 	float prixVente;
 	Boolean etatVente;
+	Utilisateur utilisateur;
+	Categorie categorie;
 	
+	public Categorie getCategorie() {
+		return categorie;
+	}
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
+	}
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
+	}
 	public int getNoArticle() {
 		return noArticle;
 	}
@@ -35,16 +50,16 @@ public class ArticleVendu implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public LocalDateTime getDateDebutEncheres() {
+	public Timestamp getDateDebutEncheres() {
 		return dateDebutEncheres;
 	}
-	public void setDateDebutEncheres(LocalDateTime dateDebutEncheres) {
+	public void setDateDebutEncheres(Timestamp dateDebutEncheres) {
 		this.dateDebutEncheres = dateDebutEncheres;
 	}
-	public LocalDateTime getDateFinEncheres() {
+	public Timestamp getDateFinEncheres() {
 		return dateFinEncheres;
 	}
-	public void setDateFinEncheres(LocalDateTime dateFinEncheres) {
+	public void setDateFinEncheres(Timestamp dateFinEncheres) {
 		this.dateFinEncheres = dateFinEncheres;
 	}
 	public float getMiseAPrix() {
@@ -65,8 +80,8 @@ public class ArticleVendu implements Serializable {
 	public void setEtatVente(Boolean etatVente) {
 		this.etatVente = etatVente;
 	}
-	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDateTime dateDebutEncheres,
-			LocalDateTime dateFinEncheres, float miseAPrix, float prixVente, Boolean etatVente) {
+	public ArticleVendu(int noArticle, String nomArticle, String description, Timestamp dateDebutEncheres,
+			Timestamp dateFinEncheres, float miseAPrix, float prixVente, Boolean etatVente) {
 		super();
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;

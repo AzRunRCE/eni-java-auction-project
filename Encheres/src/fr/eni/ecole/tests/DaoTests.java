@@ -7,6 +7,7 @@ import java.sql.Connection;
 
 import org.junit.jupiter.api.Test;
 import fr.eni.ecole.DAL.*;
+import fr.eni.ecole.DAL.Interface.IDAOUtilisateur;
 import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.util.AccesBase;;
 

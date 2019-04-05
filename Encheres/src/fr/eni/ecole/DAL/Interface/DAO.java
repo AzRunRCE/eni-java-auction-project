@@ -1,4 +1,4 @@
-package fr.eni.ecole.DAL;
+package fr.eni.ecole.DAL.Interface;
 
 public interface DAO<T> {
 

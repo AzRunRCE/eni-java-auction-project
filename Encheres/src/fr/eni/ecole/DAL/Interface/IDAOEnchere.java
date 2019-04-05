@@ -1,7 +1,8 @@
-package fr.eni.ecole.DAL;
+package fr.eni.ecole.DAL.Interface;
 
 import java.util.List;
 
+import fr.eni.ecole.DAL.DALException;
 import fr.eni.ecole.beans.Enchere;
 import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.rest.mo.getAccueil;

@@ -1,5 +1,6 @@
 package fr.eni.ecole.bll;
 import fr.eni.ecole.DAL.*;
+import fr.eni.ecole.DAL.Interface.IDAOUtilisateur;
 import fr.eni.ecole.beans.Utilisateur;
 
 public class CredentialManager {

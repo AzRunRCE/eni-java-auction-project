@@ -1,5 +1,6 @@
-package fr.eni.ecole.DAL;
+package fr.eni.ecole.DAL.Interface;
 
+import fr.eni.ecole.DAL.DALException;
 import fr.eni.ecole.beans.Utilisateur;
 
 public interface IDAOUtilisateur  extends DAO<Utilisateur>{

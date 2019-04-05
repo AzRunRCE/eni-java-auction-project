@@ -1,4 +1,4 @@
-package fr.eni.ecole.DAL;
+package fr.eni.ecole.DAL.Impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.ecole.DAL.DALException;
+import fr.eni.ecole.DAL.Interface.IDAOEnchere;
 import fr.eni.ecole.beans.Enchere;
 import fr.eni.ecole.rest.mo.getAccueil;
 import fr.eni.ecole.rest.mo.getDetailEnchere;

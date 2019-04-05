@@ -149,6 +149,7 @@
 			</div>
 		</div>
 	</form>
+	<hr>
 	<div id="dashboard" class="justify-content-center">
 	<!-- 	<div class="card mb-3 mr-1 ml-1 dashboard-tile"> -->
 	<!-- 	  <div class="row no-gutters"> -->

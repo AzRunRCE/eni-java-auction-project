@@ -18,3 +18,9 @@
 	margin-bottom: .75rem;
 	text-decoration: underline;
 }
+
+.detail img{
+	width: auto;
+	height: 195px;
+}
+

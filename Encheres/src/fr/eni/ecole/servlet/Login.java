@@ -69,11 +69,11 @@ public class Login extends HttpServlet {
 		if (utilisateur != null) {
 			recupRemberMe = request.getParameter("rememberMe");
 			if(recupRemberMe != null) {
-				Cookie rememberCookie = new Cookie("rememberMe", "true");
-				response.addCookie(rememberCookie);
 				Cookie userCookie = new Cookie("userCookie", recupLogin);
 				response.addCookie(userCookie);	
 			}
+			Cookie idUtilisateur = new Cookie("idUtilisateur", String.valueOf(utilisateur.getNoUtilisateur()));
+			response.addCookie(idUtilisateur);
 			request.getSession().setAttribute(Constantes.SESS_PSEUDO, utilisateur.getPseudo());
 			//request.getSession().setAttribute(Constantes.SESS_NOM, utilisateur.getNom());
 			//request.getSession().setAttribute(Constantes.SESS_PRENOM, utilisateur.getPrenom());

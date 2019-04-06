@@ -11,6 +11,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<title>ENI Enchères - ${param.title} </title>
 		<script src="${pageContext.request.contextPath }/js/jquery.js"></script>
+		<script src="${pageContext.request.contextPath }/js/popper.min.js"></script>
 		<script src="${pageContext.request.contextPath }/js/moment-with-locales.js"></script>
 		<link rel="stylesheet" href="${ pageContext.request.contextPath }/theme/css/style.css">
 		<link rel="stylesheet" href="${ pageContext.request.contextPath }/theme/bootstrap-4.1.3/css/bootstrap.min.css">
@@ -51,5 +52,5 @@
 		    </ul>
 		  </div>
 		</nav>
-		<div class="container">
+		
 	

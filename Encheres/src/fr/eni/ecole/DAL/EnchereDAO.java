@@ -112,7 +112,7 @@ public class EnchereDAO implements IDAOEnchere {
 		
 		requeteParametree.append(SELECT_ALL_WITHOUT_PARAM);
 		
-		if(accueilFilters.getRadioButtons().equals("mesVentes")) {
+		if(accueilFilters.getRadioButtons()!=null && accueilFilters.getRadioButtons().equals("mesVentes")) {
 			System.out.println("mesVentes");
 			requeteParametree.append(VENTES);
 			requeteParametree = constructSQLForNameAndCategorie(requeteParametree, accueilFilters);
@@ -178,7 +178,7 @@ public class EnchereDAO implements IDAOEnchere {
 				//aucun champ selectionne parmi les checkbox
 			}
 
-		} else if (accueilFilters.getRadioButtons().equals("mesAchats")) {
+		} else if (accueilFilters.getRadioButtons() != null && accueilFilters.getRadioButtons().equals("mesAchats")) {
 			System.out.println("mesAchats");
 			requeteParametree.append(LEFT_JOIN_ENCHERES);
 			requeteParametree = constructSQLForNameAndCategorie(requeteParametree, accueilFilters);

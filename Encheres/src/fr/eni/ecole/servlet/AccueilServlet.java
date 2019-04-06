@@ -15,8 +15,11 @@ import fr.eni.ecole.util.Constantes;
 
 
 
+
 /**
- * Servlet implementation class AccueilServlet
+ * 
+ * @author romai
+ *
  */
 @WebServlet( urlPatterns = {"/Accueil"} )
 public class AccueilServlet extends HttpServlet {

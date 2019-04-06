@@ -2,11 +2,14 @@ package fr.eni.ecole.rest.mo;
 
 import java.io.Serializable;
 import java.util.Base64;
+/**
+ * Classe reprenant toutes les donnees utiles pour l'affichage des dashboard tiles
+ * Sert a renvoyer un JSON
+ * @author romai
+ *
+ */
+public class AccueilDashboardTile implements Serializable {
 
-public class getAccueil implements Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -8844648449092072102L;
 	
 	private String nomProduit;
@@ -121,7 +124,7 @@ public class getAccueil implements Serializable {
 
 
 
-	public getAccueil(String nomProduit, String dateFinEnchere, Integer montant, String pseudoVendeur,
+	public AccueilDashboardTile(String nomProduit, String dateFinEnchere, Integer montant, String pseudoVendeur,
 			Integer noVendeur, Integer noArticle) {
 		super();
 		this.nomProduit = nomProduit;
@@ -135,7 +138,7 @@ public class getAccueil implements Serializable {
 
 
 
-	public getAccueil(String nomProduit, String dateFinEnchere, Integer montant, String pseudoVendeur,
+	public AccueilDashboardTile(String nomProduit, String dateFinEnchere, Integer montant, String pseudoVendeur,
 			Integer noVendeur, Integer noArticle, Base64 photo) {
 		super();
 		this.nomProduit = nomProduit;
@@ -150,7 +153,7 @@ public class getAccueil implements Serializable {
 
 
 
-	public getAccueil() {
+	public AccueilDashboardTile() {
 		super();
 	}
 	

@@ -150,34 +150,8 @@
 	</form>
 	<hr>
 	<div id="dashboard" class="justify-content-center">
-	<!-- 	<div class="card mb-3 mr-1 ml-1 dashboard-tile"> -->
-	<!-- 	  <div class="row no-gutters"> -->
-	<!-- 	    <div class="col-md-4"> -->
-	<%-- 	      <img src="${ pageContext.request.contextPath }/img/alienware.jpg" class="card-img p-1" alt="image ordinateur"> --%>
-	<!-- 	    </div> -->
-	<!-- 	    <div class="col-md-8"> -->
-	<!-- 	      <div class="card-body"> -->
-	<!-- 	        <h5 class="card-title">Object Name</h5> -->
-	<!-- 	        <p class="card-text">Price</p> -->
-	<!-- 	        <p class="card-text">End date</p> -->
-	<!-- 	        <p class="card-text">Pseudo</p> -->
-	<!-- 	      </div> -->
-	<!-- 	    </div> -->
-	<!-- 	  </div> -->
-	<!-- 	</div> -->
+	
 	</div>
-	
-	
-	<!-- <table class="table" id="table"> -->
-	
-	<!-- </table> -->
-	<!-- <pre id="succes"> -->
-		
-	<!-- </pre> -->
-	
-	<pre id="echec">
-	
-	</pre>
 </div>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/accueil.js"></script>
 <jsp:include page="../fragments/footer.jsp"></jsp:include>

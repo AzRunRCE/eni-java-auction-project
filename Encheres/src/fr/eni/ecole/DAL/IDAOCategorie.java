@@ -4,12 +4,16 @@ import java.util.List;
 
 import fr.eni.ecole.beans.Categorie;
 
+/**
+ * 
+ * @author romai
+ *
+ */
 public interface IDAOCategorie extends DAO<Categorie>{
 	 
-	/**
-	   * Méthode de recherche des informations
-	   * @return T
-	 * @throws DALException 
+	  /**
+	   * 
+	   * @return all categories
 	   */
 	  public List<Categorie> selectAll();
 }

@@ -8,10 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.ecole.beans.Categorie;
-import fr.eni.ecole.beans.Utilisateur;
-import fr.eni.ecole.rest.mo.getAccueil;
 import fr.eni.ecole.util.AccesBase;
-
+/**
+ * 
+ * @author romai
+ *
+ */
 public class CategorieDAO implements IDAOCategorie {
 
 	private final String SELECT_ALL= "SELECT no_categorie, libelle FROM CATEGORIES";

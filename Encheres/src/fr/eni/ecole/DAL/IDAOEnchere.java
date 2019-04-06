@@ -3,27 +3,26 @@ package fr.eni.ecole.DAL;
 import java.util.List;
 
 import fr.eni.ecole.beans.Enchere;
-import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.rest.mo.AccueilFilters;
-import fr.eni.ecole.rest.mo.getAccueil;
+import fr.eni.ecole.rest.mo.AccueilDashboardTile;
 import fr.eni.ecole.rest.mo.getDetailEnchere;
 
 public interface IDAOEnchere extends DAO<Enchere> {
 	
 	  /**
-	   * Mï¿½thode de recherche des informations
-	   * @return T
-	 * @throws DALException 
+	   * Methode permettant d'aller chercher tous les enregistrements
+	   * @return List<getAccueil>
 	   */
-	  public List<getAccueil> selectAllWithoutParameters();
+	  public List<AccueilDashboardTile> selectAllWithoutParameters();
 	  
+
 	  /**
-	   * Mï¿½thode de recherche des informations
-	   * @param list[params]
-	   * @return T 
-	 * @throws DALException 
+	   * Methode permettant d'aller chercher en base les enregistrements respectant les filtres
+	   * @param accueilFilters Structure de données contenant les filtres saisis
+	   * @param idUtilisateur
+	   * @return List<getAccueil>
 	   */
-	  public List<getAccueil> selectAllwithParameters(AccueilFilters accueilFilters, Integer idUtilisateur);
+	  public List<AccueilDashboardTile> selectAllwithParameters(AccueilFilters accueilFilters, Integer idUtilisateur);
 	  
 	  /**
 	   * Methode de recherche d'une enchÃ¨re pour un article

@@ -1,5 +1,10 @@
 package fr.eni.ecole.rest.mo;
 
+/**
+ * Classe reprenant toutes les informations de filtres disponibles sur l'accueil
+ * @author romai
+ *
+ */
 public class AccueilFilters {
 	private String nameFilter;
 	private Integer noCategorie;

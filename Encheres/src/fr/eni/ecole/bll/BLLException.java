@@ -1,11 +1,11 @@
 package fr.eni.ecole.bll;
 
-public class BuisnessException extends Exception {
-	public BuisnessException(String message) {
+public class BLLException extends Exception {
+	public BLLException(String message) {
 		super(message);
 	}
 	
-	public BuisnessException(String message, Throwable exception) {
+	public BLLException(String message, Throwable exception) {
 		super(message, exception);
 	}
 

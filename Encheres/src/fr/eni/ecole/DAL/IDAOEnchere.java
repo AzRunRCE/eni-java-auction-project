@@ -11,8 +11,8 @@ public interface IDAOEnchere extends DAO<Enchere> {
 	
 	  /**
 	   * Methode permettant d'aller chercher tous les enregistrements
-	   * @return List<getAccueil>
-	   */
+	   * @return une liste de getAccueil
+	   */ 
 	  public List<AccueilDashboardTile> selectAllWithoutParameters();
 	  
 
@@ -20,7 +20,7 @@ public interface IDAOEnchere extends DAO<Enchere> {
 	   * Methode permettant d'aller chercher en base les enregistrements respectant les filtres
 	   * @param accueilFilters Structure de données contenant les filtres saisis
 	   * @param idUtilisateur
-	   * @return List<getAccueil>
+	   * @return une liste de AccueilDashboardTile
 	   */
 	  public List<AccueilDashboardTile> selectAllwithParameters(AccueilFilters accueilFilters, Integer idUtilisateur);
 	  

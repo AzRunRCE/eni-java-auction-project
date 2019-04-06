@@ -2,7 +2,6 @@ package fr.eni.ecole.servlet;
 
 import java.io.IOException;
 
-import javax.servlet.ServletContextAttributeEvent;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.ecole.beans.Utilisateur;
-import fr.eni.ecole.bll.CredentialManager;
 import fr.eni.ecole.bll.EncheresManager;
 import fr.eni.ecole.bll.UtilisateursManager;
 import fr.eni.ecole.rest.mo.getDetailEnchere;

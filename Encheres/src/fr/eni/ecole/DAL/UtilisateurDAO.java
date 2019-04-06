@@ -4,7 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import fr.eni.ecole.DAL.*;
 import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.util.AccesBase;
 

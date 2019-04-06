@@ -1,12 +1,13 @@
 package fr.eni.ecole.servlet;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import fr.eni.ecole.*;
+
 import fr.eni.ecole.DAL.DALException;
 import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.bll.CredentialManager;

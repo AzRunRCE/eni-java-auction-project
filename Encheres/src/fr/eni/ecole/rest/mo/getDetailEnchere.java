@@ -30,20 +30,22 @@ public class getDetailEnchere implements Serializable {
 		super();
 	}
 
-	/**
-	 * @param nomArticle
-	 * @param descriptionArticle
-	 * @param nomCategorie
-	 * @param pseudoUtilisateur
-	 * @param codePostalRetrait
-	 * @param rueRetrait
-	 * @param villeRetrait
-	 * @param dateFinEnchere
-	 * @param prixInitial
-	 * @param montantEnchere
-	 * @param noArticle
-	 * @param noUtilisateur
-	 */
+/**
+ * 
+ * @param nomArticle
+ * @param descriptionArticle
+ * @param nomCategorie
+ * @param pseudoUtilisateur
+ * @param codePostalRetrait
+ * @param rueRetrait
+ * @param villeRetrait
+ * @param dateFinEnchere
+ * @param prixInitial
+ * @param montantEnchere
+ * @param noArticle
+ * @param noAcheteur
+ * @param noVendeur
+ */
 	public getDetailEnchere(String nomArticle, String descriptionArticle, String nomCategorie, String pseudoUtilisateur,
 			String codePostalRetrait, String rueRetrait, String villeRetrait, LocalDateTime dateFinEnchere,
 			int prixInitial, int montantEnchere, int noArticle,int noAcheteur, int noVendeur ) {
@@ -225,7 +227,7 @@ public class getDetailEnchere implements Serializable {
 	}
 
 	/**
-	 * @param noUtilisateur the noUtilisaeur to set
+	 * @param noAcheteur the noAcheteur to set
 	 */
 	public void setNoAcheteur(int noAcheteur) {
 		this.noAcheteur = noAcheteur;

@@ -1,6 +1,11 @@
 package fr.eni.ecole.bll;
 
 public class BLLException extends Exception {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4738035485198035074L;
+
 	public BLLException(String message) {
 		super(message);
 	}

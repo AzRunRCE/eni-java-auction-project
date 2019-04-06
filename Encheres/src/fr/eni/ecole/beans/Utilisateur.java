@@ -63,9 +63,9 @@ public class Utilisateur implements Serializable{
 		setMotDePasse(motDePasse);
 		setCredit(credit);
 		setAdministrateur(administrateur);
-		listeEncheres = new ArrayList();
-		listeArticlesAchetes = new ArrayList();
-		listeArticlesVendus = new ArrayList();
+		listeEncheres = new ArrayList<Enchere>();
+		listeArticlesAchetes = new ArrayList<ArticleVendu>();
+		listeArticlesVendus = new ArrayList<ArticleVendu>();
 	}
 	
 	/**
@@ -94,17 +94,17 @@ public class Utilisateur implements Serializable{
 		setMotDePasse(motDePasse);
 		setCredit(credit);
 		setAdministrateur(administrateur);
-		listeEncheres = new ArrayList();
-		listeArticlesAchetes = new ArrayList();
-		listeArticlesVendus = new ArrayList();
+		listeEncheres = new ArrayList<Enchere>();
+		listeArticlesAchetes = new ArrayList<ArticleVendu>();
+		listeArticlesVendus = new ArrayList<ArticleVendu>();
 	}
 
 	public Utilisateur() {
 		// TODO Auto-generated constructor stub
-		listeEncheres = new ArrayList();
-		listeArticlesAchetes = new ArrayList();
-		listeArticlesVendus = new ArrayList();
-		listeEncheres= new ArrayList();
+		listeEncheres = new ArrayList<Enchere>();
+		listeArticlesAchetes = new ArrayList<ArticleVendu>();
+		listeArticlesVendus = new ArrayList<ArticleVendu>();
+		listeEncheres= new ArrayList<Enchere>();
 	}
 
 	

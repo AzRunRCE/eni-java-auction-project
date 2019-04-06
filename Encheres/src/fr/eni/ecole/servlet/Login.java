@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.eni.ecole.DAL.DALException;
 import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.bll.CredentialManager;
 import fr.eni.ecole.util.Constantes;

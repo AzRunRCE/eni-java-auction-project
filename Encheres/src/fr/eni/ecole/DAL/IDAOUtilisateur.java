@@ -6,9 +6,8 @@ public interface IDAOUtilisateur  extends DAO<Utilisateur>{
 	
 	  /**
 	   * M�thode de recherche des informations
-	   * @param id
+	   * @param email_or_username
 	   * @return T
-	 * @throws DALException 
 	   */
 	  public Utilisateur findByLogin(String email_or_username);
 }

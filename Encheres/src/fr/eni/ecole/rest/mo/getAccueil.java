@@ -1,7 +1,6 @@
 package fr.eni.ecole.rest.mo;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Base64;
 
 public class getAccueil implements Serializable {

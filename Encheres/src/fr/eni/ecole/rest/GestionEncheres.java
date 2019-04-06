@@ -2,22 +2,16 @@ package fr.eni.ecole.rest;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
+import javax.ws.rs.CookieParam;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Response;
 
-import fr.eni.ecole.DAL.DALException;
-import fr.eni.ecole.beans.ArticleVendu;
-import fr.eni.ecole.beans.Enchere;
-import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.bll.EncheresManager;
+import fr.eni.ecole.rest.mo.AccueilFilters;
 import fr.eni.ecole.rest.mo.getAccueil;
 
 @Path("/enchere")
@@ -35,14 +29,56 @@ public class GestionEncheres {
 	
 	@GET
 	public List<getAccueil> getListeEncheres() {
+		// Find the HttpSession
 		EncheresManager enchereManager = new EncheresManager();
-		return enchereManager.getListeEncheresAccueil();
+		return enchereManager.getListeEncheresAccueilWithoutParameters();
 	}
 	@POST
-	public List<getAccueil> getListeEncheresWithParams() {
+	public List<getAccueil> getListeEncheresWithParams(
+													@FormParam("nameFilter") String nameFilter,
+													@FormParam("categorie") int noCategorie,
+													@FormParam("radioButtons") String radioButtons,
+													@FormParam("encheresOuvertes") String enchereOuverte,
+													@FormParam("encheresEnCours") String encheresEnCours,
+													@FormParam("encheresRemportees") String encheresRemportees,
+													@FormParam("ventesEnCours") String ventesEnCours,
+													@FormParam("ventesNonDebutees") String ventesNonDebutees,
+													@FormParam("ventesTerminees") String ventesTerminees,
+													@CookieParam("idUtilisateur") Integer idUtilisateur
+													) {
+		
+		Boolean enchereOuverteChecked = enchereOuverte != null ? enchereOuverte.equals("on") ? true: false : false;
+		Boolean encheresEnCoursChecked = encheresEnCours != null ? encheresEnCours.equals("on") ? true: false : false;
+		Boolean encheresRemporteesChecked = encheresRemportees != null ? encheresRemportees.equals("on") ? true: false : false;
+		Boolean ventesEnCoursChecked = ventesEnCours != null ? ventesEnCours.equals("on") ? true: false : false;
+		Boolean ventesNonDebuteesChecked = ventesNonDebutees != null ? ventesNonDebutees.equals("on") ? true: false : false;
+		Boolean ventesTermineesChecked = ventesTerminees  != null ? ventesTerminees.equals("on") ? true: false : false;
+		
+		System.out.println("nameFilter " + nameFilter);
+		System.out.println("noCategorie " + noCategorie);
+		System.out.println("radioButtons " + radioButtons);
+		System.out.println("enchereOuverteChecked " + enchereOuverteChecked);
+		System.out.println("encheresEnCoursChecked " + encheresEnCoursChecked);
+		System.out.println("encheresRemporteesChecked " + encheresRemporteesChecked);
+		System.out.println("ventesEnCoursChecked " + ventesEnCoursChecked);
+		System.out.println("ventesNonDebuteesChecked " + ventesNonDebuteesChecked);
+		System.out.println("ventesTermineesChecked " + ventesTermineesChecked);
+		
+		AccueilFilters filtresAccueil = 
+				new AccueilFilters(	nameFilter, 
+									noCategorie, 
+									radioButtons, 
+									enchereOuverteChecked, 
+									encheresEnCoursChecked, 
+									encheresRemporteesChecked, 
+									ventesEnCoursChecked, 
+									ventesNonDebuteesChecked, 
+									ventesTermineesChecked );
+		
+		System.out.println(idUtilisateur);
+		
 		EncheresManager enchereManager = new EncheresManager();
-		return enchereManager.getListeEncheresAccueil();
+		return enchereManager.getListeEncheresAccueilWithParameters(filtresAccueil, idUtilisateur);
 	}
-	
-	
+
 }

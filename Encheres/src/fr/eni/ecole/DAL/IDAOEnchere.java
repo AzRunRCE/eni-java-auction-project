@@ -4,6 +4,7 @@ import java.util.List;
 
 import fr.eni.ecole.beans.Enchere;
 import fr.eni.ecole.beans.Utilisateur;
+import fr.eni.ecole.rest.mo.AccueilFilters;
 import fr.eni.ecole.rest.mo.getAccueil;
 import fr.eni.ecole.rest.mo.getDetailEnchere;
 
@@ -22,7 +23,7 @@ public interface IDAOEnchere extends DAO<Enchere> {
 	   * @return T 
 	 * @throws DALException 
 	   */
-	  public List<getAccueil> selectAllwithParameters(String[] listeParams);
+	  public List<getAccueil> selectAllwithParameters(AccueilFilters accueilFilters, Integer idUtilisateur);
 	  
 	  /**
 	   * Methode de recherche d'une enchère pour un article

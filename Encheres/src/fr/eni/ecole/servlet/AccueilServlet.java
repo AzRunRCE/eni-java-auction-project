@@ -5,13 +5,15 @@ import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.ecole.bll.CategoriesManager;
 import fr.eni.ecole.util.Constantes;
 
-import fr.eni.ecole.bll.CategoriesManager;
+
 
 /**
  * Servlet implementation class AccueilServlet
@@ -33,6 +35,9 @@ public class AccueilServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		CategoriesManager categoriesManager = new CategoriesManager();
 		request.setAttribute("listeCategories", categoriesManager.getListeCategories());
+		
+		Cookie ck = new Cookie("idUtilisateur", "1");
+		response.addCookie(ck);
 		RequestDispatcher dispatcher = request.getRequestDispatcher(Constantes.PAGE_INDEX);
 		dispatcher.forward(request, response);
 	}

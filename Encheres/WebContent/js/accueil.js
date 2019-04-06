@@ -72,7 +72,14 @@ function createDashboard (data){
 			
 			let productName = document.createElement('h5');
 			productName.setAttribute('class', 'card-title');
-			productName.innerText = enchere.nomProduit;
+			
+			let linkProduct = document.createElement('a');
+			let linkDetailArticle = '/Encheres/DetailVente?noArticle=' + enchere.noArticle;
+			linkProduct.setAttribute('href', linkDetailArticle);
+			
+			linkProduct.innerText = enchere.nomProduit;
+			
+			productName.appendChild(linkProduct);
 			
 			let endDate = document.createElement('p');
 			endDate.setAttribute('class', 'card-text');
@@ -88,7 +95,14 @@ function createDashboard (data){
 			
 			let pseudo = document.createElement('p');
 			pseudo.setAttribute('class', 'card-text');
-			pseudo.innerText = 'Vendeur : ' + enchere.pseudoVendeur;
+			
+			let linkVendeur = document.createElement('a');
+			let linkDetailVendeur = '/Encheres/Profil?userId=' + getCookie('idUtilisateur');
+			linkVendeur.setAttribute('href', linkDetailVendeur);
+			
+			linkVendeur.innerText = 'Vendeur : ' + enchere.pseudoVendeur;
+			
+			pseudo.appendChild(linkVendeur);
 			
 			cardBody.appendChild(productName);
 			cardBody.appendChild(endDate);
@@ -106,6 +120,10 @@ function createDashboard (data){
 			
 			dashboard.appendChild(dashboardTile);
 		});
+}
+function getCookie(name) {
+    var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+    return v ? v[2] : null;
 }
 function cleanDashboard() {
 	let dashboard = document.getElementById("dashboard");

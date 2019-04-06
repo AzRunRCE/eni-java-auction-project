@@ -50,7 +50,7 @@
 								class="custom-control-input"
 								checked
 							> 
-								<label class="custom-control-label" for="achatsRadio">Mes achats</label>
+								<label class="custom-control-label" for="achatsRadio">Achats</label>
 						</div>
 					</div>
 					<div class="col-md-6">
@@ -74,9 +74,9 @@
 					  		class="form-check-input" 
 					  		type="checkbox" 
 					  		name="encheresOuvertes" 
-					  		id="mesEncheresCheckbox1"
+					  		id="encheresOuvertes"
 				  		>
-					  <label class="form-check-label" for="mesEncheresCheckbox1">
+					  <label class="form-check-label" for="encheresOuvertes">
 					    Enchères ouvertes
 					  </label>
 					</div>
@@ -85,9 +85,9 @@
 					  		class="form-check-input" 
 					  		type="checkbox" 
 					  		name="encheresEnCours" 
-					  		id="mesEncheresCheckbox2"
+					  		id="encheresEnCours"
 			  			>
-					  <label class="form-check-label" for="mesEncheresCheckbox2">
+					  <label class="form-check-label" for="encheresEnCours">
 					    Mes enchères en cours
 					  </label>
 					</div>
@@ -96,9 +96,9 @@
 					  		class="form-check-input" 
 					  		type="checkbox" 
 					  		name="encheresRemportees" 
-					  		id="mesEncheresCheckbox3"
+					  		id="encheresRemportees"
 			  			>
-					  <label class="form-check-label" for="mesEncheresCheckbox3">
+					  <label class="form-check-label" for="encheresRemportees">
 					    Mes enchères remportées
 					  </label>
 					</div>
@@ -109,10 +109,10 @@
 				  			class="form-check-input" 
 			  				type="checkbox" 
 			  				name="ventesEnCours" 
-			  				id="MesVentesCheckbox1"
+			  				id="ventesEnCours"
 			  				disabled
 		  				>
-					  <label class="form-check-label" for="MesVentesCheckbox1">
+					  <label class="form-check-label" for="ventesEnCours">
 					    Mes ventes en cours
 					  </label>
 					</div>
@@ -120,12 +120,12 @@
 					  <input 
 					  		class="form-check-input" 
 					  		type="checkbox" 
-					  		name="ventesNonRemportees" 
-					  		id="MesVentesCheckbox2"
+					  		name="ventesNonDebutees" 
+					  		id="ventesNonDebutees"
 					  		disabled
 				  		>
-					  <label class="form-check-label" for="MesVentesCheckbox2">
-					    Ventes non remportées
+					  <label class="form-check-label" for="ventesNonDebutees">
+					    Ventes non débutées
 					  </label>
 					</div>
 					<div class="form-check">
@@ -133,10 +133,10 @@
 				  			class="form-check-input" 
 			  				type="checkbox" 
 			  				name="ventesTerminees" 
-			  				id="MesVentesCheckbox3"
+			  				id="ventesTerminees"
 			  				disabled
 		  				>
-					  <label class="form-check-label" for="MesVentesCheckbox3">
+					  <label class="form-check-label" for="ventesTerminees">
 					    Ventes terminées
 					  </label>
 					</div>
@@ -149,6 +149,7 @@
 		</div>
 	</div>
 </form>
+<hr>
 <div id="dashboard" class="justify-content-center">
 <!-- 	<div class="card mb-3 mr-1 ml-1 dashboard-tile"> -->
 <!-- 	  <div class="row no-gutters"> -->

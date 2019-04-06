@@ -21,6 +21,9 @@
 						name="nameFilter" 
 						class="form-control col-md-8" 
 						placeholder="Le nom de l'article contient"
+						pattern="^\w[\w|\s]*\w$"
+						maxlength="20"
+						title="Caractères alphanumériques uniquement" 
 					>
 				</div>
 				<div class="form-group row">
@@ -30,10 +33,10 @@
 				    	id="SelectCategorie"
 				    	name="categorie" 
 				    >
+						<option value="-1">Toutes</option>
 						<c:forEach var="cat" items="${ listeCategories}">
 							<option value="${ cat.getNoCategorie() }">${ cat.getLibelle() }</option>
 						</c:forEach>
-							<option value="-1">Toutes</option>
 				    </select>
 				</div>
 				<c:if test = "${ sessionScope['no_utilisateur'] != null }" >

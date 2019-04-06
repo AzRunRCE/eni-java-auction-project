@@ -41,85 +41,89 @@ var lister = function() {
 	xhr.setRequestHeader("Accept", "application/json");
 	xhr.send(null);
 }
-function createDashboard (data){
+function createDashboard(data) {
 	
 	console.log(data);
 
 	//dashboard Tiles
 	
 	var dashboard = document.getElementById('dashboard');
+		if(data) {
+			data.forEach(function(enchere) {
+				//dashboard Tiles
+				let dashboardTile = document.createElement('div');
+				dashboardTile.setAttribute('class', 'card mb-3 mr-1 ml-1 dashboard-tile');
+				
+				let dashboardTileRow = document.createElement('div');
+				dashboardTileRow.setAttribute('class', 'row no-gutters');
+				
+				let dashboardTileRowImageContainer = document.createElement('div');
+				dashboardTileRowImageContainer.setAttribute('class', 'col-md-4');
+				
+				let image = document.createElement('img');
+				image.setAttribute('src', './img/alienware.jpg');
+				image.setAttribute('class', 'card-img p-1');
+				
+				let container = document.createElement('div');
+				container.setAttribute('class', 'col-md-8')
+				
+				let cardBody = document.createElement('div');
+				cardBody.setAttribute('class', 'card-body')
+				
+				let productName = document.createElement('h5');
+				productName.setAttribute('class', 'card-title');
+				
+				let linkProduct = document.createElement('a');
+				let linkDetailArticle = '/Encheres/DetailVente?noArticle=' + enchere.noArticle;
+				linkProduct.setAttribute('href', linkDetailArticle);
+				
+				linkProduct.innerText = enchere.nomProduit;
+				
+				productName.appendChild(linkProduct);
+				
+				let endDate = document.createElement('p');
+				endDate.setAttribute('class', 'card-text');
+				
+				let dateEnchere = moment(enchere.dateFinEnchere, moment.ISO_8601);
+				dateEnchere.locale('fr');
+				
+				endDate.innerText = "Fin de l'enchère : " + dateEnchere.format('DD/MM/YYYY - h:mm');
 
-		data.forEach(function(enchere) {
-			//dashboard Tiles
-			let dashboardTile = document.createElement('div');
-			dashboardTile.setAttribute('class', 'card mb-3 mr-1 ml-1 dashboard-tile');
-			
-			let dashboardTileRow = document.createElement('div');
-			dashboardTileRow.setAttribute('class', 'row no-gutters');
-			
-			let dashboardTileRowImageContainer = document.createElement('div');
-			dashboardTileRowImageContainer.setAttribute('class', 'col-md-4');
-			
-			let image = document.createElement('img');
-			image.setAttribute('src', './img/alienware.jpg');
-			image.setAttribute('class', 'card-img p-1');
-			
-			let container = document.createElement('div');
-			container.setAttribute('class', 'col-md-8')
-			
-			let cardBody = document.createElement('div');
-			cardBody.setAttribute('class', 'card-body')
-			
-			let productName = document.createElement('h5');
-			productName.setAttribute('class', 'card-title');
-			
-			let linkProduct = document.createElement('a');
-			let linkDetailArticle = '/Encheres/DetailVente?noArticle=' + enchere.noArticle;
-			linkProduct.setAttribute('href', linkDetailArticle);
-			
-			linkProduct.innerText = enchere.nomProduit;
-			
-			productName.appendChild(linkProduct);
-			
-			let endDate = document.createElement('p');
-			endDate.setAttribute('class', 'card-text');
-			
-			let dateEnchere = moment(enchere.dateFinEnchere, moment.ISO_8601);
-			dateEnchere.locale('fr');
-			
-			endDate.innerText = "Fin de l'enchère : " + dateEnchere.format('DD/MM/YYYY - h:mm');
-
-			let amount = document.createElement('p');
-			amount.setAttribute('class', 'card-text');
-			amount.innerText = 'Prix : ' + enchere.montant + ' points';
-			
-			let pseudo = document.createElement('p');
-			pseudo.setAttribute('class', 'card-text');
-			
-			let linkVendeur = document.createElement('a');
-			let linkDetailVendeur = '/Encheres/Profil?userId=' + getCookie('idUtilisateur');
-			linkVendeur.setAttribute('href', linkDetailVendeur);
-			
-			linkVendeur.innerText = 'Vendeur : ' + enchere.pseudoVendeur;
-			
-			pseudo.appendChild(linkVendeur);
-			
-			cardBody.appendChild(productName);
-			cardBody.appendChild(endDate);
-			cardBody.appendChild(amount);
-			cardBody.appendChild(pseudo);
-			
-			container.appendChild(cardBody);
-			
-			dashboardTileRowImageContainer.appendChild(image);
-			
-			dashboardTileRow.appendChild(dashboardTileRowImageContainer);
-			dashboardTileRow.appendChild(container);
-			
-			dashboardTile.appendChild(dashboardTileRow);
-			
-			dashboard.appendChild(dashboardTile);
-		});
+				let amount = document.createElement('p');
+				amount.setAttribute('class', 'card-text');
+				amount.innerText = 'Prix : ' + enchere.montant + ' points';
+				
+				let pseudo = document.createElement('p');
+				pseudo.setAttribute('class', 'card-text');
+				
+				let linkVendeur = document.createElement('a');
+				let linkDetailVendeur = '/Encheres/Profil?userId=' + getCookie('idUtilisateur');
+				linkVendeur.setAttribute('href', linkDetailVendeur);
+				
+				linkVendeur.innerText = 'Vendeur : ' + enchere.pseudoVendeur;
+				
+				pseudo.appendChild(linkVendeur);
+				
+				cardBody.appendChild(productName);
+				cardBody.appendChild(endDate);
+				cardBody.appendChild(amount);
+				cardBody.appendChild(pseudo);
+				
+				container.appendChild(cardBody);
+				
+				dashboardTileRowImageContainer.appendChild(image);
+				
+				dashboardTileRow.appendChild(dashboardTileRowImageContainer);
+				dashboardTileRow.appendChild(container);
+				
+				dashboardTile.appendChild(dashboardTileRow);
+				
+				dashboard.appendChild(dashboardTile);
+			});
+		} else {
+			//display error
+		}
+		
 }
 function getCookie(name) {
     var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
@@ -226,5 +230,7 @@ function addListeners() {
 
 window.onload = function() {
 	lister();
-	addListeners();
+	if (document.getElementById('ventesRadio') && document.getElementById('achatsRadio')) {
+		addListeners();		
+	}
 }

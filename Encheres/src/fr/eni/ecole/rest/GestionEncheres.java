@@ -3,6 +3,8 @@ package fr.eni.ecole.rest;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.ws.rs.CookieParam;
 import javax.ws.rs.FormParam;
@@ -58,7 +60,8 @@ public class GestionEncheres {
 		Boolean ventesNonDebuteesChecked = ventesNonDebutees != null ? ventesNonDebutees.equals("on") ? true: false : false;
 		Boolean ventesTermineesChecked = ventesTerminees  != null ? ventesTerminees.equals("on") ? true: false : false;
 		
-//		System.out.println("nameFilter " + nameFilter);
+		System.out.println("nameFilter entree " + nameFilter + " taille chaine "+ nameFilter.length());
+
 //		System.out.println("noCategorie " + noCategorie);
 //		System.out.println("radioButtons " + radioButtons);
 //		System.out.println("enchereOuverteChecked " + enchereOuverteChecked);
@@ -67,22 +70,30 @@ public class GestionEncheres {
 //		System.out.println("ventesEnCoursChecked " + ventesEnCoursChecked);
 //		System.out.println("ventesNonDebuteesChecked " + ventesNonDebuteesChecked);
 //		System.out.println("ventesTermineesChecked " + ventesTermineesChecked);
-		
-		AccueilFilters filtresAccueil = 
-				new AccueilFilters(	nameFilter, 
-									noCategorie, 
-									radioButtons, 
-									enchereOuverteChecked, 
-									encheresEnCoursChecked, 
-									encheresRemporteesChecked, 
-									ventesEnCoursChecked, 
-									ventesNonDebuteesChecked, 
-									ventesTermineesChecked );
-		
-		System.out.println(idUtilisateur);
-		
-		EncheresManager enchereManager = new EncheresManager();
-		return enchereManager.getListeEncheresAccueilWithParameters(filtresAccueil, idUtilisateur);
+		Pattern pattern = Pattern.compile("^\\w[\\w|\\s]*\\w$"); // il faut echapper les '\'
+	    Matcher matcher = pattern.matcher(nameFilter);
+	    
+		if ( nameFilter.length() <= 20  && matcher.matches() ) {
+			//nameFilter = nameFilter.trim();
+			AccueilFilters filtresAccueil = 
+					new AccueilFilters(	nameFilter, 
+							noCategorie, 
+							radioButtons, 
+							enchereOuverteChecked, 
+							encheresEnCoursChecked, 
+							encheresRemporteesChecked, 
+							ventesEnCoursChecked, 
+							ventesNonDebuteesChecked, 
+							ventesTermineesChecked );
+			
+			System.out.println(idUtilisateur);
+			
+			EncheresManager enchereManager = new EncheresManager();
+			return enchereManager.getListeEncheresAccueilWithParameters(filtresAccueil, idUtilisateur);			
+		} else {
+			System.out.println("protection ok");
+			return null;
+		}
 	}
 
 }

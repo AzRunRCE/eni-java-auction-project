@@ -21,7 +21,7 @@ public class EnchereDAO implements IDAOEnchere {
 	
 	private final String CLAUSE_WHERE = "WHERE ";
 	//on doit doubler les % attendus par SQL sinon UnknownFormatConversionException lors du String.format()
-	private final String FILTER_NAME ="av.nom_article LIKE '%%%s%%' "; 
+	private final String FILTER_NAME ="UPPER(av.nom_article) LIKE '%%%s%%' "; 
 	private final String FILTER_CATEGORIE = "av.no_categorie = %d ";
 	private final String AND = "AND ";
 	private final String VENTES = "";
@@ -358,7 +358,7 @@ public class EnchereDAO implements IDAOEnchere {
 		if(accueilFilters.getNameFilter() != null && !accueilFilters.getNameFilter().isEmpty()) {
 			sb.append(CLAUSE_WHERE);
 			whereAlreadySet = true;
-			sb.append( String.format(FILTER_NAME, accueilFilters.getNameFilter()) );
+			sb.append( String.format(FILTER_NAME, accueilFilters.getNameFilter().toUpperCase()) );
 		}
 		if(accueilFilters.getNoCategorie() != -1 ) {
 			if(!whereAlreadySet) {

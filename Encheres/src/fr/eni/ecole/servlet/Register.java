@@ -58,8 +58,8 @@ public class Register extends HttpServlet {
 			
 			CredentialManager credMgr = new CredentialManager();
 
-			Boolean result = credMgr.register(new_user);
-			if (result == true) {
+			int result = credMgr.register(new_user);
+			if (result > 0) {
 				new_user = credMgr.connexion(new_user.getPseudo(), new_user.getMotDePasse());
 				if (new_user != null) {
 					request.getSession().setAttribute(Constantes.SESS_PSEUDO, new_user.getPseudo());

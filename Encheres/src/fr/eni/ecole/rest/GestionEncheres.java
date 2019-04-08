@@ -13,8 +13,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 
 import fr.eni.ecole.bll.EncheresManager;
-import fr.eni.ecole.rest.mo.AccueilFilters;
 import fr.eni.ecole.rest.mo.AccueilDashboardTile;
+import fr.eni.ecole.rest.mo.AccueilFilters;
 /**
  * webservice rest qui gere les encheres
  * @author romai
@@ -39,10 +39,11 @@ public class GestionEncheres {
 		EncheresManager enchereManager = new EncheresManager();
 		return enchereManager.getListeEncheresAccueilWithoutParameters();
 	}
+	@SuppressWarnings("unused")
 	@POST
 	public List<AccueilDashboardTile> getListeEncheresWithParams(
 													@FormParam("nameFilter") String nameFilter,
-													@FormParam("categorie") int noCategorie,
+													@FormParam("categorie") Integer noCategorie,
 													@FormParam("radioButtons") String radioButtons,
 													@FormParam("encheresOuvertes") String enchereOuverte,
 													@FormParam("encheresEnCours") String encheresEnCours,
@@ -60,7 +61,7 @@ public class GestionEncheres {
 		Boolean ventesNonDebuteesChecked = ventesNonDebutees != null ? ventesNonDebutees.equals("on") ? true: false : false;
 		Boolean ventesTermineesChecked = ventesTerminees  != null ? ventesTerminees.equals("on") ? true: false : false;
 		
-		System.out.println("nameFilter entree " + nameFilter + " taille chaine "+ nameFilter.length());
+		System.out.println("nameFilter entree " + nameFilter + " taille chaine "+ nameFilter.length() + " value " + nameFilter);
 
 //		System.out.println("noCategorie " + noCategorie);
 //		System.out.println("radioButtons " + radioButtons);
@@ -70,10 +71,34 @@ public class GestionEncheres {
 //		System.out.println("ventesEnCoursChecked " + ventesEnCoursChecked);
 //		System.out.println("ventesNonDebuteesChecked " + ventesNonDebuteesChecked);
 //		System.out.println("ventesTermineesChecked " + ventesTermineesChecked);
-		Pattern pattern = Pattern.compile("^\\w[\\w|\\s]*\\w$"); // il faut echapper les '\'
-	    Matcher matcher = pattern.matcher(nameFilter);
+		if(nameFilter == null) { 
+			nameFilter = "";
+		}
+		if(radioButtons == null) {
+			radioButtons = "";
+		}
+		if(noCategorie == null) {
+			noCategorie = -1;
+		}
+		if(idUtilisateur == null) {
+			idUtilisateur = -1;
+		}
+		Pattern patternNameFilter = Pattern.compile("^(\\w(\\w|\\s)*\\w)|(\\w)$"); // il faut echapper les '\'
+	    Matcher matcherNameFilter = patternNameFilter.matcher(nameFilter);
 	    
-		if ( nameFilter.length() <= 20  && matcher.matches() ) {
+	    Pattern patternRadioBtn = Pattern.compile("^(mesVentes|mesAchats)$"); // il faut echapper les '\'
+	    Matcher matcherRadioBtn = patternRadioBtn.matcher(radioButtons);
+	    
+	    //System.out.println(nameFilter.length() <= 20);
+	    System.out.println(matcherNameFilter.matches());
+	    System.out.println(nameFilter.equals(""));
+	    System.out.println(nameFilter == null);
+	    System.out.println(nameFilter.hashCode() == 0);
+	    System.out.println(matcherRadioBtn.matches());
+	    System.out.println(radioButtons.hashCode() == 0);
+	    
+		if ( (matcherNameFilter.matches() || nameFilter.equals("")) &&
+				(matcherRadioBtn.matches() || radioButtons.equals("")) ) {
 			//nameFilter = nameFilter.trim();
 			AccueilFilters filtresAccueil = 
 					new AccueilFilters(	nameFilter, 

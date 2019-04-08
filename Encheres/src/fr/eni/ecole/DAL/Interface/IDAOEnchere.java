@@ -1,13 +1,11 @@
-package fr.eni.ecole.DAL;
+package fr.eni.ecole.DAL.Interface;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
-import fr.eni.ecole.DAL.Interface.DAO;
 import fr.eni.ecole.beans.Enchere;
 import fr.eni.ecole.rest.mo.AccueilFilters;
-import fr.eni.ecole.rest.mo.AccueilDashboardTile;
 import fr.eni.ecole.rest.mo.DetailEnchere;
+import fr.eni.ecole.rest.mo.AccueilDashboardTile;
 
 public interface IDAOEnchere extends DAO<Enchere> {
 	
@@ -20,16 +18,16 @@ public interface IDAOEnchere extends DAO<Enchere> {
 
 	  /**
 	   * Methode permettant d'aller chercher en base les enregistrements respectant les filtres
-	   * @param accueilFilters Structure de donn�es contenant les filtres saisis
+	   * @param accueilFilters Structure de donnes contenant les filtres saisis
 	   * @param idUtilisateur
 	   * @return une liste de AccueilDashboardTile
 	   */
 	  public List<AccueilDashboardTile> selectAllwithParameters(AccueilFilters accueilFilters, Integer idUtilisateur);
 	  
 	  /**
-	   * Methode de recherche d'une enchère pour un article
+	   * Methode de recherche d'une ench�re pour un article
 	   * @param noArticle
-	   * @return un objet de type DetailEnchere
+	   * @return un objet de type getDetailEnchere
 	   */
 	  public DetailEnchere selectById(int noArticle);
 	  

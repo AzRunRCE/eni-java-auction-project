@@ -21,8 +21,7 @@
 						name="nameFilter" 
 						class="form-control col-md-8" 
 						placeholder="Le nom de l'article contient"
-						pattern="^\w[\w|\s]*\w$"
-						maxlength="20"
+						pattern="^(\w(\w|\s)*\w)|(\w)$"
 						title="Caractères alphanumériques uniquement" 
 					>
 				</div>

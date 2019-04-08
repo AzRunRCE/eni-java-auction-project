@@ -1,12 +1,13 @@
 package fr.eni.ecole.bll;
 import fr.eni.ecole.DAL.*;
+import fr.eni.ecole.DAL.Interface.IDAOUtilisateur;
 import fr.eni.ecole.beans.Utilisateur;
 
 public class CredentialManager {
 
 	IDAOUtilisateur daoUtilisateurs = DAOFactory.getUtilisateurDAO();
 	
-	public Boolean register(Utilisateur new_user) throws DALException {
+	public int register(Utilisateur new_user) throws DALException {
 	
 		
 		//Set user rigth
@@ -16,11 +17,10 @@ public class CredentialManager {
 		Utilisateur emailAlreadyUsed =  daoUtilisateurs.findByLogin(new_user.getEmail());
 		Utilisateur pseudoAlreadyUsed =  daoUtilisateurs.findByLogin(new_user.getPseudo());
 		if (emailAlreadyUsed == null && pseudoAlreadyUsed == null) {
-			daoUtilisateurs.create(new_user);
-			return true;
+			return daoUtilisateurs.create(new_user);
 		}
 		else {
-			return false;
+			return -1;
 		}
 	}
 	

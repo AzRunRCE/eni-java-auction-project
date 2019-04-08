@@ -1,4 +1,4 @@
-package fr.eni.ecole.DAL;
+package fr.eni.ecole.DAL.Interface;
 
 public interface DAO<T> {
 
@@ -8,7 +8,7 @@ public interface DAO<T> {
   * @param obj
   * @return boolean 
   */
-  public  boolean create(T obj);
+  public  int create(T obj);
 
   /**
   * M�thode pour effacer

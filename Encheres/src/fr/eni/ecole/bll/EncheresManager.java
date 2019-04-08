@@ -3,7 +3,7 @@ package fr.eni.ecole.bll;
 import java.util.List;
 
 import fr.eni.ecole.DAL.DAOFactory;
-import fr.eni.ecole.DAL.IDAOEnchere;
+import fr.eni.ecole.DAL.Interface.IDAOEnchere;
 import fr.eni.ecole.rest.mo.AccueilFilters;
 import fr.eni.ecole.rest.mo.AccueilDashboardTile;
 import fr.eni.ecole.rest.mo.DetailEnchere;
@@ -22,6 +22,7 @@ public class EncheresManager {
     /**
     * Methode permettant d'aller chercher en base les enregistrements respectant les filtres
     * @param accueilFilters Structure de donn�es contenant les filtres saisis
+    * @param accueilFilters Structure de donnes contenant les filtres saisis
     * @param idUtilisateur
     * @return une liste de AccueilDashboardTile
     */

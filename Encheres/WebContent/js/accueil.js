@@ -97,7 +97,7 @@ function createDashboard(data) {
 				pseudo.setAttribute('class', 'card-text');
 				
 				let linkVendeur = document.createElement('a');
-				let linkDetailVendeur = '/Encheres/Profil?userId=' + getCookie('idUtilisateur');
+				let linkDetailVendeur = '/Encheres/Profil?userId=' + enchere.noVendeur;
 				linkVendeur.setAttribute('href', linkDetailVendeur);
 				
 				linkVendeur.innerText = 'Vendeur : ' + enchere.pseudoVendeur;
@@ -229,7 +229,11 @@ function addListeners() {
 }) ();
 
 window.onload = function() {
-	lister();
+	if(getCookie('idUtilisateur')){
+		$("#filterForm").trigger("submit");
+	} else {
+		lister();		
+	} 
 	if (document.getElementById('ventesRadio') && document.getElementById('achatsRadio')) {
 		addListeners();		
 	}

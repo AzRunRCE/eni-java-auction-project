@@ -29,9 +29,10 @@ public class EnchereDAO implements IDAOEnchere {
 	
 	private final String LEFT_JOIN_ENCHERES = "LEFT JOIN ENCHERES e ON av.no_utilisateur = e.no_utilisateur "; 
 	private final String TOUTES_ENCHERES_OUVERTES = "av.date_debut_encheres < GETDATE() AND av.date_fin_encheres > GETDATE() ";
-	private final String MES_ENCHERES = "e.no_utilisateur = %d";
+	private final String MES_ENCHERES = "e.no_utilisateur = %d ";
 	private final String MES_ENCHERES_OU_VENTES_COURS = "av.date_debut_encheres < GETDATE() AND av.date_fin_encheres > GETDATE() ";
 	private final String MES_ENCHERES_REMPORTEES = "av.date_debut_encheres < GETDATE() AND av.date_fin_encheres > GETDATE() ";
+	private final String ACHATS = "av.no_utilisateur <> %d ";
 	private final String MES_VENTES = "av.no_utilisateur = %d ";
 	private final String MES_VENTES_NON_COMMENCEES = "av.date_debut_encheres > GETDATE() ";
 	private final String MES_VENTES_TERMINEES = "av.date_fin_encheres < GETDATE() ";
@@ -182,7 +183,14 @@ public class EnchereDAO implements IDAOEnchere {
 			System.out.println("mesAchats");
 			requeteParametree.append(LEFT_JOIN_ENCHERES);
 			requeteParametree = constructSQLForNameAndCategorie(requeteParametree, accueilFilters);
-			
+			if(!whereAlreadySet) {
+				requeteParametree.append(CLAUSE_WHERE);
+				whereAlreadySet = true;
+				requeteParametree.append(String.format(ACHATS, idUtilisateur));
+			} else {
+				requeteParametree.append(AND);
+				requeteParametree.append(String.format(ACHATS, idUtilisateur));
+			}
 			if ( (encheresOuverteChecked && encheresEnCoursChecked && encheresRemporteesChecked)
 					|| (encheresOuverteChecked && !encheresEnCoursChecked && encheresRemporteesChecked) ) {
 				//On veut toutes les encheres ouvertes + mes encheres remportees - UNION

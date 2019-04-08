@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.ecole.DAL.DALException;
 import fr.eni.ecole.DAL.DAOFactory;
-import fr.eni.ecole.DAL.IDAOUtilisateur;
+import fr.eni.ecole.DAL.Interface.IDAOUtilisateur;
 import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.util.AccesBase;
 

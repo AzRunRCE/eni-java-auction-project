@@ -5,10 +5,10 @@ import static org.junit.Assert.assertNotNull;
 import java.sql.Connection;
 
 import org.junit.jupiter.api.Test;
-
 import fr.eni.ecole.DAL.DALException;
 import fr.eni.ecole.DAL.DAOFactory;
-import fr.eni.ecole.DAL.IDAOUtilisateur;
+import fr.eni.ecole.DAL.Impl.*;
+import fr.eni.ecole.DAL.Interface.IDAOUtilisateur;
 import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.util.AccesBase;;
 

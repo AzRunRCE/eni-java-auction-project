@@ -1,6 +1,7 @@
 package fr.eni.ecole.beans;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class ArticleVendu implements Serializable {
@@ -16,7 +17,30 @@ public class ArticleVendu implements Serializable {
 	float miseAPrix;
 	float prixVente;
 	Boolean etatVente;
+	Utilisateur utilisateur;
+	Categorie categorie;
+	Retrait retrait;
 	
+	
+	public Retrait getRetrait() {
+		return retrait;
+	}
+	public void setRetrait(Retrait retrait) {
+		this.retrait = retrait;
+	}
+	
+	public Categorie getCategorie() {
+		return categorie;
+	}
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
+	}
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
+	}
 	public int getNoArticle() {
 		return noArticle;
 	}

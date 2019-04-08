@@ -10,7 +10,14 @@ public class Retrait implements Serializable{
 	String rue;
 	String code_postal;
 	String ville;
+	int no_article;
 	
+	public int getNo_article() {
+		return no_article;
+	}
+	public void setNo_article(int no_article) {
+		this.no_article = no_article;
+	}
 	public String getRue() {
 		return rue;
 	}
@@ -31,6 +38,11 @@ public class Retrait implements Serializable{
 	}
 	public Retrait() {
 		super();
+	}
+	public Retrait(int no_article, String rue, String codePostal, String ville) {
+		this.setRue(rue);
+		this.setCode_postal(codePostal);
+		this.setVille(ville);
 	}
 	
 }

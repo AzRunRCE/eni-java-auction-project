@@ -35,7 +35,7 @@
 		      		<a class="nav-link" href="${pageContext.request.contextPath }/">Enchères<span class="sr-only">(current)</span></a>
 		      	</li>
 		      	<li class ="nav-item ">
-		      		<a class="nav-link" href="#">Vendre</a>
+		      		<a class="nav-link" href="Sell">Vendre</a>
 		      	</li>
 		      	<li class ="nav-item ">
 		      		<a class="nav-link" href="Profil">Mon Profil</a>

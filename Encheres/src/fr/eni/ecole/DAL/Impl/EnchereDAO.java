@@ -14,6 +14,7 @@ import fr.eni.ecole.rest.mo.getDetailEnchere;
 import fr.eni.ecole.util.AccesBase;
 import fr.eni.ecole.DAL.DALException;
 import fr.eni.ecole.DAL.Interface.*;
+
 public class EnchereDAO implements IDAOEnchere {
 
 	private final String SELECT_ALL_WITHOUT_PARAM = "SELECT av.nom_article, av.date_fin_encheres, av.prix_vente, u.pseudo, u.no_utilisateur, av.no_article " + 
@@ -30,9 +31,10 @@ public class EnchereDAO implements IDAOEnchere {
 	
 	private final String LEFT_JOIN_ENCHERES = "LEFT JOIN ENCHERES e ON av.no_utilisateur = e.no_utilisateur "; 
 	private final String TOUTES_ENCHERES_OUVERTES = "av.date_debut_encheres < GETDATE() AND av.date_fin_encheres > GETDATE() ";
-	private final String MES_ENCHERES = "e.no_utilisateur = %d";
+	private final String MES_ENCHERES = "e.no_utilisateur = %d ";
 	private final String MES_ENCHERES_OU_VENTES_COURS = "av.date_debut_encheres < GETDATE() AND av.date_fin_encheres > GETDATE() ";
 	private final String MES_ENCHERES_REMPORTEES = "av.date_debut_encheres < GETDATE() AND av.date_fin_encheres > GETDATE() ";
+	private final String ACHATS = "av.no_utilisateur <> %d ";
 	private final String MES_VENTES = "av.no_utilisateur = %d ";
 	private final String MES_VENTES_NON_COMMENCEES = "av.date_debut_encheres > GETDATE() ";
 	private final String MES_VENTES_TERMINEES = "av.date_fin_encheres < GETDATE() ";
@@ -50,8 +52,8 @@ public class EnchereDAO implements IDAOEnchere {
 										"ORDER BY e.montant_enchere DESC";
 								
 	@Override
-	public int create(Enchere obj) {
-		return -1;
+	public boolean create(Enchere obj) {
+		return false;
 	}
 
 	@Override
@@ -183,7 +185,14 @@ public class EnchereDAO implements IDAOEnchere {
 			System.out.println("mesAchats");
 			requeteParametree.append(LEFT_JOIN_ENCHERES);
 			requeteParametree = constructSQLForNameAndCategorie(requeteParametree, accueilFilters);
-			
+			if(!whereAlreadySet) {
+				requeteParametree.append(CLAUSE_WHERE);
+				whereAlreadySet = true;
+				requeteParametree.append(String.format(ACHATS, idUtilisateur));
+			} else {
+				requeteParametree.append(AND);
+				requeteParametree.append(String.format(ACHATS, idUtilisateur));
+			}
 			if ( (encheresOuverteChecked && encheresEnCoursChecked && encheresRemporteesChecked)
 					|| (encheresOuverteChecked && !encheresEnCoursChecked && encheresRemporteesChecked) ) {
 				//On veut toutes les encheres ouvertes + mes encheres remportees - UNION
@@ -342,14 +351,14 @@ public class EnchereDAO implements IDAOEnchere {
 			e.printStackTrace();
 			return null;
 		} catch (DALException e1) {
-			System.out.println("Probleme dans le m�thode selectById");
+			System.out.println("Probleme dans le mÃ©thode selectById");
 			e1.printStackTrace();
 			return null;
 		}
 	}
 	
 	/**
-	 * Cette methode permet la construction de la partie filtres mode non connect de la requete SQL
+	 * Cette methode permet la construction de la partie filtres mode non connecté de la requete SQL
 	 * Elle gere donc les filtres sur name et categorie
 	 * @param sb
 	 * @param accueilFilters
@@ -375,12 +384,12 @@ public class EnchereDAO implements IDAOEnchere {
 	}
 	
 	/**
-	 ** Cette methode permet la construction de la partie filtres mode connect (Mes ventes) de la requete SQL
-	 * Elle gere le cas ou un deux filtres sont demands
+	 ** Cette methode permet la construction de la partie filtres mode connecté (Mes ventes) de la requete SQL
+	 * Elle gere le cas ou un deux filtres sont demandés
 	 * @param sb
 	 * @param accueilFilters
-	 * @param constraint1 correspond  une constante ex : MES_ENCHERES_OU_VENTES_COURS
-	 * @param constraint2 correspond  une constante ex : MES_ENCHERES_OU_VENTES_COURS
+	 * @param constraint1 correspond à une constante ex : MES_ENCHERES_OU_VENTES_COURS
+	 * @param constraint2 correspond à une constante ex : MES_ENCHERES_OU_VENTES_COURS
 	 * @return le StringBuilder avec la partie de la requete en plus
 	 */
 	private StringBuilder constructSQLForMesVentesWithUNION (StringBuilder sb,
@@ -416,11 +425,11 @@ public class EnchereDAO implements IDAOEnchere {
 	}
 	
 	/**
-	 * Cette methode permet la construction de la partie filtres mode connect (Mes ventes) de la requete SQL
-	 * Elle gere le cas ou un seul filtre est demand
+	 * Cette methode permet la construction de la partie filtres mode connecté (Mes ventes) de la requete SQL
+	 * Elle gere le cas ou un seul filtre est demandé
 	 * @param sb
 	 * @param accueilFilters
-	 * @param constraint correspond  une constante ex : MES_ENCHERES_OU_VENTES_COURS
+	 * @param constraint correspond à une constante ex : MES_ENCHERES_OU_VENTES_COURS
 	 * @return le StringBuilder avec la partie de la requete en plus
 	 */
 	private StringBuilder constructSQLForMesVentesSimple (StringBuilder sb, 
@@ -437,11 +446,11 @@ public class EnchereDAO implements IDAOEnchere {
 		return sb;
 	}
 	/**
-	 * Cette methode permet la construction de la partie filtres mode connect (Mes encheres) de la requete SQL
-	 * Elle gere le cas ou un seul filtre est demand
+	 * Cette methode permet la construction de la partie filtres mode connecté (Mes encheres) de la requete SQL
+	 * Elle gere le cas ou un seul filtre est demandé
 	 * @param sb
 	 * @param accueilFilters
-	 * @param constraint correspond  une constante ex : MES_VENTES_TERMINEES
+	 * @param constraint correspond à une constante ex : MES_VENTES_TERMINEES
 	 * @param idUtilisateur
 	 * @return le StringBuilder avec la partie de la requete en plus
 	 */

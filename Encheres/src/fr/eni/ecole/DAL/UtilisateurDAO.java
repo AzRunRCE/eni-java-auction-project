@@ -15,6 +15,7 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	private final String FIND_BY_LOGIN = "SELECT * FROM UTILISATEURS WHERE pseudo = ? OR email = ?";
 	private final String CREATE = "INSERT INTO UTILISATEURS VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 	private final String UPDATE = "UPDATE [dbo].[UTILISATEURS] SET [pseudo] = ? ,[nom] = ? ,[prenom] = ? ,[email] = ?,[telephone] = ?,[rue] = ?,[code_postal] = ?,[ville] = ?,[mot_de_passe] = ?,[credit] = ?,[administrateur] = ? WHERE no_utilisateur = ?";
+	private final String UPDATE_CREDIT = "UPDATE UTILISAEURS SET credit = ? WHERE no_utisateur = ?";
 	private final String DELETE = "delete UTILISATEURS where no_utilisateur = ?";
 	
 	public UtilisateurDAO () {
@@ -249,5 +250,23 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	    	return null;
 	    }
 	}
-
+	
+	@Override
+	public int updateCredit(int noUtilisateur, int montant ) {
+		int rs = 0 ;
+		try(Connection connect = AccesBase.getConnection();
+				PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_CREDIT)) {
+	    	preparedStatement.setInt(1,montant); 
+	    	preparedStatement.setInt(2,noUtilisateur); 
+	    		    	
+	    	rs = preparedStatement.executeUpdate();
+	    	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (DALException e) {
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
 }

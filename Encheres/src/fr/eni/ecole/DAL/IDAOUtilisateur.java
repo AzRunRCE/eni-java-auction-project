@@ -10,4 +10,11 @@ public interface IDAOUtilisateur  extends DAO<Utilisateur>{
 	   * @return T
 	   */
 	  public Utilisateur findByLogin(String email_or_username);
+	  
+	  /**
+	   * Mets à jour le  crédit d'un utlisateur
+	   * @param noUtlisateur
+	   * @return le nombre de ligne affectee
+	   */
+	  public int updateCredit(int noUtlisateur , int montant);
 }

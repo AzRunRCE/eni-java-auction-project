@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
 <jsp:include page="../fragments/header.jsp">
@@ -10,6 +10,13 @@
 <div class="container">
 	<h2>Détail Vente</h2>
 	<hr>
+	<div class = "col-12">
+		<c:if test="${erreur != null}"> 
+			<div class="alert alert-danger" role="alert">
+		  		${erreur}
+			</div>
+		</c:if>
+	</div>
 	<div class="row">
 		<div class="col-md-3">
 			<div class="detail">
@@ -79,10 +86,16 @@
 			</div>
 			<div class="row">
 				<div class="col-md-6 ">
-					<form>
+					<form action="./DetailVente" method="post">
 						<div class="form-inline">
 							<label for="montant" class="mr-sm-2">Ma Proposition :</label>
-							<input type="number" class="form-control form-control-sm  mr-sm-2" id="montant" placeholder="">
+							<fmt:parseNumber var="montantPropose" type="number" value="${montantEnchere}" />
+							<input type="number" class="form-control form-control-sm  mr-sm-2" id="nouveauMontant" name="nouveauMontant" value="${montantPropose +1 }">
+							<input type="hidden" id="noAcheteur" name="noAchateur" value="${noAcheteur }">
+							<input type="hidden" id="noVendeur" name="noVendeur" value="${noVendeur }">
+							<input type="hidden" id="noArticle" name="noArticle" value="${noArticle }">
+							<input type="hidden" id="prixInitial" name="prixInitial" value="${prixInitial }">
+							<input type="hidden" id="ancienMontant" name="ancienMontant" value="${montantEnchere }">
 							<div>
 								<button type="submit" class="btn btn-primary">Enchérir</button>
 							</div>

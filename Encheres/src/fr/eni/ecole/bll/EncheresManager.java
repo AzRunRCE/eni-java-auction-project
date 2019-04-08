@@ -6,7 +6,7 @@ import fr.eni.ecole.DAL.DAOFactory;
 import fr.eni.ecole.DAL.IDAOEnchere;
 import fr.eni.ecole.rest.mo.AccueilFilters;
 import fr.eni.ecole.rest.mo.AccueilDashboardTile;
-import fr.eni.ecole.rest.mo.getDetailEnchere;
+import fr.eni.ecole.rest.mo.DetailEnchere;
 
 public class EncheresManager {
 	IDAOEnchere daoEncheres = DAOFactory.getEnchereDAO();
@@ -21,7 +21,7 @@ public class EncheresManager {
 	
     /**
     * Methode permettant d'aller chercher en base les enregistrements respectant les filtres
-    * @param accueilFilters Structure de données contenant les filtres saisis
+    * @param accueilFilters Structure de donnï¿½es contenant les filtres saisis
     * @param idUtilisateur
     * @return une liste de AccueilDashboardTile
     */
@@ -29,7 +29,13 @@ public class EncheresManager {
 		return daoEncheres.selectAllwithParameters(accueilFilters, idUtilisateur);
 	}
 	
-	public getDetailEnchere getEnchere(int noArticle) {
+	/**
+	 * 
+	 * @param noArticle
+	 * @return mon objet pour la page dÃ©tail vente
+	 */
+	public DetailEnchere getEnchere(int noArticle) {
 		return daoEncheres.selectById(noArticle);
 	}
+	 
 }

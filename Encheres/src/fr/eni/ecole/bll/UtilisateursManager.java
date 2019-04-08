@@ -2,7 +2,7 @@ package fr.eni.ecole.bll;
 
 
 import fr.eni.ecole.DAL.DAOFactory;
-import fr.eni.ecole.DAL.IDAOUtilisateur;
+import fr.eni.ecole.DAL.Interface.IDAOUtilisateur;
 import fr.eni.ecole.beans.Utilisateur;
 
 public class UtilisateursManager {

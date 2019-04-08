@@ -1,9 +1,12 @@
-package fr.eni.ecole.DAL;
+package fr.eni.ecole.DAL.Impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
+import fr.eni.ecole.DAL.*;
+import fr.eni.ecole.DAL.Interface.IDAOUtilisateur;
 import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.util.AccesBase;
 
@@ -21,10 +24,10 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	}
 
 	@Override
-	public boolean create(Utilisateur new_user) {
+	public int create(Utilisateur new_user) {
 		
 		try(Connection connect = AccesBase.getConnection();
-				PreparedStatement preparedStatement = connect.prepareStatement(CREATE)) {
+				PreparedStatement preparedStatement = connect.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS)) {
 
 			preparedStatement.setString(1,new_user.getPseudo()); 
 	       	preparedStatement.setString(2,new_user.getNom()); 
@@ -37,19 +40,23 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	    	preparedStatement.setString(9,new_user.getMotDePasse());
 	    	preparedStatement.setInt(10,new_user.getCredit());
 	     	preparedStatement.setInt(11,new_user.getAdministrateur());
-	     	
-	    	preparedStatement.execute();
-	    	return true;
+	    	preparedStatement.executeUpdate();
+            ResultSet rs = preparedStatement.getGeneratedKeys();
+	        if(rs.next())
+	        {
+	        	return  rs.getInt(1);
+	        }
+	    	return -1;
 		} catch (SQLException e) {
 			try {
 				throw new DALException(" DAOUtilisateur probleme avec la methode create",e);
 			} catch (DALException e1) {
 				e1.printStackTrace();
-				return false;
+				return -1;
 			}
 		} catch (DALException e1) {
 			e1.printStackTrace();
-			return false;
+			return -1;
 		}
 	}
 

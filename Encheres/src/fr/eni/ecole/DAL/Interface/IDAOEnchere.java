@@ -1,4 +1,4 @@
-package fr.eni.ecole.DAL;
+package fr.eni.ecole.DAL.Interface;
 
 import java.util.List;
 
@@ -18,14 +18,14 @@ public interface IDAOEnchere extends DAO<Enchere> {
 
 	  /**
 	   * Methode permettant d'aller chercher en base les enregistrements respectant les filtres
-	   * @param accueilFilters Structure de données contenant les filtres saisis
+	   * @param accueilFilters Structure de donnes contenant les filtres saisis
 	   * @param idUtilisateur
 	   * @return une liste de AccueilDashboardTile
 	   */
 	  public List<AccueilDashboardTile> selectAllwithParameters(AccueilFilters accueilFilters, Integer idUtilisateur);
 	  
 	  /**
-	   * Methode de recherche d'une enchÃ¨re pour un article
+	   * Methode de recherche d'une enchère pour un article
 	   * @param noArticle
 	   * @return un objet de type getDetailEnchere
 	   */

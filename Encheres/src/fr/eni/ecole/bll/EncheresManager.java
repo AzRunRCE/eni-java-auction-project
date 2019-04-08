@@ -21,8 +21,7 @@ public class EncheresManager {
 	
     /**
     * Methode permettant d'aller chercher en base les enregistrements respectant les filtres
-    * @param accueilFilters Structure de donn�es contenant les filtres saisis
-    * @param accueilFilters Structure de donnes contenant les filtres saisis
+    * @param accueilFilters Structure de donnees contenant les filtres saisis
     * @param idUtilisateur
     * @return une liste de AccueilDashboardTile
     */

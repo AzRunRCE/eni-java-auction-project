@@ -20,9 +20,9 @@ public class CategorieDAO implements IDAOCategorie {
 	private final String SELECT_BY_ID = "SELECT no_categorie, libelle FROM CATEGORIES WHERE no_categorie = ?";
 	
 	@Override
-	public boolean create(Categorie obj) {
+	public int create(Categorie obj) {
 		// TODO Auto-generated method stub
-		return false;
+		return 0;
 	}
 
 	@Override

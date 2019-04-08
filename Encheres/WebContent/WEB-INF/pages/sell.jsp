@@ -9,7 +9,7 @@
 </jsp:include>
 <div class="container">
 <form method="post"
-			action="/ENI-Encheres/ajoutArticle">
+			action="Sell">
 			<div class="row">
 			<div class="col-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 px-3 pb-3 mt-4 mb-auto">
 						<img src="http://www.stonyelectrical.com/wp-content/uploads/2018/04/Product_Icon.png" class="card-img" alt="...">
@@ -19,7 +19,7 @@
 							<div class="form-group col-12">
 								<label for="InputArticle">Article :</label>
 								<input type="text" class="form-control" id="InputArticle"
-											name="InputArticle" placeholder="Entrez le nom de votre article" required>
+											name="inputNomArticle" placeholder="Entrez le nom de votre article" required>
 									
 								
 							</div>
@@ -29,14 +29,16 @@
 									
 									
 										<textarea class="form-control" id="InputDescription"
-											name="InputDescription" placeholder="Description de l'article" required></textarea>
+											name="inputDescription" placeholder="Description de l'article" required></textarea>
 									
 								
 							</div>
 							<div class="form-group col-12">
 								<label for="InputCategorie">Catégorie :</label> <select
-									class="custom-select" id="InputCategorie" name="InputCategorie">
-									
+									class="custom-select" id="inputCategorie" name="inputCategorie">
+										<c:forEach var="cat" items="${ listeCategories}">
+							<option value="${ cat.getNoCategorie() }">${ cat.getLibelle() }</option>
+						</c:forEach>
 			</select>
 							</div>
 							<div class="form-group col-12">
@@ -52,20 +54,20 @@
 								
 									
 									
-										<input type="number" class="form-control" id="InputPrix"
-											name="InputPrix" placeholder="Prix de l'article" required>
+										<input type="number" class="form-control" id="inputPrix"
+											name="inputPrix" placeholder="Prix de l'article" required>
 									
 								
 							</div>
 
 							<div class="form-group col-12">
 								<label for="debut">Début de l'enchère :</label> 
-								<input type="datetime-local" class="form-control" name="debut"
-									id="debut" value="2019-04-05T15:36">
+								<input type="datetime-local" class="form-control" name="DateDebutEncheres"
+									id="DateDebutEncheres" value="">
 							</div>
 							<div class="form-group col-12">
 								<label for="fin">Fin de l'enchère :</label> <input
-									type="datetime-local" class="form-control" name="fin" id="fin"
+									type="datetime-local" class="form-control" name="DateFinEncheres" id="DateFinEncheres"
 									required>
 							</div>
 							<div class="col-12">
@@ -89,8 +91,8 @@
 										<div class="form-group row col-12">
 											<label class="col-12 col-lg-3 col-xl-3 m-auto pl-0"
 												for="ville">Ville :</label> <input type="text"
-												class="form-control col-12 col-lg-9 col-xl-9" name="InputVille"
-												id="InputVille" placeholder="Ville" value="Entrez votre ville"
+												class="form-control col-12 col-lg-9 col-xl-9" name="inputVille"
+												id="InputVille" placeholder="Entrez votre ville" value=""
 												required>
 										</div>
 									</div>

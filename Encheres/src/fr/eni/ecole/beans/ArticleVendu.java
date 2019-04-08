@@ -12,13 +12,22 @@ public class ArticleVendu implements Serializable {
 	int noArticle;
 	String nomArticle;
 	String description;
-	Timestamp dateDebutEncheres;
-	Timestamp dateFinEncheres;
+	LocalDateTime dateDebutEncheres;
+	LocalDateTime dateFinEncheres;
 	float miseAPrix;
 	float prixVente;
 	Boolean etatVente;
 	Utilisateur utilisateur;
 	Categorie categorie;
+	Retrait retrait;
+	
+	
+	public Retrait getRetrait() {
+		return retrait;
+	}
+	public void setRetrait(Retrait retrait) {
+		this.retrait = retrait;
+	}
 	
 	public Categorie getCategorie() {
 		return categorie;
@@ -50,16 +59,16 @@ public class ArticleVendu implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Timestamp getDateDebutEncheres() {
+	public LocalDateTime getDateDebutEncheres() {
 		return dateDebutEncheres;
 	}
-	public void setDateDebutEncheres(Timestamp dateDebutEncheres) {
+	public void setDateDebutEncheres(LocalDateTime dateDebutEncheres) {
 		this.dateDebutEncheres = dateDebutEncheres;
 	}
-	public Timestamp getDateFinEncheres() {
+	public LocalDateTime getDateFinEncheres() {
 		return dateFinEncheres;
 	}
-	public void setDateFinEncheres(Timestamp dateFinEncheres) {
+	public void setDateFinEncheres(LocalDateTime dateFinEncheres) {
 		this.dateFinEncheres = dateFinEncheres;
 	}
 	public float getMiseAPrix() {
@@ -80,8 +89,8 @@ public class ArticleVendu implements Serializable {
 	public void setEtatVente(Boolean etatVente) {
 		this.etatVente = etatVente;
 	}
-	public ArticleVendu(int noArticle, String nomArticle, String description, Timestamp dateDebutEncheres,
-			Timestamp dateFinEncheres, float miseAPrix, float prixVente, Boolean etatVente) {
+	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDateTime dateDebutEncheres,
+			LocalDateTime dateFinEncheres, float miseAPrix, float prixVente, Boolean etatVente) {
 		super();
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;

@@ -32,8 +32,8 @@ public class EnchereDAO implements IDAOEnchere {
 										"ORDER BY e.montant_enchere DESC";
 								
 	@Override
-	public boolean create(Enchere obj) {
-		return false;
+	public int create(Enchere obj) {
+		return -1;
 	}
 
 	@Override

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.ecole.beans.Utilisateur;
-import fr.eni.ecole.bll.CredentialManager;
+import fr.eni.ecole.bll.UtilisateursManager;
 import fr.eni.ecole.util.Constantes;
 
 /**
@@ -63,8 +63,8 @@ public class Login extends HttpServlet {
 		recupLogin = request.getParameter("login").trim();
 		recupPassword = request.getParameter("password".trim());
 		
-		CredentialManager credUse = new CredentialManager();		
-		utilisateur = credUse.connexion(recupLogin, recupPassword);
+		UtilisateursManager managerUtilisateur = new UtilisateursManager();		
+		utilisateur = managerUtilisateur.connexion(recupLogin, recupPassword);
 		if (utilisateur != null) {
 			recupRemberMe = request.getParameter("rememberMe");
 			if(recupRemberMe != null) {

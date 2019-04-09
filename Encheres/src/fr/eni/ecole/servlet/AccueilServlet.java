@@ -39,8 +39,7 @@ public class AccueilServlet extends HttpServlet {
 		CategoriesManager categoriesManager = new CategoriesManager();
 		request.setAttribute("listeCategories", categoriesManager.getListeCategories());
 		
-		Cookie ck = new Cookie("idUtilisateur", "1");
-		response.addCookie(ck);
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(Constantes.PAGE_INDEX);
 		dispatcher.forward(request, response);
 	}

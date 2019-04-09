@@ -19,6 +19,11 @@
 	text-decoration: underline;
 }
 
+.detail{
+	display: flex;
+	justify-content: center;
+}
+
 .detail img{
 	width: auto;
 	height: 195px;

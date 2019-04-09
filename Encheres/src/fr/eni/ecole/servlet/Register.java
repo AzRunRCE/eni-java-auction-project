@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.ecole.DAL.DALException;
 import fr.eni.ecole.beans.Utilisateur;
-import fr.eni.ecole.bll.CredentialManager;
+import fr.eni.ecole.bll.UtilisateursManager;
 import fr.eni.ecole.util.Constantes;
 /**
  * Servlet implementation class Register
@@ -56,11 +56,11 @@ public class Register extends HttpServlet {
 			new_user.setPrenom(request.getParameter("inputPrenom"));
 			new_user.setTelephone(request.getParameter("inputTelephone"));
 			
-			CredentialManager credMgr = new CredentialManager();
+			UtilisateursManager managerUtilisateur = new UtilisateursManager();
 
-			int result = credMgr.register(new_user);
+			int result = managerUtilisateur.register(new_user);
 			if (result > 0) {
-				new_user = credMgr.connexion(new_user.getPseudo(), new_user.getMotDePasse());
+				new_user = managerUtilisateur.connexion(new_user.getPseudo(), new_user.getMotDePasse());
 				if (new_user != null) {
 					request.getSession().setAttribute(Constantes.SESS_PSEUDO, new_user.getPseudo());
 					request.getSession().setAttribute(Constantes.SESS_NUM_UTILISATEUR, new_user.getNoUtilisateur());
@@ -68,7 +68,7 @@ public class Register extends HttpServlet {
 				}
 			}
 			else {
-				request.setAttribute("erreur", "Une erreur s'est produite durant l'enregistrement. Le pseudo est peut-être déjà pris.");
+				request.setAttribute("erreur", "Une erreur s'est produite durant l'enregistrement. Le pseudo est peut-ï¿½tre dï¿½jï¿½ pris.");
 				request.getRequestDispatcher(Constantes.PAGE_REGISTER).forward(request, response);
 			}
 				

@@ -19,6 +19,7 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	private final String CREATE = "INSERT INTO UTILISATEURS VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 	private final String UPDATE = "UPDATE [dbo].[UTILISATEURS] SET [pseudo] = ? ,[nom] = ? ,[prenom] = ? ,[email] = ?,[telephone] = ?,[rue] = ?,[code_postal] = ?,[ville] = ?,[mot_de_passe] = ?,[credit] = ?,[administrateur] = ? WHERE no_utilisateur = ?";
 	private final String DELETE = "delete UTILISATEURS where no_utilisateur = ?";
+	private final String UPDATE_CREDIT = "UPDATE UTILISATEURS SET credit = ? WHERE no_utilisateur = ?";
 	
 	public UtilisateurDAO () {
 	}
@@ -61,23 +62,24 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	}
 
 	@Override
-	public boolean delete(Utilisateur obj) {
+	public int delete(Utilisateur obj) {
+		int rs = 0;
 		try(Connection connect = AccesBase.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(DELETE)) {
 
 	    	preparedStatement.setInt(1,obj.getNoUtilisateur());
-	    	preparedStatement.execute();
-	    	return true;
+	    	rs = preparedStatement.executeUpdate();
+	    	return rs;
 		} catch (SQLException e) {
 			try {
 				throw new DALException("DAOUtilisateur probleme avec la methode delete",e);
 			} catch (DALException e1) {
 				e1.printStackTrace();
-				return false;
+				return rs;
 			}
 		} catch (DALException e1) {
 			e1.printStackTrace();
-			return false;
+			return rs;
 		}
 	}
 	
@@ -255,6 +257,23 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	    	e1.printStackTrace();
 	    	return null;
 	    }
+	}
+
+	@Override
+	public int updateCredit(int noUtilisateur, int credit) {
+		int rs = 0;
+		try(Connection connect = AccesBase.getConnection();
+				PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_CREDIT)) {
+	    	preparedStatement.setInt(1,credit); 
+	    	preparedStatement.setInt(2,noUtilisateur); 
+	    		    	
+	    	rs = preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (DALException e) {
+			e.printStackTrace();
+		}
+		return rs;
 	}
 
 }

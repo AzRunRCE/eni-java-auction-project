@@ -37,5 +37,34 @@ public class EncheresManager {
 	public DetailEnchere getEnchere(int noArticle) {
 		return daoEncheres.selectById(noArticle);
 	}
-	 
+	
+	/**
+	 * 
+	 * @param noArticle
+	 * @return
+	 */
+	public DetailEnchere getArticle(int noArticle) {
+		return daoEncheres.selectByIdArticle(noArticle);
+	}
+	
+	/**
+	 * Methode permettant d'ajouter en base une enchere
+	 * @param noUtilisateur de celui qui fait l'enchere
+	 * @param noArticle concerne par l'enchere
+	 * @param montant de la nouvelle enchere
+	 * @return le nombre de ligne créée
+	 */
+	public int createEnchere(int noUtilisateur, int noArticle, int montant) {
+		return daoEncheres.nouvelleEnchere(noUtilisateur, noArticle, montant);
+	}
+	
+	/**
+	 * Méthode qui supprime l'enchere d'un utilisateur pour un article
+	 * @param noUtilisateur
+	 * @param noArticle
+	 * @return le nombre de ligne supprimmée
+	 */
+	public int deleteEnchere(int noUtilisateur, int noArticle) {
+		return daoEncheres.deleteEnchere(noUtilisateur, noArticle);
+	}
 }

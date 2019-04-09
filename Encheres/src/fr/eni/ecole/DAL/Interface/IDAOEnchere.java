@@ -40,4 +40,19 @@ public interface IDAOEnchere extends DAO<Enchere> {
 	   * @return le nombre de ligne inseréé dans la table ENCHERES
 	   */
 	  public int nouvelleEnchere(int noUtilisateur, int noArticle, int montant);
+	  
+	  /**
+	   * Méthode qui permet de récupérer les informations si il n'y a pas encore eu d'enchere
+	   * @param noArticle
+	   * @return
+	   */
+	  public DetailEnchere selectByIdArticle(int noArticle);
+	  
+	  /**
+	   * Supprime une enchere 
+	   * @param noUtilisateur
+	   * @param noArticle
+	   * @return le nombre de ligne supprimée
+	   */
+	  public int deleteEnchere(int noUtilisateur, int noArticle);
 }

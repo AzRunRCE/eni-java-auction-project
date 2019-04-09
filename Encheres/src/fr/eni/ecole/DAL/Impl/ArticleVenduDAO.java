@@ -15,6 +15,7 @@ import fr.eni.ecole.DAL.Interface.IDAOArticleVendu;
 
 public class ArticleVenduDAO implements IDAOArticleVendu {
 	private final String CREATE = "INSERT INTO ARTICLES_VENDUS VALUES (?,?,?,?,?,?,?,?)";
+	private final String UPDATE_PRIX_VENTE = "UPDATE ARTICLES_VENDUS SET prix_vente = ? WHERE no_article = ?";
 	
 	@Override
 	public int create(ArticleVendu new_article) {
@@ -50,21 +51,36 @@ public class ArticleVenduDAO implements IDAOArticleVendu {
 	}
 
 	@Override
-	public boolean delete(ArticleVendu obj) {
-		// TODO Auto-generated method stub
-		return false;
+	public int delete(ArticleVendu obj) {
+		return 0;
 	}
 
 	@Override
 	public boolean update(ArticleVendu obj) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public ArticleVendu find(int id) {
-		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int updatePrixVenteArticle(int noArticle, int montant) {
+		int rs = 0;
+		
+		try(Connection connect = AccesBase.getConnection();
+				PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_PRIX_VENTE)) {
+
+			preparedStatement.setInt(1, montant);
+			preparedStatement.setInt(2, noArticle);
+			rs = preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (DALException e) {
+			e.printStackTrace();
+		}
+		return rs;
 	}
 
 	

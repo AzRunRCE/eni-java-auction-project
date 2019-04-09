@@ -20,19 +20,16 @@ public class CategorieDAO implements IDAOCategorie {
 	
 	@Override
 	public int create(Categorie obj) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public boolean delete(Categorie obj) {
-		// TODO Auto-generated method stub
-		return false;
+	public int delete(Categorie obj) {
+		return 0;
 	}
 
 	@Override
 	public boolean update(Categorie obj) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

@@ -32,11 +32,11 @@ public class EnchereDAO implements IDAOEnchere {
 	private final String VENTES = "";
 	private final String UNION = "UNION ";
 	
-	private final String LEFT_JOIN_ENCHERES = "LEFT JOIN ENCHERES e ON av.no_utilisateur = e.no_utilisateur "; 
+	private final String LEFT_JOIN_ENCHERES = "LEFT JOIN ENCHERES e ON av.no_article = e.no_article "; 
 	private final String TOUTES_ENCHERES_OUVERTES = "av.date_debut_encheres < GETDATE() AND av.date_fin_encheres > GETDATE() ";
 	private final String MES_ENCHERES = "e.no_utilisateur = %d ";
 	private final String MES_ENCHERES_OU_VENTES_COURS = "av.date_debut_encheres < GETDATE() AND av.date_fin_encheres > GETDATE() ";
-	private final String MES_ENCHERES_REMPORTEES = "av.date_debut_encheres < GETDATE() AND av.date_fin_encheres > GETDATE() ";
+	private final String MES_ENCHERES_REMPORTEES = "e.montant_enchere = av.prix_vente AND av.date_fin_encheres < GETDATE() ";
 	private final String ACHATS = "av.no_utilisateur <> %d ";
 	private final String MES_VENTES = "av.no_utilisateur = %d ";
 	private final String MES_VENTES_NON_COMMENCEES = "av.date_debut_encheres > GETDATE() ";
@@ -45,16 +45,25 @@ public class EnchereDAO implements IDAOEnchere {
 	
 	private Boolean whereAlreadySet;
 	
-	private final String SELECT_BY_ID = "SELECT av.nom_article, av.description, c.libelle, av.date_fin_encheres, av.prix_initial, av.no_utilisateur as vendeur, e.montant_enchere, e.no_utilisateur as acheteur, e.no_article, u.pseudo, r.code_postal, r.rue, r.ville " + 
+	private final String SELECT_BY_ID = "SELECT av.nom_article, av.description, c.libelle, av.date_debut_encheres, av.date_fin_encheres, av.prix_initial, av.no_utilisateur as vendeur, e.montant_enchere, e.no_utilisateur as acheteur, e.no_article, u.pseudo, r.code_postal, r.rue, r.ville " + 
 										"FROM ENCHERES e " + 
-										"RIGHT JOIN UTILISATEURS u ON e.no_utilisateur = u.no_utilisateur " + 
-										"RIGHT JOIN ARTICLES_VENDUS av  ON e.no_article = av.no_article " + 
-										"RIGHT JOIN RETRAITS r ON e.no_article = r.no_article " + 
-										"RIGHT JOIN CATEGORIES c ON c.no_categorie = av.no_categorie " + 
+										"LEFT JOIN UTILISATEURS u ON e.no_utilisateur = u.no_utilisateur " + 
+										"LEFT JOIN ARTICLES_VENDUS av  ON e.no_article = av.no_article " + 
+										"LEFT JOIN RETRAITS r ON e.no_article = r.no_article " + 
+										"LEFT JOIN CATEGORIES c ON c.no_categorie = av.no_categorie " + 
 										"WHERE e.no_article = ? " + 
 										"ORDER BY e.montant_enchere DESC";
 	
-	private final String CREATE = "INSER INTO ENCHERES VALUES(?, ?, ?, ?)";
+	private final String SELECT_BY_ID_ARTICLE = "SELECT av.nom_article, av.description, av.no_utilisateur as vendeur, c.libelle, av.date_debut_encheres, av.date_fin_encheres, av.prix_initial, av.prix_vente, av.no_article, u.pseudo, r.code_postal, r.rue, r.ville " + 
+												"FROM ARTICLES_VENDUS av " + 
+												"LEFT JOIN UTILISATEURS u ON av.no_utilisateur = u.no_utilisateur " + 
+												"LEFT JOIN RETRAITS r ON av.no_article = r.no_article " + 
+												"LEFT JOIN CATEGORIES c ON c.no_categorie = av.no_categorie " + 
+												"WHERE av.no_article = ? ";
+	
+	private final String CREATE = "INSERT INTO ENCHERES VALUES(?, ?, ?, ?)";
+	
+	private final String DELETE = "DELETE FROM ENCHERES WHERE no_utilisateur = ? AND no_article = ?";
 								
 	@Override
 	public int create(Enchere obj) {
@@ -62,8 +71,8 @@ public class EnchereDAO implements IDAOEnchere {
 	}
 
 	@Override
-	public boolean delete(Enchere obj) {
-		return false;
+	public int delete(Enchere obj) {
+		return 0;
 	}
 
 	@Override
@@ -344,6 +353,7 @@ public class EnchereDAO implements IDAOEnchere {
 	    										rs.getString("code_postal"),
 	    										rs.getString("rue"),
 	    										rs.getString("ville"),
+	    										rs.getTimestamp("date_debut_encheres").toLocalDateTime(),
 	    										rs.getTimestamp("date_fin_encheres").toLocalDateTime(),
 	    										rs.getInt("prix_initial"),
 	    										rs.getInt("montant_enchere"),
@@ -356,7 +366,42 @@ public class EnchereDAO implements IDAOEnchere {
 			e.printStackTrace();
 			return null;
 		} catch (DALException e1) {
-			System.out.println("Probleme dans le mÃ©thode selectById");
+			System.out.println("Probleme dans le methode selectById");
+			e1.printStackTrace();
+			return null;
+		}
+	}
+	
+	@Override
+	public DetailEnchere selectByIdArticle(int noArticle) {
+		DetailEnchere enchere = null;
+		ResultSet rs = null;
+		try(Connection connect = AccesBase.getConnection();
+				PreparedStatement preparedStatement = connect.prepareStatement(SELECT_BY_ID_ARTICLE)) {
+			preparedStatement.setInt(1,noArticle);
+			rs = preparedStatement.executeQuery();
+	    	if(rs.next()) {
+	    		//rs.first();
+	    		enchere = new DetailEnchere(rs.getString("nom_article"),
+	    										rs.getString("description"),
+	    										rs.getString("libelle"),
+	    										rs.getString("pseudo"),
+	    										rs.getString("code_postal"),
+	    										rs.getString("rue"),
+	    										rs.getString("ville"),
+	    										rs.getTimestamp("date_debut_encheres").toLocalDateTime(),
+	    										rs.getTimestamp("date_fin_encheres").toLocalDateTime(),
+	    										rs.getInt("prix_initial"),
+	    										rs.getInt("prix_vente"),
+	    										rs.getInt("no_article"),
+	    										rs.getInt("vendeur"));
+	    	}
+	    	return enchere;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} catch (DALException e1) {
+			System.out.println("Probleme dans le methode selectById");
 			e1.printStackTrace();
 			return null;
 		}
@@ -480,16 +525,33 @@ public class EnchereDAO implements IDAOEnchere {
 		return sb;
 	}
 	
+	@Override
 	public int nouvelleEnchere(int noUtilisateur, int noArticle, int montant) {
 		int rs = 0;
-		
+	
 		try(Connection connect = AccesBase.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(CREATE)) {
 			preparedStatement.setInt(1, noUtilisateur);
 			preparedStatement.setInt(2, noArticle);
 			preparedStatement.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
 			preparedStatement.setInt(4, montant);
-			
+			rs = preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (DALException e) {
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
+	@Override
+	public int deleteEnchere(int noUtilisateur, int noArticle) {
+		int rs = 0;
+		try(Connection connect = AccesBase.getConnection();
+				PreparedStatement preparedStatement = connect.prepareStatement(DELETE)) {
+			preparedStatement.setInt(1, noUtilisateur);
+			preparedStatement.setInt(2, noArticle);
+			rs = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (DALException e) {

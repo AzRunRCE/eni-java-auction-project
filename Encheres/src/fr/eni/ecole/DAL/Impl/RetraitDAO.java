@@ -53,15 +53,13 @@ public class RetraitDAO implements DAO<Retrait> {
 	}
 
 	@Override
-	public boolean delete(Retrait obj) {
-		// TODO Auto-generated method stub
-		return false;
+	public int delete(Retrait obj) {
+		return 0;
 	}
 
 	@Override
 	public boolean update(Retrait new_retrait) {
-		// TODO Auto-generated method stub
-				return false;
+		return false;
 	}
 
 	@Override

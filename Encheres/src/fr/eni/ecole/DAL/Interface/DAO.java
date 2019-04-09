@@ -8,14 +8,14 @@ public interface DAO<T> {
   * @param obj
   * @return boolean 
   */
-  public  int create(T obj);
+  public int create(T obj);
 
   /**
   * M�thode pour effacer
   * @param obj
   * @return boolean 
   */
-  public  boolean delete(T obj);
+  public int delete(T obj);
 
   /**
   * M�thode de mise � jour

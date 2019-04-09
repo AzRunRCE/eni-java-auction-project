@@ -40,7 +40,7 @@ public class AccueilServlet extends HttpServlet {
 		CategoriesManager categoriesManager = new CategoriesManager();
 
 				try {
-					//throw new BLLException("Hey this is an error 500");
+//					throw new BLLException("Hey this is an error 500");
 					request.setAttribute("listeCategories", categoriesManager.getListeCategories());
 					RequestDispatcher dispatcher = request.getRequestDispatcher(Constantes.PAGE_INDEX);
 					dispatcher.forward(request, response);

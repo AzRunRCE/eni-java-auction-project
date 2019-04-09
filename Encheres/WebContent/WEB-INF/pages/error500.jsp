@@ -6,7 +6,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>error500</title>
-<link href="https://fonts.googleapis.com/css?family=Encode+Sans+Semi+Condensed:100,200,300,400" rel="stylesheet">
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/theme/css/error500.css">
 </head>
 <body class="loading">

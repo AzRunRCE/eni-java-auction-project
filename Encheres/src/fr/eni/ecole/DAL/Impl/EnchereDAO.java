@@ -9,14 +9,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.ecole.DAL.DALException;
+import fr.eni.ecole.DAL.Interface.IDAOEnchere;
 import fr.eni.ecole.beans.Enchere;
+import fr.eni.ecole.rest.mo.AccueilDashboardTile;
 import fr.eni.ecole.rest.mo.AccueilFilters;
 import fr.eni.ecole.rest.mo.DetailEnchere;
-import fr.eni.ecole.rest.mo.AccueilDashboardTile;
-import fr.eni.ecole.rest.mo.DetailEnchere;
 import fr.eni.ecole.util.AccesBase;
-import fr.eni.ecole.DAL.DALException;
-import fr.eni.ecole.DAL.Interface.*;
 
 public class EnchereDAO implements IDAOEnchere {
 
@@ -32,11 +31,11 @@ public class EnchereDAO implements IDAOEnchere {
 	private final String VENTES = "";
 	private final String UNION = "UNION ";
 	
-	private final String LEFT_JOIN_ENCHERES = "LEFT JOIN ENCHERES e ON av.no_utilisateur = e.no_utilisateur "; 
+	private final String LEFT_JOIN_ENCHERES = "LEFT JOIN ENCHERES e ON av.no_article = e.no_article "; 
 	private final String TOUTES_ENCHERES_OUVERTES = "av.date_debut_encheres < GETDATE() AND av.date_fin_encheres > GETDATE() ";
 	private final String MES_ENCHERES = "e.no_utilisateur = %d ";
 	private final String MES_ENCHERES_OU_VENTES_COURS = "av.date_debut_encheres < GETDATE() AND av.date_fin_encheres > GETDATE() ";
-	private final String MES_ENCHERES_REMPORTEES = "av.date_debut_encheres < GETDATE() AND av.date_fin_encheres > GETDATE() ";
+	private final String MES_ENCHERES_REMPORTEES = "e.montant_enchere = av.prix_vente AND av.date_fin_encheres < GETDATE() ";
 	private final String ACHATS = "av.no_utilisateur <> %d ";
 	private final String MES_VENTES = "av.no_utilisateur = %d ";
 	private final String MES_VENTES_NON_COMMENCEES = "av.date_debut_encheres > GETDATE() ";

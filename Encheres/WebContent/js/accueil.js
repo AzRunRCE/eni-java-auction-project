@@ -35,14 +35,14 @@ function createDashboard(data) {
 				dashboardTileRow.setAttribute('class', 'row no-gutters');
 				
 				let dashboardTileRowImageContainer = document.createElement('div');
-				dashboardTileRowImageContainer.setAttribute('class', 'col-md-4');
+				dashboardTileRowImageContainer.setAttribute('class', 'col-4');
 				
 				let image = document.createElement('img');
 				image.setAttribute('src', './img/alienware.jpg');
 				image.setAttribute('class', 'card-img p-1');
 				
 				let container = document.createElement('div');
-				container.setAttribute('class', 'col-md-8')
+				container.setAttribute('class', 'col-8')
 				
 				let cardBody = document.createElement('div');
 				cardBody.setAttribute('class', 'card-body')

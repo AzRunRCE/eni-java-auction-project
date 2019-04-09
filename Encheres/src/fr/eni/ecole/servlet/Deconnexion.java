@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.ecole.util.Constantes;
+
 /**
  * Servlet implementation class Deconnexion
  */
@@ -27,7 +29,7 @@ public class Deconnexion extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getSession().invalidate();
-		this.getServletContext().getRequestDispatcher("/WEB-INF/pages/index.jsp").forward(request, response);
+		response.sendRedirect(Constantes.URL_ACCUEIL);
 	}
 
 	/**

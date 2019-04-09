@@ -18,6 +18,7 @@ import fr.eni.ecole.beans.Categorie;
 import fr.eni.ecole.beans.Retrait;
 import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.bll.CategoriesManager;
+import fr.eni.ecole.bll.UtilisateursManager;
 import fr.eni.ecole.bll.VentesManager;
 import fr.eni.ecole.util.Constantes;
 
@@ -46,8 +47,17 @@ public class Sell extends HttpServlet {
 			request.getRequestDispatcher(Constantes.PAGE_INDEX).forward(request, response);
 			return;
 		}
+		
+		Integer no_utilisateur = (Integer)request.getSession().getAttribute(Constantes.SESS_NUM_UTILISATEUR);
+		
+		UtilisateursManager usersManager = new UtilisateursManager();
 		CategoriesManager categoriesManager = new CategoriesManager();
+		
+		Utilisateur user = usersManager.getUtilisateur(no_utilisateur);
+		
+		request.setAttribute(Constantes.ATT_UTILISATEUR, user);
 		request.setAttribute("listeCategories", categoriesManager.getListeCategories());
+
 		request.getRequestDispatcher(Constantes.PAGE_SELL).forward(request, response);
 	}
 
@@ -91,7 +101,7 @@ public class Sell extends HttpServlet {
 				new_ArticleVendu.setRetrait(retrait);
 				
 				ventesManagers.create(new_ArticleVendu);
-				this.getServletContext().getRequestDispatcher(Constantes.PAGE_INDEX).forward(request, response);
-	}
+				response.sendRedirect(Constantes.URL_ACCUEIL);
+		}
 
 }

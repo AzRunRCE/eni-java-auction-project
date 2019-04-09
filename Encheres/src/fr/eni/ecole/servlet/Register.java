@@ -65,6 +65,7 @@ public class Register extends HttpServlet {
 					request.getSession().setAttribute(Constantes.SESS_PSEUDO, new_user.getPseudo());
 					request.getSession().setAttribute(Constantes.SESS_NUM_UTILISATEUR, new_user.getNoUtilisateur());
 					request.getRequestDispatcher(Constantes.PAGE_INDEX).forward(request, response);
+				
 				}
 			}
 			else {

@@ -2,6 +2,7 @@ package fr.eni.ecole.bll;
 
 import java.util.List;
 
+import fr.eni.ecole.DAL.DALException;
 import fr.eni.ecole.DAL.DAOFactory;
 import fr.eni.ecole.DAL.Interface.IDAOEnchere;
 import fr.eni.ecole.rest.mo.AccueilFilters;
@@ -14,9 +15,14 @@ public class EncheresManager {
 	/**
 	 * 
 	 * @return une liste de AccueilDashboardTile
+	 * @throws BLLException 
 	 */
-	public List<AccueilDashboardTile> getListeEncheresAccueilWithoutParameters() {
-		return daoEncheres.selectAllWithoutParameters();
+	public List<AccueilDashboardTile> getListeEncheresAccueilWithoutParameters() throws BLLException {
+		try {
+			return daoEncheres.selectAllWithoutParameters();
+		} catch (DALException e) {
+			throw new BLLException("Probleme dans getListeWithoutParameters", e);
+		}
 	}
 	
     /**
@@ -24,9 +30,14 @@ public class EncheresManager {
     * @param accueilFilters Structure de donnes contenant les filtres saisis
     * @param idUtilisateur
     * @return une liste de AccueilDashboardTile
+     * @throws BLLException 
     */
-	public List<AccueilDashboardTile> getListeEncheresAccueilWithParameters(AccueilFilters accueilFilters, Integer idUtilisateur) {
-		return daoEncheres.selectAllwithParameters(accueilFilters, idUtilisateur);
+	public List<AccueilDashboardTile> getListeEncheresAccueilWithParameters(AccueilFilters accueilFilters, Integer idUtilisateur) throws BLLException {
+		try {
+			return daoEncheres.selectAllwithParameters(accueilFilters, idUtilisateur);
+		} catch (DALException e) {
+			throw new BLLException("Probleme dans getListeWithParameters", e);
+		}
 	}
 	
 	public getDetailEnchere getEnchere(int noArticle) {

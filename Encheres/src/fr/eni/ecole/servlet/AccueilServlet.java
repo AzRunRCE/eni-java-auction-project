@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.ecole.bll.BLLException;
 import fr.eni.ecole.bll.CategoriesManager;
 import fr.eni.ecole.util.Constantes;
 
@@ -37,12 +38,16 @@ public class AccueilServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		CategoriesManager categoriesManager = new CategoriesManager();
-		request.setAttribute("listeCategories", categoriesManager.getListeCategories());
-		
-		Cookie ck = new Cookie("idUtilisateur", "1");
-		response.addCookie(ck);
-		RequestDispatcher dispatcher = request.getRequestDispatcher(Constantes.PAGE_INDEX);
-		dispatcher.forward(request, response);
+
+				try {
+					//throw new BLLException("Hey this is an error 500");
+					request.setAttribute("listeCategories", categoriesManager.getListeCategories());
+					RequestDispatcher dispatcher = request.getRequestDispatcher(Constantes.PAGE_INDEX);
+					dispatcher.forward(request, response);
+				} catch (BLLException e) {
+					response.sendError(404);
+				}
+
 	}
 
 	/**

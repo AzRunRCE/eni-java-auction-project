@@ -1,12 +1,6 @@
 package fr.eni.ecole.servlet;
-import fr.eni.*;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.util.TimeZone;
 
-import fr.eni.ecole.util.Utils;
+import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,9 +11,11 @@ import fr.eni.ecole.beans.ArticleVendu;
 import fr.eni.ecole.beans.Categorie;
 import fr.eni.ecole.beans.Retrait;
 import fr.eni.ecole.beans.Utilisateur;
+import fr.eni.ecole.bll.BLLException;
 import fr.eni.ecole.bll.CategoriesManager;
 import fr.eni.ecole.bll.VentesManager;
 import fr.eni.ecole.util.Constantes;
+import fr.eni.ecole.util.Utils;
 
 /**
  * Servlet implementation class Sell
@@ -47,7 +43,12 @@ public class Sell extends HttpServlet {
 			return;
 		}
 		CategoriesManager categoriesManager = new CategoriesManager();
-		request.setAttribute("listeCategories", categoriesManager.getListeCategories());
+		try {
+			request.setAttribute("listeCategories", categoriesManager.getListeCategories());
+		} catch (BLLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		request.getRequestDispatcher(Constantes.PAGE_SELL).forward(request, response);
 	}
 
@@ -77,21 +78,27 @@ public class Sell extends HttpServlet {
 				
 				new_ArticleVendu.setNomArticle(request.getParameter("inputNomArticle"));
 				new_ArticleVendu.setDescription(request.getParameter("inputDescription"));
-				Categorie categorie = categoriesManager.getCategorie(Integer.parseInt(request.getParameter("inputCategorie")));
-				new_ArticleVendu.setCategorie(categorie);
-				new_ArticleVendu.setMiseAPrix(Float.parseFloat(request.getParameter("inputPrix")));
-				new_ArticleVendu.setPrixVente(Float.parseFloat(request.getParameter("inputPrix")));
-				String str = request.getParameter("DateDebutEncheres");
-				new_ArticleVendu.setDateDebutEncheres(Utils.parseDateTime(request.getParameter("DateDebutEncheres")));
-				new_ArticleVendu.setDateFinEncheres(Utils.parseDateTime(request.getParameter("DateFinEncheres")));
-				
-				 
-				new_ArticleVendu.setUtilisateur(user);
-				new_ArticleVendu.setEtatVente(false);
-				new_ArticleVendu.setRetrait(retrait);
-				
-				ventesManagers.create(new_ArticleVendu);
-				this.getServletContext().getRequestDispatcher(Constantes.PAGE_INDEX).forward(request, response);
+				Categorie categorie;
+				try {
+					categorie = categoriesManager.getCategorie(Integer.parseInt(request.getParameter("inputCategorie")));
+					new_ArticleVendu.setCategorie(categorie);
+					new_ArticleVendu.setMiseAPrix(Float.parseFloat(request.getParameter("inputPrix")));
+					new_ArticleVendu.setPrixVente(Float.parseFloat(request.getParameter("inputPrix")));
+					String str = request.getParameter("DateDebutEncheres");
+					new_ArticleVendu.setDateDebutEncheres(Utils.parseDateTime(request.getParameter("DateDebutEncheres")));
+					new_ArticleVendu.setDateFinEncheres(Utils.parseDateTime(request.getParameter("DateFinEncheres")));
+					
+					
+					new_ArticleVendu.setUtilisateur(user);
+					new_ArticleVendu.setEtatVente(false);
+					new_ArticleVendu.setRetrait(retrait);
+					
+					ventesManagers.create(new_ArticleVendu);
+					this.getServletContext().getRequestDispatcher(Constantes.PAGE_INDEX).forward(request, response);
+				} catch (NumberFormatException | BLLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 	}
 
 }

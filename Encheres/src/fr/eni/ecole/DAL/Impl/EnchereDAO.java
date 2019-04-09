@@ -52,8 +52,8 @@ public class EnchereDAO implements IDAOEnchere {
 										"ORDER BY e.montant_enchere DESC";
 								
 	@Override
-	public boolean create(Enchere obj) {
-		return false;
+	public int create(Enchere obj) {
+		return 0;
 	}
 
 	@Override
@@ -72,7 +72,7 @@ public class EnchereDAO implements IDAOEnchere {
 	}
 	
 	@Override
-	public List<AccueilDashboardTile> selectAllWithoutParameters() {
+	public List<AccueilDashboardTile> selectAllWithoutParameters() throws DALException{
 		try(Connection connect = AccesBase.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(SELECT_ALL_WITHOUT_PARAM)) {
 
@@ -92,7 +92,7 @@ public class EnchereDAO implements IDAOEnchere {
 	    	}
 	    	return listeMsgObjectsAccueil;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DALException("Erreur dans selectAllWithoutParameters", e);
 		} catch (DALException e1) {
 			System.out.println("Probleme dans selectAllWithoutParameters");
 			e1.printStackTrace();
@@ -101,7 +101,7 @@ public class EnchereDAO implements IDAOEnchere {
 	}
 
 	@Override
-	public List<AccueilDashboardTile> selectAllwithParameters(AccueilFilters accueilFilters, Integer idUtilisateur) {
+	public List<AccueilDashboardTile> selectAllwithParameters(AccueilFilters accueilFilters, Integer idUtilisateur) throws DALException {
 		
 		whereAlreadySet = false;
 		StringBuilder requeteParametree = new StringBuilder();
@@ -314,7 +314,7 @@ public class EnchereDAO implements IDAOEnchere {
 	    	}
 	    	return listeMsgObjectsAccueil;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DALException("Probleme dans selectAllWithParameters", e);
 		} catch (DALException e1) {
 			System.out.println("Probleme dans selectAllWithParameters");
 			e1.printStackTrace();

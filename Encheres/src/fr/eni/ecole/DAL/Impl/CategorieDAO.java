@@ -10,7 +10,6 @@ import java.util.List;
 import fr.eni.ecole.DAL.DALException;
 import fr.eni.ecole.DAL.Interface.IDAOCategorie;
 import fr.eni.ecole.beans.Categorie;
-import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.util.AccesBase;
 
 public class CategorieDAO implements IDAOCategorie {
@@ -55,7 +54,7 @@ public class CategorieDAO implements IDAOCategorie {
 	}
 
 	@Override
-	public List<Categorie> selectAll() {
+	public List<Categorie> selectAll() throws DALException {
 		try(Connection connect = AccesBase.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(SELECT_ALL)) {
 
@@ -66,13 +65,9 @@ public class CategorieDAO implements IDAOCategorie {
 	    		listeCategories.add(new Categorie(rs.getInt("no_categorie"), rs.getString("libelle")));    
 	    	}
 	    	return listeCategories;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (DALException e1) {
-			System.out.println("Probleme dans selectAll");
-			e1.printStackTrace();
+		} catch (SQLException | DALException e) {
+			throw new DALException( "Probleme dans categorie selectAll", e);
 		}
-		return null;
 	}
 
 }

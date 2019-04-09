@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.sql.DataSource;
+
 import fr.eni.ecole.DAL.*;
 import fr.eni.ecole.DAL.Interface.IDAOUtilisateur;
 import fr.eni.ecole.beans.Utilisateur;
@@ -19,14 +21,18 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	private final String CREATE = "INSERT INTO UTILISATEURS VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 	private final String UPDATE = "UPDATE [dbo].[UTILISATEURS] SET [pseudo] = ? ,[nom] = ? ,[prenom] = ? ,[email] = ?,[telephone] = ?,[rue] = ?,[code_postal] = ?,[ville] = ?,[mot_de_passe] = ?,[credit] = ?,[administrateur] = ? WHERE no_utilisateur = ?";
 	private final String DELETE = "delete UTILISATEURS where no_utilisateur = ?";
+	private DataSource dataSource = null;
 	
-	public UtilisateurDAO () {
+	public UtilisateurDAO(DataSource _dataSource) {
+		dataSource = _dataSource;
 	}
+	
+
 
 	@Override
 	public int create(Utilisateur new_user) {
 		
-		try(Connection connect = AccesBase.getConnection();
+		try(Connection connect = dataSource.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS)) {
 
 			preparedStatement.setString(1,new_user.getPseudo()); 
@@ -54,15 +60,12 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 				e1.printStackTrace();
 				return -1;
 			}
-		} catch (DALException e1) {
-			e1.printStackTrace();
-			return -1;
 		}
 	}
 
 	@Override
 	public boolean delete(Utilisateur obj) {
-		try(Connection connect = AccesBase.getConnection();
+		try(Connection connect = dataSource.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(DELETE)) {
 
 	    	preparedStatement.setInt(1,obj.getNoUtilisateur());
@@ -75,16 +78,13 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 				e1.printStackTrace();
 				return false;
 			}
-		} catch (DALException e1) {
-			e1.printStackTrace();
-			return false;
-		}
+		} 
 	}
 	
 	@Override
 	public boolean update(Utilisateur update_user) {
 		
-		try(Connection connect = AccesBase.getConnection();
+		try(Connection connect = dataSource.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(UPDATE)) {
 
 			preparedStatement.setString(1,update_user.getPseudo()); 
@@ -108,23 +108,21 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 				e1.printStackTrace();
 				return false;
 			}
-		} catch (DALException e1) {
-			e1.printStackTrace();
-			return false;
-		}
+		} 
 	}
 
 	@Override
 	public Utilisateur find(int id) {
 
-		try(Connection connect = AccesBase.getConnection();
+		try(Connection connect = dataSource.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(FIND_SQL)) {
 
-			Utilisateur utilisateur = new Utilisateur();        
+			      
 	    	preparedStatement.setInt(1,id); 
 	    	preparedStatement.execute();
 	    	ResultSet result = preparedStatement.executeQuery();
 	    	if(result.next() == true) {
+	    		Utilisateur utilisateur = new Utilisateur();  
 	    	  utilisateur = new Utilisateur();   
 
     		  utilisateur.setPseudo(result.getString("pseudo"));
@@ -148,8 +146,9 @@ public class UtilisateurDAO implements IDAOUtilisateur {
     		  utilisateur.setCredit(result.getInt("credit"));
     		  utilisateur.setNoUtilisateur(result.getInt("no_utilisateur"));
     		  utilisateur.setAdministrateur(result.getInt("administrateur"));
+    		  return utilisateur;
 	    	}
-	    	return utilisateur;
+	    	return null;
 		} catch (SQLException e) {
 			try {
 				throw new DALException("problème avec la méhode find", e);
@@ -157,17 +156,14 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 				e1.printStackTrace();
 				return null;
 			}
-		} catch (DALException e1) {
-			e1.printStackTrace();
-			return null;
-		}
+		} 
 	  }
 	
 	@Override
 	public Utilisateur findByLogin(String email_or_username)  {
 		Utilisateur utilisateur = null;   
 		ResultSet result = null;
-		try(Connection connect = AccesBase.getConnection();
+		try(Connection connect = dataSource.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(FIND_BY_LOGIN)) {
 	    	preparedStatement.setString(1,email_or_username); 
 	    	preparedStatement.setString(2,email_or_username); 
@@ -251,10 +247,7 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 				e1.printStackTrace();
 				return null;
 			}
-	    } catch (DALException e1) {
-	    	e1.printStackTrace();
-	    	return null;
-	    }
+	    } 
 	}
 
 }

@@ -2,14 +2,17 @@ package fr.eni.ecole.bll;
 
 import java.util.List;
 
+import fr.eni.ecole.DAL.AbstractDAOFactory;
 import fr.eni.ecole.DAL.DALException;
-import fr.eni.ecole.DAL.DAOFactory;
 import fr.eni.ecole.DAL.Interface.IDAOCategorie;
 import fr.eni.ecole.beans.Categorie;
 
 
 public class CategoriesManager {
-	IDAOCategorie daoCategorie = DAOFactory.getCategorieDAO();
+	IDAOCategorie daoCategorie = null;
+	public CategoriesManager(){
+		daoCategorie = AbstractDAOFactory.getFactory().getCategorieDAO();
+	}
 	
 	public List<Categorie> getListeCategories() throws BLLException{
 		try {

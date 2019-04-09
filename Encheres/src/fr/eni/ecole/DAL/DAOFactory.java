@@ -1,5 +1,7 @@
 package fr.eni.ecole.DAL;
 
+import javax.sql.DataSource;
+
 import fr.eni.ecole.DAL.Impl.ArticleVenduDAO;
 import fr.eni.ecole.DAL.Impl.CategorieDAO;
 import fr.eni.ecole.DAL.Impl.EnchereDAO;
@@ -12,27 +14,37 @@ import fr.eni.ecole.DAL.Interface.IDAOEnchere;
 import fr.eni.ecole.DAL.Interface.IDAOUtilisateur;
 import fr.eni.ecole.beans.Retrait;
 
-public class DAOFactory {
+public class DAOFactory  extends AbstractDAOFactory {
 	
-	public static IDAOUtilisateur getUtilisateurDAO() {
-		return new UtilisateurDAO();
+	
+	public DAOFactory(DataSource _dataSource ) {
+		dataSource = _dataSource;
+	}
+	private DataSource dataSource;
+	
+	
+	public DataSource getDataSource() {
+		return dataSource;
 	}
 
-	/**
-	 * @return new EnchereDAO();
-	 */
-
-	
-	public static DAO<Retrait> getRetraitDAO() {
-		return new RetraitDAO();
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
 	}
-	public static IDAOEnchere getEnchereDAO() {
+
+	public IDAOUtilisateur getUtilisateurDAO()  {
+		return new UtilisateurDAO(this.getDataSource());
+	}
+
+	public DAO<Retrait> getRetraitDAO() {
+		return new RetraitDAO(this.getDataSource());
+	}
+	public IDAOEnchere getEnchereDAO() {
 		return new EnchereDAO();
 	}
-	public static IDAOCategorie getCategorieDAO() {
-		return new CategorieDAO();
+	public  IDAOCategorie getCategorieDAO() {
+		return new CategorieDAO(this.getDataSource());
 	}
-	public static IDAOArticleVendu getArticleVenduDAO() {
-		return new ArticleVenduDAO();
+	public IDAOArticleVendu getArticleVenduDAO() {
+		return new ArticleVenduDAO(this.getDataSource());
 	}
 }

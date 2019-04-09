@@ -5,7 +5,11 @@ import fr.eni.ecole.beans.Utilisateur;
 
 public class CredentialManager {
 
-	IDAOUtilisateur daoUtilisateurs = DAOFactory.getUtilisateurDAO();
+	IDAOUtilisateur daoUtilisateurs = null;
+	
+	public CredentialManager() {
+			daoUtilisateurs = AbstractDAOFactory.getFactory().getUtilisateurDAO();
+	}
 	
 	public int register(Utilisateur new_user) throws DALException {
 	

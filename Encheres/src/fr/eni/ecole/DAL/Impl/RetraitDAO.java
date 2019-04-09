@@ -9,12 +9,11 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import fr.eni.ecole.DAL.DALException;
 import fr.eni.ecole.DAL.Interface.DAO;
-import fr.eni.ecole.DAL.Interface.IDAOCategorie;
-import fr.eni.ecole.beans.Categorie;
 import fr.eni.ecole.beans.Retrait;
-import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.util.AccesBase;
 
 public class RetraitDAO implements DAO<Retrait> {
@@ -22,9 +21,17 @@ public class RetraitDAO implements DAO<Retrait> {
 	private final String SELECT_ALL= "SELECT no_article, rue, code_postal, ville FROM RETRAITS";
 	private final String SELECT_BY_ID = "SELECT no_article, rue, code_postal, ville FROM RETRAITS WHERE no_article = ?";
 	private final String CREATE = "INSERT INTO [RETRAITS] VALUES (?,?,?,?)";
+	private DataSource dataSource = null;
+	
+	public RetraitDAO(DataSource _dataSource) {
+		dataSource = _dataSource;
+	}
+	public RetraitDAO() {
+		// TODO Auto-generated constructor stub
+	}
 	@Override
 	public int create(Retrait new_retrait) {
-		try(Connection connect = AccesBase.getConnection();
+		try(Connection connect = dataSource.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS)) {
 			preparedStatement.setInt(1,new_retrait.getNo_article()); 
 			preparedStatement.setString(2,new_retrait.getRue()); 
@@ -46,9 +53,6 @@ public class RetraitDAO implements DAO<Retrait> {
 				e1.printStackTrace();
 				return -1;
 			}
-		} catch (DALException e1) {
-			e1.printStackTrace();
-			return -1;
 		}
 	}
 
@@ -66,7 +70,7 @@ public class RetraitDAO implements DAO<Retrait> {
 
 	@Override
 	public Retrait find(int id) {
-		try(Connection connect = AccesBase.getConnection();
+		try(Connection connect = dataSource.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(SELECT_BY_ID)) {
 			preparedStatement.setInt(1,id); 
 	    	ResultSet rs = preparedStatement.executeQuery();
@@ -75,10 +79,7 @@ public class RetraitDAO implements DAO<Retrait> {
 	    	}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (DALException e1) {
-			System.out.println("Categorie probleme dans find");
-			e1.printStackTrace();
-		}
+		} 
 		return null;
 	}
 

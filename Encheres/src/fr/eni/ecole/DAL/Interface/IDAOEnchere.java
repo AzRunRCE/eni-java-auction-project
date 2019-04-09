@@ -5,8 +5,8 @@ import java.util.List;
 import fr.eni.ecole.DAL.DALException;
 import fr.eni.ecole.beans.Enchere;
 import fr.eni.ecole.rest.mo.AccueilFilters;
+import fr.eni.ecole.rest.mo.DetailEnchere;
 import fr.eni.ecole.rest.mo.AccueilDashboardTile;
-import fr.eni.ecole.rest.mo.getDetailEnchere;
 
 public interface IDAOEnchere extends DAO<Enchere> {
 	
@@ -28,9 +28,19 @@ public interface IDAOEnchere extends DAO<Enchere> {
 	  public List<AccueilDashboardTile> selectAllwithParameters(AccueilFilters accueilFilters, Integer idUtilisateur) throws DALException;
 	  
 	  /**
-	   * Methode de recherche d'une ench�re pour un article
+	   * Methode de recherche d'une ench�re pour un article
 	   * @param noArticle
 	   * @return un objet de type getDetailEnchere
 	   */
-	  public getDetailEnchere selectById(int noArticle);
+	  public DetailEnchere selectById(int noArticle);
+	  
+	  /**
+	   * Ajoute une nouvelle enchère en base
+	   * @param noUtilisateur
+	   * @param noArticle
+	   * @param date
+	   * @param montant
+	   * @return le nombre de ligne inseréé dans la table ENCHERES
+	   */
+	  public int nouvelleEnchere(int noUtilisateur, int noArticle, int montant);
 }

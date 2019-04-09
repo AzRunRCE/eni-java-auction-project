@@ -13,6 +13,7 @@ import fr.eni.ecole.beans.Retrait;
 import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.bll.BLLException;
 import fr.eni.ecole.bll.CategoriesManager;
+import fr.eni.ecole.bll.UtilisateursManager;
 import fr.eni.ecole.bll.VentesManager;
 import fr.eni.ecole.util.Constantes;
 import fr.eni.ecole.util.Utils;
@@ -42,9 +43,18 @@ public class Sell extends HttpServlet {
 			request.getRequestDispatcher(Constantes.PAGE_INDEX).forward(request, response);
 			return;
 		}
+		
+		Integer no_utilisateur = (Integer)request.getSession().getAttribute(Constantes.SESS_NUM_UTILISATEUR);
+		
+		UtilisateursManager usersManager = new UtilisateursManager();
 		CategoriesManager categoriesManager = new CategoriesManager();
+		
+	
 		try {
 			request.setAttribute("listeCategories", categoriesManager.getListeCategories());
+			Utilisateur user = usersManager.getUtilisateur(no_utilisateur);
+		
+			request.setAttribute(Constantes.ATT_UTILISATEUR, user);
 		} catch (BLLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -94,8 +104,8 @@ public class Sell extends HttpServlet {
 					new_ArticleVendu.setRetrait(retrait);
 					
 					ventesManagers.create(new_ArticleVendu);
-					this.getServletContext().getRequestDispatcher(Constantes.PAGE_INDEX).forward(request, response);
-				} catch (NumberFormatException | BLLException e) {
+					response.sendRedirect(Constantes.URL_ACCUEIL);
+					} catch (NumberFormatException | BLLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}

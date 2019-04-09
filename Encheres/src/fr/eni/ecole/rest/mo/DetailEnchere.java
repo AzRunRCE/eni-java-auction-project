@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  * @author fcatin2018
  *
  */
-public class getDetailEnchere implements Serializable {
+public class DetailEnchere implements Serializable {
 
 	/**
 	 * 
@@ -26,7 +26,7 @@ public class getDetailEnchere implements Serializable {
 	/**
 	 * Constructeur par defaut
 	 */
-	public getDetailEnchere() {
+	public DetailEnchere() {
 		super();
 	}
 
@@ -46,7 +46,7 @@ public class getDetailEnchere implements Serializable {
  * @param noAcheteur
  * @param noVendeur
  */
-	public getDetailEnchere(String nomArticle, String descriptionArticle, String nomCategorie, String pseudoUtilisateur,
+	public DetailEnchere(String nomArticle, String descriptionArticle, String nomCategorie, String pseudoUtilisateur,
 			String codePostalRetrait, String rueRetrait, String villeRetrait, LocalDateTime dateFinEnchere,
 			int prixInitial, int montantEnchere, int noArticle,int noAcheteur, int noVendeur ) {
 		setNomArticle(nomArticle);

@@ -4,13 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.ecole.beans.Enchere;
 import fr.eni.ecole.rest.mo.AccueilFilters;
+import fr.eni.ecole.rest.mo.DetailEnchere;
 import fr.eni.ecole.rest.mo.AccueilDashboardTile;
-import fr.eni.ecole.rest.mo.getDetailEnchere;
+import fr.eni.ecole.rest.mo.DetailEnchere;
 import fr.eni.ecole.util.AccesBase;
 import fr.eni.ecole.DAL.DALException;
 import fr.eni.ecole.DAL.Interface.*;
@@ -50,6 +53,8 @@ public class EnchereDAO implements IDAOEnchere {
 										"RIGHT JOIN CATEGORIES c ON c.no_categorie = av.no_categorie " + 
 										"WHERE e.no_article = ? " + 
 										"ORDER BY e.montant_enchere DESC";
+	
+	private final String CREATE = "INSER INTO ENCHERES VALUES(?, ?, ?, ?)";
 								
 	@Override
 	public int create(Enchere obj) {
@@ -323,8 +328,8 @@ public class EnchereDAO implements IDAOEnchere {
 	}
 	
 	@Override
-	public getDetailEnchere selectById(int noArticle) {
-		getDetailEnchere enchere = null;
+	public DetailEnchere selectById(int noArticle) {
+		DetailEnchere enchere = null;
 		ResultSet rs = null;
 		try(Connection connect = AccesBase.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(SELECT_BY_ID)) {
@@ -332,7 +337,7 @@ public class EnchereDAO implements IDAOEnchere {
 			rs = preparedStatement.executeQuery();
 	    	if(rs.next()) {
 	    		//rs.first();
-	    		enchere = new getDetailEnchere(rs.getString("nom_article"),
+	    		enchere = new DetailEnchere(rs.getString("nom_article"),
 	    										rs.getString("description"),
 	    										rs.getString("libelle"),
 	    										rs.getString("pseudo"),
@@ -473,5 +478,23 @@ public class EnchereDAO implements IDAOEnchere {
 			sb.append(constraint);
 		}
 		return sb;
+	}
+	
+	public int nouvelleEnchere(int noUtilisateur, int noArticle, int montant) {
+		int rs = 0;
+		
+		try(Connection connect = AccesBase.getConnection();
+				PreparedStatement preparedStatement = connect.prepareStatement(CREATE)) {
+			preparedStatement.setInt(1, noUtilisateur);
+			preparedStatement.setInt(2, noArticle);
+			preparedStatement.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+			preparedStatement.setInt(4, montant);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (DALException e) {
+			e.printStackTrace();
+		}
+		return rs;
 	}
 }

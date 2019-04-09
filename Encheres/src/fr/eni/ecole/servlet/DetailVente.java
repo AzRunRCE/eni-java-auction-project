@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.bll.EncheresManager;
 import fr.eni.ecole.bll.UtilisateursManager;
-import fr.eni.ecole.rest.mo.getDetailEnchere;
+import fr.eni.ecole.rest.mo.DetailEnchere;
 import fr.eni.ecole.util.Constantes;
 
 /**
@@ -34,7 +34,7 @@ public class DetailVente extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int recupNoArticle;
 		EncheresManager managerEnchere = null;
-		getDetailEnchere enchere = null;
+		DetailEnchere enchere = null;
 		UtilisateursManager managerUtilisiateur = null;
 		Utilisateur vendeur = null;
 		String pseudoVendeur = null;
@@ -66,7 +66,33 @@ public class DetailVente extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		String nouveauMontant = null;
+		int recupNouveauMontant;
+		int recupAncienMontnant;
+		int recupNoAncienAcheteur;
+		int noNouveauAcheteur;
+		int recupNoVendeur;
+		int recupNoArticle;
+		int recupPrixInital;
+		
+		nouveauMontant = (request.getParameter("nouveauMontant"));
+		recupNoArticle = Integer.valueOf(request.getParameter("noArticle"));
+		if (nouveauMontant != null && nouveauMontant != "") {
+			recupNouveauMontant = Integer.valueOf(request.getParameter("nouveauMontant"));
+			recupPrixInital = Integer.valueOf(request.getParameter("prixInitial"));
+			recupAncienMontnant = Integer.valueOf(request.getParameter("ancienMontant"));
+			if (recupNouveauMontant < recupPrixInital || recupNouveauMontant < recupAncienMontnant) {
+				request.setAttribute("erreur", "Vous devez saisir un montant supérieur au prix initial ou à la meilleur offre");
+				request.setAttribute("noArticle", recupNoArticle);
+				doGet(request, response);
+			}else {
+				
+			}
+		}else {
+			request.setAttribute("erreur", "Vous devez saisir un montant supérieur au prix initial ou à la meilleur offre");
+			request.setAttribute("noArticle", recupNoArticle);
+			doGet(request, response);
+		}
 	}
 
 }

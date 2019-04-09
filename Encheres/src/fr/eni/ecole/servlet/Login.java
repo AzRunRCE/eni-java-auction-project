@@ -69,6 +69,7 @@ public class Login extends HttpServlet {
 			recupRemberMe = request.getParameter("rememberMe");
 			if(recupRemberMe != null) {
 				Cookie userCookie = new Cookie("userCookie", recupLogin);
+				userCookie.setMaxAge(1296000);
 				response.addCookie(userCookie);	
 			}
 			Cookie idUtilisateur = new Cookie("idUtilisateur", String.valueOf(utilisateur.getNoUtilisateur()));

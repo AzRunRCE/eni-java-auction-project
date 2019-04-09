@@ -38,7 +38,7 @@
 		</c:if>
 		<c:if test="${date < dateDebutEnchere}"> 
 			<div class="alert alert-warning" role="alert">
-		  		l'enchère débutera le <fmt:parseDate value="${dateDebutEnchere }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+		  		L'enchère débutera le <fmt:parseDate value="${dateDebutEnchere }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
 					<fmt:formatDate pattern="dd-MM-yyyy 'à' HH:mm" value="${ parsedDateTime }" />
 			</div>
 		</c:if>

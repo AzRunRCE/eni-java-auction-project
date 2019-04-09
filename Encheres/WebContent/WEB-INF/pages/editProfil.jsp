@@ -39,7 +39,7 @@
 		    	<input  type="password" class="form-control col-7" id="inputPassword"   name="inputPassword" placeholder="Entrez votre nouveau mot de passe">
 		  </div>
 		   <div class="form-group row p-2">
-		    <label for="InputCredit">Credit: <c:out value="${utilisateur.getCredit()}"></c:out></label>
+		    <label for="InputCredit" class="justify-content-start control-label col-5">Credit: <c:out value="${utilisateur.getCredit()}"></c:out></label>
 		  </div>
 		</div>
 		

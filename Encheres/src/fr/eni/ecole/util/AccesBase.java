@@ -13,11 +13,19 @@ import fr.eni.ecole.DAL.DALException;
 
 
 public class AccesBase {
+	private static DataSource ds = null;
+	
 	public static Connection getConnection() throws DALException {
-		
-		DataSource ds = null;
 		InitialContext jndi = null;
 		Connection cnx = null;
+		try {
+			if (ds != null)
+			{
+				return ds.getConnection();
+			}
+		} catch (SQLException e) {
+			throw new DALException("impossible d'obtenir une connexion", e);
+		}	
 		
 		//Obtenir une reference sur le contecte initiale
 		try {
@@ -42,49 +50,4 @@ public class AccesBase {
 		}	
 	}
 	
-	/**
-	 * Methode permettant de fermer le statement et la connexion
-	 * @param stmt : le statement
-	 * @param cnx : la connexion
-	 * @throws DALException : propage le message d'exception
-	 */
-	public static void closeAll(Statement stmt, Connection cnx) throws DALException {
-		if (stmt != null) {
-			try {
-				stmt.close();
-			} catch (SQLException e) {
-				throw new DALException("probleme fermeture du statement",e);
-			}
-		}
-		if (cnx != null) {
-			try {
-				cnx.close();
-			} catch (SQLException e) {
-				throw new DALException("probleme fermeture de la connexion",e);
-			}
-		}
-	}
-	
-	/**
-	 * Methode permettant de fermer le preparedstatement et la connexion
-	 * @param pStmt : le preparedstatement
-	 * @param cnx : la connexion
-	 * @throws DALException : propage le message d'exception
-	 */
-	public static void closeAll(PreparedStatement pStmt, Connection cnx) throws DALException {
-		if (pStmt != null) {
-			try {
-				pStmt.close();
-			} catch (SQLException e) {
-				throw new DALException("probleme fermeture du preparedstatement",e);
-			}
-		}
-		if (cnx != null) {
-			try {
-				cnx.close();
-			} catch (SQLException e) {
-				throw new DALException("probleme fermeture de la connexion",e);
-			}
-		}
-	}
 }

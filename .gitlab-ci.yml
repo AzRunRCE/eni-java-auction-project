@@ -1,0 +1,12 @@
+image: openjdk:8-jdk
+
+before_script:
+    
+stages:
+  - test
+
+
+tests:
+  stage: test
+  script:
+    - 

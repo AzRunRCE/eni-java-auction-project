@@ -6,12 +6,15 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.CookieParam;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 
+import fr.eni.ecole.bll.BLLException;
 import fr.eni.ecole.bll.EncheresManager;
 import fr.eni.ecole.rest.mo.AccueilDashboardTile;
 import fr.eni.ecole.rest.mo.AccueilFilters;
@@ -37,7 +40,11 @@ public class GestionEncheres {
 	public List<AccueilDashboardTile> getListeEncheres() {
 		// Find the HttpSession
 		EncheresManager enchereManager = new EncheresManager();
-		return enchereManager.getListeEncheresAccueilWithoutParameters();
+		try {
+			return enchereManager.getListeEncheresAccueilWithoutParameters();
+		} catch (BLLException e) {
+			return null;
+		}
 	}
 	@SuppressWarnings("unused")
 	@POST
@@ -114,10 +121,15 @@ public class GestionEncheres {
 			System.out.println(idUtilisateur);
 			
 			EncheresManager enchereManager = new EncheresManager();
-			return enchereManager.getListeEncheresAccueilWithParameters(filtresAccueil, idUtilisateur);			
+			try {
+				return enchereManager.getListeEncheresAccueilWithParameters(filtresAccueil, idUtilisateur);
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				throw new InternalServerErrorException();
+			}			
 		} else {
 			System.out.println("protection ok");
-			return null;
+			throw new BadRequestException();
 		}
 	}
 

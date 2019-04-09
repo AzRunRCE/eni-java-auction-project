@@ -77,7 +77,7 @@ public class Login extends HttpServlet {
 			//request.getSession().setAttribute(Constantes.SESS_NOM, utilisateur.getNom());
 			//request.getSession().setAttribute(Constantes.SESS_PRENOM, utilisateur.getPrenom());
 			request.getSession().setAttribute(Constantes.SESS_NUM_UTILISATEUR, utilisateur.getNoUtilisateur());
-			request.getRequestDispatcher(Constantes.PAGE_INDEX).forward(request, response);
+			response.sendRedirect(Constantes.URL_ACCUEIL);
 		}else {
 			request.setAttribute("erreur", "Login ou mot de passe incorrect!");
 			request.getRequestDispatcher(Constantes.PAGE_LOGIN).forward(request, response);

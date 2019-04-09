@@ -40,6 +40,9 @@
 		<div class="form-group">
 		    <label for="inputVille">Ville: <c:out value="${utilisateur.getVille()}"></c:out></label>
 		</div>
+		<div class="form-group">
+		    <label for="inputVille">Credit: <c:out value="${utilisateur.getCredit()}"></c:out></label>
+		</div>
 		<div class="row justify-content-around">
 			<c:if test="${editable != null && editable == true}">
 		   		<div class="col-4">
@@ -49,4 +52,6 @@
 		</div>
 	</div>
 </div>
+</div>
+
 <jsp:include page="../fragments/footer.jsp" ></jsp:include>

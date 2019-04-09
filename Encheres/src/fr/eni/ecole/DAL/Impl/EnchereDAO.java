@@ -9,14 +9,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.ecole.DAL.DALException;
+import fr.eni.ecole.DAL.Interface.IDAOEnchere;
 import fr.eni.ecole.beans.Enchere;
+import fr.eni.ecole.rest.mo.AccueilDashboardTile;
 import fr.eni.ecole.rest.mo.AccueilFilters;
 import fr.eni.ecole.rest.mo.DetailEnchere;
-import fr.eni.ecole.rest.mo.AccueilDashboardTile;
-import fr.eni.ecole.rest.mo.DetailEnchere;
 import fr.eni.ecole.util.AccesBase;
-import fr.eni.ecole.DAL.DALException;
-import fr.eni.ecole.DAL.Interface.*;
 
 public class EnchereDAO implements IDAOEnchere {
 
@@ -86,7 +85,7 @@ public class EnchereDAO implements IDAOEnchere {
 	}
 	
 	@Override
-	public List<AccueilDashboardTile> selectAllWithoutParameters() {
+	public List<AccueilDashboardTile> selectAllWithoutParameters() throws DALException{
 		try(Connection connect = AccesBase.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(SELECT_ALL_WITHOUT_PARAM)) {
 
@@ -106,7 +105,7 @@ public class EnchereDAO implements IDAOEnchere {
 	    	}
 	    	return listeMsgObjectsAccueil;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DALException("Erreur dans selectAllWithoutParameters", e);
 		} catch (DALException e1) {
 			System.out.println("Probleme dans selectAllWithoutParameters");
 			e1.printStackTrace();
@@ -115,7 +114,7 @@ public class EnchereDAO implements IDAOEnchere {
 	}
 
 	@Override
-	public List<AccueilDashboardTile> selectAllwithParameters(AccueilFilters accueilFilters, Integer idUtilisateur) {
+	public List<AccueilDashboardTile> selectAllwithParameters(AccueilFilters accueilFilters, Integer idUtilisateur) throws DALException {
 		
 		whereAlreadySet = false;
 		StringBuilder requeteParametree = new StringBuilder();
@@ -328,7 +327,7 @@ public class EnchereDAO implements IDAOEnchere {
 	    	}
 	    	return listeMsgObjectsAccueil;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DALException("Probleme dans selectAllWithParameters", e);
 		} catch (DALException e1) {
 			System.out.println("Probleme dans selectAllWithParameters");
 			e1.printStackTrace();

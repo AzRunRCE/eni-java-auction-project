@@ -2,6 +2,7 @@ package fr.eni.ecole.bll;
 
 import java.util.List;
 
+import fr.eni.ecole.DAL.DALException;
 import fr.eni.ecole.DAL.DAOFactory;
 import fr.eni.ecole.DAL.Interface.IDAOCategorie;
 import fr.eni.ecole.beans.Categorie;
@@ -10,11 +11,15 @@ import fr.eni.ecole.beans.Categorie;
 public class CategoriesManager {
 	IDAOCategorie daoCategorie = DAOFactory.getCategorieDAO();
 	
-	public List<Categorie> getListeCategories() {
-		return daoCategorie.selectAll();
+	public List<Categorie> getListeCategories() throws BLLException{
+		try {
+			return daoCategorie.selectAll();
+		} catch (DALException e) {
+			throw new BLLException("Probleme dans getListeCategorie()", e);
+		}
 	}
 	
-	public Categorie getCategorie(int Id) {
+	public Categorie getCategorie(int Id) throws BLLException{
 		return daoCategorie.find(Id);
 	}
 }

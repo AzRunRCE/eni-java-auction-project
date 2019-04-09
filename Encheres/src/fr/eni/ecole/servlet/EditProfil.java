@@ -49,7 +49,7 @@ public class EditProfil extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Boolean isLogged = request.getSession().getAttribute(Constantes.SESS_NUM_UTILISATEUR) != null;
 		if (!isLogged) {
-			request.getRequestDispatcher(Constantes.PAGE_INDEX).forward(request, response);
+			response.sendRedirect(Constantes.PAGE_INDEX);
 			return;
 		}
 		

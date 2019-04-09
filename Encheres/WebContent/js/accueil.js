@@ -1,54 +1,31 @@
 'use strict'
 
-function createXHR() {
-	var xhr;
-	if (window.XMLHttpRequest) //  Objet standard
-	{
-		xhr = new XMLHttpRequest(); //  Firefox, Safari, ...
-	} else if (window.ActiveXObject) //  Internet Explorer
-	{
-		xhr = new ActiveXObject("Msxml2.XMLHTTP");
-	}
-
-	xhr.onreadystatechange = function() {
-		if (xhr.readyState == 4) {
-			if (xhr.status == 200) {
-				//succes(xhr.responseText);//xhr.responseXML si réponse XML
-			} else {
-				echec(xhr.status, xhr.responseText);
-			}
-		}
-	};
-	return xhr;
-}
-
 var lister = function() {
-
-	var xhr = createXHR();
-
-	xhr.onreadystatechange = function() {
-		if (xhr.readyState == 4) {
-			if (xhr.status == 200) {
-				//succes(xhr.responseText);
-				var listeEncheres = JSON.parse(xhr.responseText);
-				createDashboard(JSON.parse(xhr.responseText))
-			} else {
-				echec(xhr.status, xhr.responseText);
-			}
-		}
-	}
-	xhr.open("GET", "/Encheres/webapi/enchere/", true);
-	xhr.setRequestHeader("Accept", "application/json");
-	xhr.send(null);
+	hideEchec();
+    $.ajax({
+        type: "GET",
+        url: "/Encheres/webapi/enchere/",
+        success: function (data) {
+            console.log('download was successful.');
+            console.log(data);
+            createDashboard(data);
+        },
+        error: function (data) {
+            console.log('An error occurred.'); //error 500
+            cleanDashboard();
+            console.log(data);
+            echec(500)
+        },
+    });
 }
+
 function createDashboard(data) {
-	
-	console.log(data);
 
 	//dashboard Tiles
 	
 	var dashboard = document.getElementById('dashboard');
-		if(data) {
+	
+		if(data && data.length > 0) {
 			data.forEach(function(enchere) {
 				//dashboard Tiles
 				let dashboardTile = document.createElement('div');
@@ -58,14 +35,14 @@ function createDashboard(data) {
 				dashboardTileRow.setAttribute('class', 'row no-gutters');
 				
 				let dashboardTileRowImageContainer = document.createElement('div');
-				dashboardTileRowImageContainer.setAttribute('class', 'col-md-4');
+				dashboardTileRowImageContainer.setAttribute('class', 'col-4');
 				
 				let image = document.createElement('img');
 				image.setAttribute('src', './img/alienware.jpg');
 				image.setAttribute('class', 'card-img p-1');
 				
 				let container = document.createElement('div');
-				container.setAttribute('class', 'col-md-8')
+				container.setAttribute('class', 'col-8')
 				
 				let cardBody = document.createElement('div');
 				cardBody.setAttribute('class', 'card-body')
@@ -87,7 +64,7 @@ function createDashboard(data) {
 				let dateEnchere = moment(enchere.dateFinEnchere, moment.ISO_8601);
 				dateEnchere.locale('fr');
 				
-				endDate.innerText = "Fin de l'enchère : " + dateEnchere.format('DD/MM/YYYY - h:mm');
+				endDate.innerText = "Fin de l'enchère : " + dateEnchere.format('DD/MM/YYYY - h[H]mm');
 
 				let amount = document.createElement('p');
 				amount.setAttribute('class', 'card-text');
@@ -95,14 +72,17 @@ function createDashboard(data) {
 				
 				let pseudo = document.createElement('p');
 				pseudo.setAttribute('class', 'card-text');
+				if( getCookie('idUtilisateur') ) {
+					let linkVendeur = document.createElement('a');
+					let linkDetailVendeur = '/Encheres/Profil?userId=' + enchere.noVendeur;
+					linkVendeur.setAttribute('href', linkDetailVendeur);
+					
+					linkVendeur.innerText = 'Vendeur : ' + enchere.pseudoVendeur;					
+					pseudo.appendChild(linkVendeur);
+				} else {
+					pseudo.innerText = 'Vendeur : ' + enchere.pseudoVendeur;
+				}
 				
-				let linkVendeur = document.createElement('a');
-				let linkDetailVendeur = '/Encheres/Profil?userId=' + enchere.noVendeur;
-				linkVendeur.setAttribute('href', linkDetailVendeur);
-				
-				linkVendeur.innerText = 'Vendeur : ' + enchere.pseudoVendeur;
-				
-				pseudo.appendChild(linkVendeur);
 				
 				cardBody.appendChild(productName);
 				cardBody.appendChild(endDate);
@@ -121,7 +101,8 @@ function createDashboard(data) {
 				dashboard.appendChild(dashboardTile);
 			});
 		} else {
-			//display error
+			//display error pas d'articles a afficher
+			echec();
 		}
 		
 }
@@ -136,14 +117,16 @@ function cleanDashboard() {
 	}
 }
 
-function succes(reponse) {
-	document.getElementById("succes").innerHTML = reponse;
-	document.getElementById("echec").innerHTML = "";
+function echec(codeReponse) {
+	if(codeReponse == '200' || codeReponse == null) {
+		document.getElementById("echec").innerText = 'Aucun article ne semble correspondre aux filtres saisis.';	
+	} else if (codeReponse == '500') {
+		document.getElementById("echec").innerText = 'Un problème technique est survenu, veuillez réessayer plus tard.';	
+	}
+	document.getElementById('echec').removeAttribute("hidden");
 }
-
-function echec(codeReponse, reponse) {
-	document.getElementById("echec").innerHTML = reponse;
-	document.getElementById("succes").innerHTML = "";
+function hideEchec() {
+	document.getElementById('echec').setAttribute('hidden', 'true');
 }
 
 function addListeners() {
@@ -210,6 +193,7 @@ function addListeners() {
 
         e.preventDefault();
         console.log(frm.serialize());
+        hideEchec();
         $.ajax({
             type: frm.attr('method'),
             url: frm.attr('action'),
@@ -222,7 +206,9 @@ function addListeners() {
             },
             error: function (data) {
                 console.log('An error occurred.');
-                console.log(data);
+                cleanDashboard();
+                console.log(data.status);
+                echec(500);
             },
         });
     });

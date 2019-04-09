@@ -12,5 +12,5 @@ public interface IDAOCategorie extends DAO<Categorie>{
 	   * @return T
 	 * @throws DALException 
 	   */
-	  public List<Categorie> selectAll();
+	  public List<Categorie> selectAll() throws DALException;
 }

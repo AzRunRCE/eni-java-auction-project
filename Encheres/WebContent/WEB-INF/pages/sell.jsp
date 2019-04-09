@@ -78,7 +78,7 @@
 											<label class="col-12 col-lg-3 col-xl-3 m-auto pl-0" for="inputRue">Rue
 												:</label> <input type="text"
 												class="form-control col-12 col-lg-9 col-xl-9" name="inputRue"
-												id="inputRue" placeholder="Entrez votre rue" value=""
+												id="inputRue" placeholder="Entrez votre rue" value="<c:out value="${utilisateur.getRue()}"></c:out>"
 												required>
 										</div>
 										<div class="form-group row col-12">
@@ -86,13 +86,13 @@
 												for="inputCodePostal">Code Postal :</label> <input type="text"
 												class="form-control col-12 col-lg-9 col-xl-9"
 												name="inputCodePostal" id="inputCodePostal" placeholder="Entrez votre Code Postal"
-												value="" required>
+												value="<c:out value="${utilisateur.getCodePostal()}"></c:out>" required>
 										</div>
 										<div class="form-group row col-12">
 											<label class="col-12 col-lg-3 col-xl-3 m-auto pl-0"
 												for="ville">Ville :</label> <input type="text"
 												class="form-control col-12 col-lg-9 col-xl-9" name="inputVille"
-												id="InputVille" placeholder="Entrez votre ville" value=""
+												id="InputVille" placeholder="Entrez votre ville" value="<c:out value="${utilisateur.getVille()}"></c:out>"
 												required>
 										</div>
 									</div>

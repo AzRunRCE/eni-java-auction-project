@@ -3,6 +3,7 @@ image: openjdk:8-jdk
 before_script:
     - wget http://central.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.5.0-M1/junit-platform-console-standalone-1.5.0-M1.jar
     - git checkout unit_tests_impl
+    - cd Encheres
 stages:
   - test
 

@@ -8,9 +8,9 @@ before_script:
     - cd tomcat8
     - mv ../apache-tomcat-8.5.39.tar.gz .
     - tar xvzf apache-tomcat-8.5.39.tar.gz &>/dev/null
-    - export CATALINA_HOME=$(pwd)tomcat8/apache-tomcat-8.5.39
+    - export CATALINA_HOME=$(pwd)/apache-tomcat-8.5.39
     - export PATH=$PATH:$CATALINA_HOME
-    - ls $CATALINA_HOME
+    - ls $CATALINA_HOME/lib
     - cd Encheres
 
 stages:

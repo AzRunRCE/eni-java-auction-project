@@ -8,6 +8,8 @@
 	<jsp:param value="Vendre" name="title"/>
 </jsp:include>
 <div class="container">
+	<h2>Vendre un article</h2>
+	<hr>
 <form method="post"
 			action="Sell">
 			<div class="row">

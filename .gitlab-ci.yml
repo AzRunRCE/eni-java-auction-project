@@ -17,17 +17,14 @@ before_script:
 
 stages:
   - build
-  - test
 
 builds:
   stage: build
   script:
     - ant -buildfile build-CI.xml compile
-
-tests:
-  stage: test
-  script:
-    - ant -buildfile build-CI.xml test
   artifacts:
+    paths:
+    - Encheres/dist/*.jar
     reports:
       junit: Encheres/testreports/*.xml
+

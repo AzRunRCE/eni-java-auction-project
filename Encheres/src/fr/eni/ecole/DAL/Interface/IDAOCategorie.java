@@ -8,7 +8,7 @@ import fr.eni.ecole.beans.Categorie;
 public interface IDAOCategorie extends DAO<Categorie>{
 	 
 	/**
-	   * Méthode de recherche des informations
+	   * MÃ©thode de recherche des informations
 	   * @return T
 	 * @throws DALException 
 	   */

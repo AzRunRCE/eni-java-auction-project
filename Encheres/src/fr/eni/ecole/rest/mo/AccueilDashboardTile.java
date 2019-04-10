@@ -18,7 +18,7 @@ public class AccueilDashboardTile implements Serializable {
 	private String pseudoVendeur;
 	private Integer noVendeur;
 	private Integer noArticle;
-	private transient Base64 photo;
+	private String chemin_image;
 	
 
 	public Integer getNoVendeur() {
@@ -26,20 +26,9 @@ public class AccueilDashboardTile implements Serializable {
 	}
 
 
-
-
 	public void setNoVendeur(Integer noVendeur) {
 		this.noVendeur = noVendeur;
 	}
-
-	
-	
-	public  Base64  getPhoto() {
-		return photo;
-	}
-
-
-
 
 	public Integer getNoArticle() {
 		return noArticle;
@@ -54,18 +43,21 @@ public class AccueilDashboardTile implements Serializable {
 
 
 
-
-	public void setPhoto(Base64 photo) {
-		this.photo = photo;
-	}
-
-
-
 	public String getNomProduit() {
 		return nomProduit;
 	}
 
 
+
+
+	public String getChemin_image() {
+		return chemin_image;
+	}
+
+
+	public void setChemin_image(String chemin_image) {
+		this.chemin_image = chemin_image;
+	}
 
 
 	public void setNomProduit(String nomProduit) {
@@ -137,9 +129,8 @@ public class AccueilDashboardTile implements Serializable {
 
 
 
-
 	public AccueilDashboardTile(String nomProduit, String dateFinEnchere, Integer montant, String pseudoVendeur,
-			Integer noVendeur, Integer noArticle, Base64 photo) {
+			Integer noVendeur, Integer noArticle, String chemin_image) {
 		super();
 		this.nomProduit = nomProduit;
 		this.dateFinEnchere = dateFinEnchere;
@@ -147,10 +138,8 @@ public class AccueilDashboardTile implements Serializable {
 		this.pseudoVendeur = pseudoVendeur;
 		this.noVendeur = noVendeur;
 		this.noArticle = noArticle;
-		this.photo = photo;
+		this.chemin_image = chemin_image;
 	}
-
-
 
 
 	public AccueilDashboardTile() {

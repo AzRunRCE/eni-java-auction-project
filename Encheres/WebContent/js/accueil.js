@@ -38,7 +38,11 @@ function createDashboard(data) {
 				dashboardTileRowImageContainer.setAttribute('class', 'col-4');
 				
 				let image = document.createElement('img');
-				image.setAttribute('src', './img/alienware.jpg');
+				if(enchere.chemin_image) {
+					image.setAttribute('src', 'http://localhost:8080/EncheresImages/'+enchere.chemin_image);
+				} else {
+					image.setAttribute('src', 'http://localhost:8080/EncheresImages/default.jpg');					
+				}
 				image.setAttribute('class', 'card-img p-1');
 				
 				let container = document.createElement('div');

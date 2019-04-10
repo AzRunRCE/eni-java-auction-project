@@ -11,7 +11,8 @@
 	<h2>Vendre un article</h2>
 	<hr>
 <form method="post"
-			action="Sell">
+			action="Sell"
+			enctype="multipart/form-data">
 			<div class="row">
 			<div class="col-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 px-3 pb-3 mt-4 mb-auto">
 						<img src="http://www.stonyelectrical.com/wp-content/uploads/2018/04/Product_Icon.png" class="card-img" alt="...">
@@ -26,7 +27,7 @@
 								
 							</div>
 							<div class="form-group col-12">
-								<label for="InputDescription">Desciption :</label>
+								<label for="InputDescription">Description :</label>
 								
 									
 									
@@ -44,11 +45,11 @@
 			</select>
 							</div>
 							<div class="form-group col-12">
-								<label for="InputImage">Photo de l'article :</label>
+								<label for="inputImage">Photo de l'article :</label>
 								<div class="custom-file">
-									<input type="file" class="custom-file-input" id="InputImage"
-										accept="image/png, image/jpeg" name="image"> <label
-										class="custom-file-label" for="image">Télécharger...</label>
+									<input type="file" class="custom-file-input" id="inputImage"
+										accept="image/png, image/jpeg" name="inputImage"> <label
+										class="custom-file-label" for="inputImage">Télécharger...</label>
 								</div>
 							</div>
 							<div class="form-group col-12">

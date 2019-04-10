@@ -4,9 +4,9 @@
 <%@taglib prefix="f" uri="http://java.sun.com/jsp/jstl/functions" %>
     
 
-<jsp:include page="../fragments/header.jsp" >
-	<jsp:param value="Vendre" name="title"/>
-</jsp:include>
+<c:set var="title" scope="request" value="${ title }"/>
+<jsp:include page="../fragments/header.jsp"></jsp:include>
+
 <div class="container">
 	<h2>Vendre un article</h2>
 	<hr>

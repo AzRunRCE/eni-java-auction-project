@@ -11,7 +11,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<title><fmt:message key="msg.nav_title" bundle="${r}"></fmt:message> - ${param.title} </title>
+		<title><fmt:message key="msg.nav_title" bundle="${r}"></fmt:message> - ${ title } </title>
 		<script src="${pageContext.request.contextPath }/js/jquery.js"></script>
 		<script src="${pageContext.request.contextPath }/js/popper.min.js"></script>
 		<script src="${pageContext.request.contextPath }/js/moment-with-locales.js"></script>

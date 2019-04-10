@@ -7,9 +7,9 @@
 
 <fmt:message key="msg.title" bundle="${r}" var="title"/>
 
-<jsp:include page="../fragments/header.jsp">
-	<jsp:param value="${ title }" name="title" />
-</jsp:include>
+<c:set var="title" scope="request" value="${ title }"/>
+<jsp:include page="../fragments/header.jsp"></jsp:include>
+
 <div class="container">
 	<h2>${ title }</h2>
 	<hr>

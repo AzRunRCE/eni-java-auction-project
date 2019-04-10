@@ -6,7 +6,8 @@
 <%@taglib prefix="f" uri="http://java.sun.com/jsp/jstl/functions" %>
     
 
-<jsp:include page="../fragments/header.jsp" ></jsp:include>
+<c:set var="title" scope="request" value="${ title }"/>
+<jsp:include page="../fragments/header.jsp"></jsp:include>
 <div class="container">
 	<h2>Mon profil</h2>
 	<hr>

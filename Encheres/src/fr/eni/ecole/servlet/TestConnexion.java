@@ -40,7 +40,7 @@ public class TestConnexion extends HttpServlet implements Servlet {
 		response.setContentType("text/plain");
 		PrintWriter out = response.getWriter();
 		try( Connection cnx = AccesBase.getConnection() ) {
-			out.println("Connexion r�ussie");
+			out.println("Connexion réussie");
 			out.flush();
 		} catch (DALException e) {
 			out.println("Connexion KO " + e.getMessage() + "\n");
@@ -53,8 +53,12 @@ public class TestConnexion extends HttpServlet implements Servlet {
 		}
 		
 		IDAOUtilisateur daoUsers;
-	//	daoUsers = DAOFactory.getUtilisateurDAO();
-		//Utilisateur p = daoUsers.findByLogin("ApoZLd");
+		daoUsers = DAOFactory.getUtilisateurDAO();
+		try {
+			Utilisateur p = daoUsers.findByLogin("ApoZLd");
+		} catch (DALException e) {
+			e.printStackTrace();
+		}
 		
 	}
 

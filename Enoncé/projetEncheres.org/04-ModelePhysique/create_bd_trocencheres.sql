@@ -1,6 +1,10 @@
 -- Script de création de la base de données ENCHERES
 --   type :      SQL Server 2012
 --
+ALTER DATABASE DB_ENCHERES
+SET SINGLE_USER
+WITH ROLLBACK IMMEDIATE;
+DROP DATABASE DB_ENCHERES;
 IF DB_ID('DB_ENCHERES_UnitTests') IS NOT NULL
 BEGIN
 USE master
@@ -62,6 +66,7 @@ CREATE TABLE ARTICLES_VENDUS (
     date_fin_encheres             datetime NOT NULL,
     prix_initial                  INTEGER,
     prix_vente                    INTEGER,
+    chemin_image                  VARCHAR(150),  
     no_utilisateur                INTEGER NOT NULL,
     no_categorie                  INTEGER NOT NULL
 )
@@ -96,7 +101,7 @@ ALTER TABLE ARTICLES_VENDUS
         REFERENCES utilisateurs ( no_utilisateur )
 ON DELETE NO ACTION 
     ON UPDATE no action 
-	
+
 INSERT INTO UTILISATEURS VALUES 
 ('ApoZLd', 'GABORIT', 'Romain', 'romain@gmail.com', '0631212957', 'Allee des fougeres',
  '44240', 'La Chapelle sur Erdre', 'hello', 10, 1),

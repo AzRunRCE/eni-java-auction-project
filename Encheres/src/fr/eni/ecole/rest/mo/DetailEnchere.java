@@ -18,10 +18,10 @@ public class DetailEnchere implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private String nomArticle, descriptionArticle, nomCategorie, pseudoUtilisateur;
+	private String nomArticle, descriptionArticle, nomCategorie, pseudoUtilisateur, chemin_image;
 	private String codePostalRetrait, rueRetrait, villeRetrait;
-	private LocalDateTime dateFinEnchere;
-	private int prixInitial, montantEnchere, noArticle, noAcheteur, noVendeur;
+	private LocalDateTime dateDebutEnchere, dateFinEnchere;
+	private int prixInitial, montantEnchere, prixVente, noArticle, noAcheteur, noVendeur;
 	
 	/**
 	 * Constructeur par defaut
@@ -47,7 +47,7 @@ public class DetailEnchere implements Serializable {
  * @param noVendeur
  */
 	public DetailEnchere(String nomArticle, String descriptionArticle, String nomCategorie, String pseudoUtilisateur,
-			String codePostalRetrait, String rueRetrait, String villeRetrait, LocalDateTime dateFinEnchere,
+			String codePostalRetrait, String rueRetrait, String villeRetrait,LocalDateTime dateDebutEnchere, LocalDateTime dateFinEnchere,
 			int prixInitial, int montantEnchere, int noArticle,int noAcheteur, int noVendeur ) {
 		setNomArticle(nomArticle);
 		setDescriptionArticle(descriptionArticle);
@@ -56,6 +56,7 @@ public class DetailEnchere implements Serializable {
 		setCodePostalRetrait(codePostalRetrait);
 		setRueRetrait(rueRetrait);
 		setVilleRetrait(villeRetrait);
+		setDateDebutEnchere(dateDebutEnchere);
 		setDateFinEnchere(dateFinEnchere);
 		setPrixInitial(prixInitial);
 		setMontantEnchere(montantEnchere);
@@ -63,6 +64,115 @@ public class DetailEnchere implements Serializable {
 		setNoAcheteur(noAcheteur);
 		setNoVendeur(noVendeur);
 		
+	}
+	
+	/**
+	 * 
+	 * @param nomArticle
+	 * @param descriptionArticle
+	 * @param nomCategorie
+	 * @param pseudoUtilisateur
+	 * @param codePostalRetrait
+	 * @param rueRetrait
+	 * @param villeRetrait
+	 * @param dateFinEnchere
+	 * @param prixInitial
+	 * @param prixVente
+	 * @param noArticle
+	 * @param noVendeur
+	 */
+	public DetailEnchere(String nomArticle, String descriptionArticle, String nomCategorie, String pseudoUtilisateur,
+			String codePostalRetrait, String rueRetrait, String villeRetrait, LocalDateTime dateDebutEnchere, LocalDateTime dateFinEnchere,
+			int prixInitial, int prixVente, int noArticle, int noVendeur ) {
+		setNomArticle(nomArticle);
+		setDescriptionArticle(descriptionArticle);
+		setNomCategorie(nomCategorie);
+		setPseudoUtilisateur(pseudoUtilisateur);
+		setCodePostalRetrait(codePostalRetrait);
+		setRueRetrait(rueRetrait);
+		setVilleRetrait(villeRetrait);
+		setDateDebutEnchere(dateDebutEnchere);
+		setDateFinEnchere(dateFinEnchere);
+		setPrixInitial(prixInitial);
+		setPrixVente(prixVente);
+		setNoArticle(noArticle);
+		setNoVendeur(noVendeur);
+		
+	}
+	
+	/**
+	 * 
+	 * @param nomArticle
+	 * @param descriptionArticle
+	 * @param nomCategorie
+	 * @param pseudoUtilisateur
+	 * @param codePostalRetrait
+	 * @param rueRetrait
+	 * @param villeRetrait
+	 * @param dateDebutEnchere
+	 * @param dateFinEnchere
+	 * @param prixInitial
+	 * @param montantEnchere
+	 * @param noArticle
+	 * @param noAcheteur
+	 * @param noVendeur
+	 * @param chemin_image
+	 */
+	public DetailEnchere(String nomArticle, String descriptionArticle, String nomCategorie, String pseudoUtilisateur,
+			String codePostalRetrait, String rueRetrait, String villeRetrait,LocalDateTime dateDebutEnchere, LocalDateTime dateFinEnchere,
+			int prixInitial, int montantEnchere, int noArticle,int noAcheteur, int noVendeur, String chemin_image) {
+		setNomArticle(nomArticle);
+		setDescriptionArticle(descriptionArticle);
+		setNomCategorie(nomCategorie);
+		setPseudoUtilisateur(pseudoUtilisateur);
+		setCodePostalRetrait(codePostalRetrait);
+		setRueRetrait(rueRetrait);
+		setVilleRetrait(villeRetrait);
+		setDateDebutEnchere(dateDebutEnchere);
+		setDateFinEnchere(dateFinEnchere);
+		setPrixInitial(prixInitial);
+		setMontantEnchere(montantEnchere);
+		setNoArticle(noArticle);
+		setNoAcheteur(noAcheteur);
+		setNoVendeur(noVendeur);
+		setChemin_image(chemin_image);
+		
+	}
+	
+	/**
+	 * 
+	 * @param nomArticle
+	 * @param descriptionArticle
+	 * @param nomCategorie
+	 * @param pseudoUtilisateur
+	 * @param codePostalRetrait
+	 * @param rueRetrait
+	 * @param villeRetrait
+	 * @param dateDebutEnchere
+	 * @param dateFinEnchere
+	 * @param prixInitial
+	 * @param prixVente
+	 * @param noArticle
+	 * @param noVendeur
+	 * @param chemin_image
+	 */
+	public DetailEnchere(String nomArticle, String descriptionArticle, String nomCategorie, String pseudoUtilisateur,
+			String codePostalRetrait, String rueRetrait, String villeRetrait, LocalDateTime dateDebutEnchere, LocalDateTime dateFinEnchere,
+			int prixInitial, int prixVente, int noArticle, int noVendeur, String chemin_image ) {
+		setNomArticle(nomArticle);
+		setDescriptionArticle(descriptionArticle);
+		setNomCategorie(nomCategorie);
+		setPseudoUtilisateur(pseudoUtilisateur);
+		setCodePostalRetrait(codePostalRetrait);
+		setRueRetrait(rueRetrait);
+		setVilleRetrait(villeRetrait);
+		setDateDebutEnchere(dateDebutEnchere);
+		setDateFinEnchere(dateFinEnchere);
+		setPrixInitial(prixInitial);
+		setPrixVente(prixVente);
+		setNoArticle(noArticle);
+		setNoVendeur(noVendeur);
+		setChemin_image(chemin_image);
 	}
 
 	/**
@@ -220,12 +330,12 @@ public class DetailEnchere implements Serializable {
 	}
 
 	/**
-	 * @return the noUtilisaeur
+	 * @return the noAcheteur
 	 */
-	public int getNoAchateur() {
+	public int getNoAcheteur() {
 		return noAcheteur;
 	}
-
+	
 	/**
 	 * @param noAcheteur the noAcheteur to set
 	 */
@@ -246,6 +356,50 @@ public class DetailEnchere implements Serializable {
 	public void setNoVendeur(int noVendeur) {
 		this.noVendeur = noVendeur;
 	}
+
+	/**
+	 * @return the prixVente
+	 */
+	public int getPrixVente() {
+		return prixVente;
+	}
+
+	/**
+	 * @param prixVente the prixVente to set
+	 */
+	public void setPrixVente(int prixVente) {
+		this.prixVente = prixVente;
+	}
+
+	/**
+	 * @return the dateDebutEncheres
+	 */
+	public LocalDateTime getDateDebutEnchere() {
+		return dateDebutEnchere;
+	}
+
+	/**
+	 * @param dateDebutEncheres the dateDebutEncheres to set
+	 */
+	public void setDateDebutEnchere(LocalDateTime dateDebutEncheres) {
+		this.dateDebutEnchere = dateDebutEncheres;
+	}
+
+	/**
+	 * @return the chemin_image
+	 */
+	public String getChemin_image() {
+		return chemin_image;
+	}
+
+	/**
+	 * @param chemin_image the chemin_image to set
+	 */
+	public void setChemin_image(String chemin_image) {
+		this.chemin_image = chemin_image;
+	}
+
+	
 	
 	
 	

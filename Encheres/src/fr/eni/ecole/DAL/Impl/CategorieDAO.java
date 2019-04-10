@@ -22,22 +22,19 @@ public class CategorieDAO implements IDAOCategorie {
 	public CategorieDAO(DataSource _dataSource) {
 		dataSource = _dataSource;
 	}
-
+	
 	@Override
-	public int create(Categorie obj) {
-		// TODO Auto-generated method stub
+	public int create(Categorie obj) throws DALException {
 		return 0;
 	}
 
 	@Override
-	public boolean delete(Categorie obj) {
-		// TODO Auto-generated method stub
-		return false;
+	public int delete(Categorie obj) throws DALException {
+		return 0;
 	}
 
 	@Override
-	public boolean update(Categorie obj) {
-		// TODO Auto-generated method stub
+	public boolean update(Categorie obj) throws DALException {
 		return false;
 	}
 
@@ -51,8 +48,8 @@ public class CategorieDAO implements IDAOCategorie {
 	    		return new Categorie(rs.getInt("no_categorie"), rs.getString("libelle"));    
 	    	}
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} 
+			throw new DALException("Problème avec la méthode find" ,e);
+		}
 		return null;
 	}
 

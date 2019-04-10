@@ -1,3 +1,9 @@
+.container a{
+	text-decoration: none;
+}
+.container a:hover{
+	text-decoration: none;
+}
 
 .accueil .row {
 	margin-left: 0;
@@ -14,9 +20,18 @@
 	min-width: 320px; 
 	max-width: 530px;
 }
+.dashboard-tile .col-4{
+	display: flex;
+	align-items: center;
+}
 .dashboard-tile .card-title{
 	margin-bottom: .75rem;
 	text-decoration: underline;
+}
+
+.detail {
+	display: flex;
+	justify-content: center;
 }
 
 .detail img{
@@ -25,5 +40,9 @@
 }
 
 #filterForm input:invalid {
-  border: 1px solid red;
+  	border: 1px solid red;
 }
+
+
+
+

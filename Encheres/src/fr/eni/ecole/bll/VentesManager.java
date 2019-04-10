@@ -1,5 +1,7 @@
 package fr.eni.ecole.bll;
 
+import fr.eni.ecole.DAL.DALException;
+import fr.eni.ecole.DAL.DAOFactory;
 import fr.eni.ecole.DAL.AbstractDAOFactory;
 import fr.eni.ecole.DAL.Interface.DAO;
 import fr.eni.ecole.DAL.Interface.IDAOArticleVendu;
@@ -18,6 +20,14 @@ public class VentesManager {
 	public void create(ArticleVendu new_article) {
 		int insertId = daoArticleVendus.create(new_article);
 		new_article.getRetrait().setNo_article(insertId);
-		daoRetraitDao.create(new_article.getRetrait());
+		daoRetraitDao.create(new_article.getRetrait());	
+	}
+	
+	public int updatePrixVenteArticle(int noArticle, int montant) throws BLLException {
+		try {
+			return daoArticleVendus.updatePrixVenteArticle(noArticle, montant);
+		} catch (DALException e) {
+			throw new BLLException("Problème avec la méthode updatePrixVenteArticle", e);
+		}
 	}
 }

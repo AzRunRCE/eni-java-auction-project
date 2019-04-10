@@ -47,24 +47,17 @@ public class RetraitDAO implements DAO<Retrait> {
              }
 	    	return -1;
 		} catch (SQLException e) {
-			try {
 				throw new DALException(" RetraitDAO probleme avec la methode create",e);
-			} catch (DALException e1) {
-				e1.printStackTrace();
-				return -1;
 			}
 		}
+
+	@Override
+	public int delete(Retrait obj) throws DALException {
+		return 0;
 	}
 
 	@Override
-	public boolean delete(Retrait obj) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean update(Retrait new_retrait) {
-		// TODO Auto-generated method stub
+	public boolean update(Retrait new_retrait) throws DALException {
 				return false;
 	}
 
@@ -78,8 +71,8 @@ public class RetraitDAO implements DAO<Retrait> {
 	    		return new Retrait(rs.getInt("no_article"), rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"));    
 	    	}
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} 
+			throw new DALException("Problème avec la méthode find",e);
+		}
 		return null;
 	}
 

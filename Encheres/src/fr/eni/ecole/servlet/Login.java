@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.ecole.beans.Utilisateur;
-import fr.eni.ecole.bll.CredentialManager;
+import fr.eni.ecole.bll.BLLException;
+import fr.eni.ecole.bll.UtilisateursManager;
 import fr.eni.ecole.util.Constantes;
 
 /**
@@ -63,12 +64,17 @@ public class Login extends HttpServlet {
 		recupLogin = request.getParameter("login").trim();
 		recupPassword = request.getParameter("password".trim());
 		
-		CredentialManager credUse = new CredentialManager();		
-		utilisateur = credUse.connexion(recupLogin, recupPassword);
+		UtilisateursManager managerUtilisateur = new UtilisateursManager();		
+		try {
+			utilisateur = managerUtilisateur.connexion(recupLogin, recupPassword);
+		} catch (BLLException e) {
+			e.printStackTrace();
+		}
 		if (utilisateur != null) {
 			recupRemberMe = request.getParameter("rememberMe");
 			if(recupRemberMe != null) {
 				Cookie userCookie = new Cookie("userCookie", recupLogin);
+				userCookie.setMaxAge(1296000);
 				response.addCookie(userCookie);	
 			}
 			Cookie idUtilisateur = new Cookie("idUtilisateur", String.valueOf(utilisateur.getNoUtilisateur()));

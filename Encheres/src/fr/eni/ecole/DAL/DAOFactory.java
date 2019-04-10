@@ -21,7 +21,7 @@ public class DAOFactory  extends AbstractDAOFactory {
 		dataSource = _dataSource;
 	}
 	private DataSource dataSource;
-	
+
 	
 	public DataSource getDataSource() {
 		return dataSource;

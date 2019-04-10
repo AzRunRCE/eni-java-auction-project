@@ -64,8 +64,9 @@ public class ArticleVenduDAO implements IDAOArticleVendu {
 	     	preparedStatement.setTimestamp(4,Timestamp.valueOf(new_article.getDateFinEncheres()));
 	     	preparedStatement.setFloat(5,new_article.getMiseAPrix());
 	     	preparedStatement.setFloat(6,new_article.getPrixVente());
-	      	preparedStatement.setInt(7,new_article.getUtilisateur().getNoUtilisateur());
-	     	preparedStatement.setInt(8,new_article.getCategorie().getNoCategorie());
+	     	preparedStatement.setString(7, new_article.getChemin_image());
+	      	preparedStatement.setInt(8,new_article.getUtilisateur().getNoUtilisateur());
+	     	preparedStatement.setInt(9,new_article.getCategorie().getNoCategorie());
 	    	preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
 	        if(rs.next())
@@ -74,18 +75,13 @@ public class ArticleVenduDAO implements IDAOArticleVendu {
 	        }
 	    	return -1;
 		} catch (SQLException e) {
-			try {
 				throw new DALException(" DAOUtilisateur probleme avec la methode create",e);
-			} catch (DALException e1) {
-				e1.printStackTrace();
-				return -1;
+			
 			}
 		}
-	}
 
 	@Override
-	public boolean delete(ArticleVendu obj) {
-		// TODO Auto-generated method stub
+	public boolean update(ArticleVendu obj) {
 		return false;
 	}
 
@@ -136,6 +132,21 @@ public class ArticleVenduDAO implements IDAOArticleVendu {
 		return null;
 	}
 
+	@Override
+	public int updatePrixVenteArticle(int noArticle, int montant) throws DALException {
+		int rs = 0;
+		
+		try(Connection connect = AccesBase.getConnection();
+				PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_PRIX_VENTE)) {
+
+			preparedStatement.setInt(1, montant);
+			preparedStatement.setInt(2, noArticle);
+			rs = preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			throw new DALException("Problème avec la méthode updatePrixVenteArticle", e);
+		} 
+		return rs;
+	}
 	
 
 }

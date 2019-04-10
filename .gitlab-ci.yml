@@ -1,5 +1,8 @@
 image: webratio/ant
 
+before_script:
+    - cd Encheres
+
 stages:
   - build
   - test

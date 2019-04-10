@@ -65,22 +65,22 @@ public class EnchereDAO implements IDAOEnchere {
 	private final String DELETE = "DELETE FROM ENCHERES WHERE no_utilisateur = ? AND no_article = ?";
 								
 	@Override
-	public int create(Enchere obj) {
+	public int create(Enchere obj) throws DALException{
 		return 0;
 	}
 
 	@Override
-	public int delete(Enchere obj) {
+	public int delete(Enchere obj) throws DALException {
 		return 0;
 	}
 
 	@Override
-	public boolean update(Enchere obj) {
+	public boolean update(Enchere obj)throws DALException {
 		return false;
 	}
 
 	@Override
-	public Enchere find(int id) {
+	public Enchere find(int id) throws DALException {
 		return null;
 	}
 	
@@ -336,7 +336,7 @@ public class EnchereDAO implements IDAOEnchere {
 	}
 	
 	@Override
-	public DetailEnchere selectById(int noArticle) {
+	public DetailEnchere selectById(int noArticle) throws DALException {
 		DetailEnchere enchere = null;
 		ResultSet rs = null;
 		try(Connection connect = AccesBase.getConnection();
@@ -344,7 +344,6 @@ public class EnchereDAO implements IDAOEnchere {
 			preparedStatement.setInt(1,noArticle);
 			rs = preparedStatement.executeQuery();
 	    	if(rs.next()) {
-	    		//rs.first();
 	    		enchere = new DetailEnchere(rs.getString("nom_article"),
 	    										rs.getString("description"),
 	    										rs.getString("libelle"),
@@ -362,17 +361,12 @@ public class EnchereDAO implements IDAOEnchere {
 	    	}
 	    	return enchere;
 		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		} catch (DALException e1) {
-			System.out.println("Probleme dans le methode selectById");
-			e1.printStackTrace();
-			return null;
-		}
+			throw new DALException("Problème avec la méthode selectById", e);
+		} 
 	}
 	
 	@Override
-	public DetailEnchere selectByIdArticle(int noArticle) {
+	public DetailEnchere selectByIdArticle(int noArticle) throws DALException {
 		DetailEnchere enchere = null;
 		ResultSet rs = null;
 		try(Connection connect = AccesBase.getConnection();
@@ -397,12 +391,7 @@ public class EnchereDAO implements IDAOEnchere {
 	    	}
 	    	return enchere;
 		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		} catch (DALException e1) {
-			System.out.println("Probleme dans le methode selectById");
-			e1.printStackTrace();
-			return null;
+			throw new DALException("Probleme avec la méthode selectByIdArticle", e);
 		}
 	}
 	
@@ -525,7 +514,7 @@ public class EnchereDAO implements IDAOEnchere {
 	}
 	
 	@Override
-	public int nouvelleEnchere(int noUtilisateur, int noArticle, int montant) {
+	public int nouvelleEnchere(int noUtilisateur, int noArticle, int montant) throws DALException {
 		int rs = 0;
 	
 		try(Connection connect = AccesBase.getConnection();
@@ -535,27 +524,24 @@ public class EnchereDAO implements IDAOEnchere {
 			preparedStatement.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
 			preparedStatement.setInt(4, montant);
 			rs = preparedStatement.executeUpdate();
+			return rs;
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (DALException e) {
-			e.printStackTrace();
+			throw new DALException("Problème avec la méthode connect", e);
 		}
-		return rs;
+		
 	}
 	
 	@Override
-	public int deleteEnchere(int noUtilisateur, int noArticle) {
+	public int deleteEnchere(int noUtilisateur, int noArticle) throws DALException {
 		int rs = 0;
 		try(Connection connect = AccesBase.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(DELETE)) {
 			preparedStatement.setInt(1, noUtilisateur);
 			preparedStatement.setInt(2, noArticle);
 			rs = preparedStatement.executeUpdate();
+			return rs;
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (DALException e) {
-			e.printStackTrace();
-		}
-		return rs;
+			throw new DALException("Problème avec la méthode deleteEnchere", e);
+		} 
 	}
 }

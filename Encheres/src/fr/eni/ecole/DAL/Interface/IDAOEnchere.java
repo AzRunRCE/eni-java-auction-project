@@ -32,7 +32,7 @@ public interface IDAOEnchere extends DAO<Enchere> {
 	   * @param noArticle
 	   * @return un objet de type getDetailEnchere
 	   */
-	  public DetailEnchere selectById(int noArticle);
+	  public DetailEnchere selectById(int noArticle) throws DALException;
 	  
 	  /**
 	   * Ajoute une nouvelle enchère en base
@@ -42,14 +42,14 @@ public interface IDAOEnchere extends DAO<Enchere> {
 	   * @param montant
 	   * @return le nombre de ligne inseréé dans la table ENCHERES
 	   */
-	  public int nouvelleEnchere(int noUtilisateur, int noArticle, int montant);
+	  public int nouvelleEnchere(int noUtilisateur, int noArticle, int montant) throws DALException;
 	  
 	  /**
 	   * Méthode qui permet de récupérer les informations si il n'y a pas encore eu d'enchere
 	   * @param noArticle
 	   * @return
 	   */
-	  public DetailEnchere selectByIdArticle(int noArticle);
+	  public DetailEnchere selectByIdArticle(int noArticle) throws DALException;
 	  
 	  /**
 	   * Supprime une enchere 
@@ -57,5 +57,5 @@ public interface IDAOEnchere extends DAO<Enchere> {
 	   * @param noArticle
 	   * @return le nombre de ligne supprimée
 	   */
-	  public int deleteEnchere(int noUtilisateur, int noArticle);
+	  public int deleteEnchere(int noUtilisateur, int noArticle) throws DALException;
 }

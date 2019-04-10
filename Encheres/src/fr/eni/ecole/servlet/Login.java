@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.ecole.beans.Utilisateur;
+import fr.eni.ecole.bll.BLLException;
 import fr.eni.ecole.bll.UtilisateursManager;
 import fr.eni.ecole.util.Constantes;
 
@@ -64,7 +65,11 @@ public class Login extends HttpServlet {
 		recupPassword = request.getParameter("password".trim());
 		
 		UtilisateursManager managerUtilisateur = new UtilisateursManager();		
-		utilisateur = managerUtilisateur.connexion(recupLogin, recupPassword);
+		try {
+			utilisateur = managerUtilisateur.connexion(recupLogin, recupPassword);
+		} catch (BLLException e) {
+			e.printStackTrace();
+		}
 		if (utilisateur != null) {
 			recupRemberMe = request.getParameter("rememberMe");
 			if(recupRemberMe != null) {

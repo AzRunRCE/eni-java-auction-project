@@ -25,7 +25,7 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	}
 
 	@Override
-	public int create(Utilisateur new_user) {
+	public int create(Utilisateur new_user) throws DALException {
 		
 		try(Connection connect = AccesBase.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS)) {
@@ -49,20 +49,12 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	        }
 	    	return -1;
 		} catch (SQLException e) {
-			try {
-				throw new DALException(" DAOUtilisateur probleme avec la methode create",e);
-			} catch (DALException e1) {
-				e1.printStackTrace();
-				return -1;
-			}
-		} catch (DALException e1) {
-			e1.printStackTrace();
-			return -1;
+			throw new DALException(" DAOUtilisateur probleme avec la methode create",e);
 		}
 	}
 
 	@Override
-	public int delete(Utilisateur obj) {
+	public int delete(Utilisateur obj) throws DALException {
 		int rs = 0;
 		try(Connection connect = AccesBase.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(DELETE)) {
@@ -71,20 +63,12 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	    	rs = preparedStatement.executeUpdate();
 	    	return rs;
 		} catch (SQLException e) {
-			try {
-				throw new DALException("DAOUtilisateur probleme avec la methode delete",e);
-			} catch (DALException e1) {
-				e1.printStackTrace();
-				return rs;
-			}
-		} catch (DALException e1) {
-			e1.printStackTrace();
-			return rs;
+			throw new DALException("DAOUtilisateur probleme avec la methode delete",e);
 		}
 	}
 	
 	@Override
-	public boolean update(Utilisateur update_user) {
+	public boolean update(Utilisateur update_user) throws DALException {
 		
 		try(Connection connect = AccesBase.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(UPDATE)) {
@@ -104,20 +88,12 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	    	preparedStatement.execute();
 	    	return true;
 		} catch (SQLException e) {
-			try {
-				throw new DALException("DAOUtilisateur probleme avec la methode update",e);
-			} catch (DALException e1) {
-				e1.printStackTrace();
-				return false;
-			}
-		} catch (DALException e1) {
-			e1.printStackTrace();
-			return false;
+			throw new DALException("DAOUtilisateur probleme avec la methode update",e);
 		}
 	}
 
 	@Override
-	public Utilisateur find(int id) {
+	public Utilisateur find(int id) throws DALException {
 
 		try(Connection connect = AccesBase.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(FIND_SQL)) {
@@ -153,20 +129,12 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	    	}
 	    	return utilisateur;
 		} catch (SQLException e) {
-			try {
-				throw new DALException("problème avec la méhode find", e);
-			} catch (DALException e1) {
-				e1.printStackTrace();
-				return null;
-			}
-		} catch (DALException e1) {
-			e1.printStackTrace();
-			return null;
+			throw new DALException("problème avec la méhode find", e);
 		}
 	  }
 	
 	@Override
-	public Utilisateur findByLogin(String email_or_username)  {
+	public Utilisateur findByLogin(String email_or_username) throws DALException  {
 		Utilisateur utilisateur = null;   
 		ResultSet result = null;
 		try(Connection connect = AccesBase.getConnection();
@@ -247,20 +215,12 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	      }
 	    return utilisateur;
 	    } catch (SQLException e) {
-	    	try {
-				throw new DALException("problème avec la méhode findByLogin", e);
-			} catch (DALException e1) {
-				e1.printStackTrace();
-				return null;
-			}
-	    } catch (DALException e1) {
-	    	e1.printStackTrace();
-	    	return null;
+	    	throw new DALException("problème avec la méhode findByLogin", e);
 	    }
 	}
 
 	@Override
-	public int updateCredit(int noUtilisateur, int credit) {
+	public int updateCredit(int noUtilisateur, int credit) throws DALException {
 		int rs = 0;
 		try(Connection connect = AccesBase.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_CREDIT)) {
@@ -269,9 +229,7 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 	    		    	
 	    	rs = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (DALException e) {
-			e.printStackTrace();
+			throw new DALException("problème avec la méhode updateCredit", e);
 		}
 		return rs;
 	}

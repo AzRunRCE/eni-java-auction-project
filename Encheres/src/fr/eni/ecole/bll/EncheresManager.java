@@ -45,8 +45,12 @@ public class EncheresManager {
 	 * @param noArticle
 	 * @return mon objet pour la page détail vente
 	 */
-	public DetailEnchere getEnchere(int noArticle) {
-		return daoEncheres.selectById(noArticle);
+	public DetailEnchere getEnchere(int noArticle)throws BLLException {
+		try {
+			return daoEncheres.selectById(noArticle);
+		} catch (DALException e) {
+			throw new BLLException("Probleme dans getEnchere", e);
+		}
 	}
 	
 	/**
@@ -54,8 +58,12 @@ public class EncheresManager {
 	 * @param noArticle
 	 * @return
 	 */
-	public DetailEnchere getArticle(int noArticle) {
-		return daoEncheres.selectByIdArticle(noArticle);
+	public DetailEnchere getArticle(int noArticle) throws BLLException {
+		try {
+			return daoEncheres.selectByIdArticle(noArticle);
+		} catch (DALException e) {
+			throw new BLLException("Probleme dans getArticle", e);
+		}
 	}
 	
 	/**
@@ -65,8 +73,12 @@ public class EncheresManager {
 	 * @param montant de la nouvelle enchere
 	 * @return le nombre de ligne créée
 	 */
-	public int createEnchere(int noUtilisateur, int noArticle, int montant) {
-		return daoEncheres.nouvelleEnchere(noUtilisateur, noArticle, montant);
+	public int createEnchere(int noUtilisateur, int noArticle, int montant) throws BLLException {
+		try {
+			return daoEncheres.nouvelleEnchere(noUtilisateur, noArticle, montant);
+		} catch (DALException e) {
+			throw new BLLException("Probleme dans createEnchere", e);
+		}
 	}
 	
 	/**
@@ -75,7 +87,11 @@ public class EncheresManager {
 	 * @param noArticle
 	 * @return le nombre de ligne supprimmée
 	 */
-	public int deleteEnchere(int noUtilisateur, int noArticle) {
-		return daoEncheres.deleteEnchere(noUtilisateur, noArticle);
+	public int deleteEnchere(int noUtilisateur, int noArticle) throws BLLException {
+		try {
+			return daoEncheres.deleteEnchere(noUtilisateur, noArticle);
+		} catch (DALException e) {
+			throw new BLLException("Probleme dans deleteEnchere", e);
+		}
 	}
 }

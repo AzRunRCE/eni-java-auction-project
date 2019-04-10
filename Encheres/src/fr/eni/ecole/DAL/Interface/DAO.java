@@ -1,5 +1,7 @@
 package fr.eni.ecole.DAL.Interface;
 
+import fr.eni.ecole.DAL.DALException;
+
 public interface DAO<T> {
 
    
@@ -8,28 +10,28 @@ public interface DAO<T> {
   * @param obj
   * @return boolean 
   */
-  public int create(T obj);
+  public int create(T obj)throws DALException;
 
   /**
   * M�thode pour effacer
   * @param obj
   * @return boolean 
   */
-  public int delete(T obj);
+  public int delete(T obj)throws DALException;
 
   /**
   * M�thode de mise � jour
   * @param obj
   * @return boolean
   */
-  public boolean update(T obj);
+  public boolean update(T obj)throws DALException;
 
   /**
   * M�thode de recherche des informations
   * @param id
   * @return T
   */
-  public T find(int id);
+  public T find(int id) throws DALException;
   
   
 }

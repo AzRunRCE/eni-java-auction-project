@@ -18,7 +18,7 @@ public class ArticleVenduDAO implements IDAOArticleVendu {
 	private final String UPDATE_PRIX_VENTE = "UPDATE ARTICLES_VENDUS SET prix_vente = ? WHERE no_article = ?";
 	
 	@Override
-	public int create(ArticleVendu new_article) {
+	public int create(ArticleVendu new_article) throws DALException {
 		try(Connection connect = AccesBase.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -38,35 +38,27 @@ public class ArticleVenduDAO implements IDAOArticleVendu {
 	        }
 	    	return -1;
 		} catch (SQLException e) {
-			try {
-				throw new DALException(" DAOUtilisateur probleme avec la methode create",e);
-			} catch (DALException e1) {
-				e1.printStackTrace();
-				return -1;
-			}
-		} catch (DALException e1) {
-			e1.printStackTrace();
-			return -1;
+			throw new DALException(" DAOUtilisateur probleme avec la methode create",e);
 		}
 	}
 
 	@Override
-	public int delete(ArticleVendu obj) {
+	public int delete(ArticleVendu obj) throws DALException {
 		return 0;
 	}
 
 	@Override
-	public boolean update(ArticleVendu obj) {
+	public boolean update(ArticleVendu obj) throws DALException {
 		return false;
 	}
 
 	@Override
-	public ArticleVendu find(int id) {
+	public ArticleVendu find(int id) throws DALException {
 		return null;
 	}
 
 	@Override
-	public int updatePrixVenteArticle(int noArticle, int montant) {
+	public int updatePrixVenteArticle(int noArticle, int montant) throws DALException {
 		int rs = 0;
 		
 		try(Connection connect = AccesBase.getConnection();
@@ -76,10 +68,8 @@ public class ArticleVenduDAO implements IDAOArticleVendu {
 			preparedStatement.setInt(2, noArticle);
 			rs = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (DALException e) {
-			e.printStackTrace();
-		}
+			throw new DALException("Problème avec la methode updatePrixVenteArticle" ,e);
+		} 
 		return rs;
 	}
 

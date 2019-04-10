@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.ecole.DAL.DALException;
 import fr.eni.ecole.beans.Utilisateur;
+import fr.eni.ecole.bll.BLLException;
 import fr.eni.ecole.bll.UtilisateursManager;
 import fr.eni.ecole.util.Constantes;
 /**
@@ -31,34 +32,29 @@ public class Register extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
 		this.getServletContext().getRequestDispatcher(Constantes.PAGE_REGISTER).forward(request, response);
-		
-		// TODO Auto-generated method stub
-	//	response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int result = 0;
+		Utilisateur new_user = new Utilisateur();
+		new_user.setEmail(request.getParameter("inputEmail"));
+		new_user.setMotDePasse(request.getParameter("inputPassword"));
+		new_user.setPseudo(request.getParameter("inputPseudo"));
+		new_user.setRue(request.getParameter("inputRue"));
+		new_user.setVille(request.getParameter("inputVille"));
+		new_user.setCodePostal(request.getParameter("inputCodePostal"));
+		new_user.setNom(request.getParameter("inputNom"));
+		new_user.setPrenom(request.getParameter("inputPrenom"));
+		new_user.setTelephone(request.getParameter("inputTelephone"));
 		
-		try {
-			
-			Utilisateur new_user = new Utilisateur();
-			new_user.setEmail(request.getParameter("inputEmail"));
-			new_user.setMotDePasse(request.getParameter("inputPassword"));
-			new_user.setPseudo(request.getParameter("inputPseudo"));
-			new_user.setRue(request.getParameter("inputRue"));
-			new_user.setVille(request.getParameter("inputVille"));
-			new_user.setCodePostal(request.getParameter("inputCodePostal"));
-			new_user.setNom(request.getParameter("inputNom"));
-			new_user.setPrenom(request.getParameter("inputPrenom"));
-			new_user.setTelephone(request.getParameter("inputTelephone"));
-			
-			UtilisateursManager managerUtilisateur = new UtilisateursManager();
+		UtilisateursManager managerUtilisateur = new UtilisateursManager();
 
-			int result = managerUtilisateur.register(new_user);
+		 try {
+			result = managerUtilisateur.register(new_user);
 			if (result > 0) {
 				new_user = managerUtilisateur.connexion(new_user.getPseudo(), new_user.getMotDePasse());
 				if (new_user != null) {
@@ -72,11 +68,10 @@ public class Register extends HttpServlet {
 				request.setAttribute("erreur", "Une erreur s'est produite durant l'enregistrement. Le pseudo est peut-�tre d�j� pris.");
 				request.getRequestDispatcher(Constantes.PAGE_REGISTER).forward(request, response);
 			}
-				
-		} catch (DALException e) {
-			// TODO Auto-generated catch block
+		} catch (BLLException e) {
 			e.printStackTrace();
 		}
+		
 	}
 
 }

@@ -43,11 +43,9 @@
 			</select>
 							</div>
 							<div class="form-group col-12">
-								<label for="inputImage">Photo de l'article :</label>
-								<div class="custom-file">
-									<input type="file" class="custom-file-input" id="inputImage"
-										accept="image/png, image/jpeg" name="inputImage"> <label
-										class="custom-file-label" for="inputImage">Télécharger...</label>
+								<div class="form-group">
+								    <label for="inputImage">Choisir une image</label>
+								    <input type="file" class="form-control-file" id="inputImage" name="inputImage">
 								</div>
 							</div>
 							<div class="form-group col-12">

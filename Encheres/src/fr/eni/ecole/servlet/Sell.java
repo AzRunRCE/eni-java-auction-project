@@ -6,8 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.nio.file.attribute.FileTime;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
@@ -76,7 +74,7 @@ public class Sell extends HttpServlet {
 		
 			request.setAttribute(Constantes.ATT_UTILISATEUR, user);
 		} catch (BLLException e) {
-			e.printStackTrace();
+			response.sendError(500);
 		}
 		request.getRequestDispatcher(Constantes.PAGE_SELL).forward(request, response);
 	}
@@ -130,7 +128,6 @@ public class Sell extends HttpServlet {
 			new_ArticleVendu.setCategorie(categorie);
 			new_ArticleVendu.setMiseAPrix(Float.parseFloat(request.getParameter("inputPrix")));
 			new_ArticleVendu.setPrixVente(Float.parseFloat(request.getParameter("inputPrix")));
-			String str = request.getParameter("DateDebutEncheres");
 			new_ArticleVendu.setDateDebutEncheres(Utils.parseDateTime(request.getParameter("DateDebutEncheres")));
 			new_ArticleVendu.setDateFinEncheres(Utils.parseDateTime(request.getParameter("DateFinEncheres")));
 			
@@ -138,7 +135,7 @@ public class Sell extends HttpServlet {
 			new_ArticleVendu.setUtilisateur(user);
 			new_ArticleVendu.setEtatVente(false);
 			new_ArticleVendu.setRetrait(retrait);
-			//a faire a la fin si tout est ok //fileupload
+			//fileupload
 			
 			if(filePart.getInputStream().available() != 0 
 					&& ( fileType.equals("gif") || fileType.equals("png") 
@@ -161,16 +158,16 @@ public class Sell extends HttpServlet {
 					LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}",
 							new Object[]{fne.getMessage()});
 				}
-				//fileupload				
+							
 				new_ArticleVendu.setChemin_image(newFileName);
 			}
+			//fileupload	
 			ventesManagers.create(new_ArticleVendu);
 			
 			
 			response.sendRedirect(Constantes.URL_ACCUEIL);
 			} catch (NumberFormatException | BLLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			response.sendError(500);
 		}
 	}
 	private String getFileName(final Part part) {

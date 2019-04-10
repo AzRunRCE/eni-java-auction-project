@@ -5,6 +5,7 @@ before_script:
     - export JAVA_OPTS=-Dfile.encoding=UTF8
     - apt-get update
     - apt-get install tomcat7 -y
+    - ls /usr/share/tomcat7/lib/
     - cd Encheres
 
 stages:

@@ -117,6 +117,7 @@
 				<classpath refid="Encheres.classpath" />
 				<classpath refid="jUnit.cp" />
 				<formatter type="xml" />
+				<formatter type="plain" usefile="false"/>
 				<batchtest fork="yes" todir="${test.reports.dir}">
 					<fileset dir="${src.dir}">
 						<include name="**/*Tests*.java" />

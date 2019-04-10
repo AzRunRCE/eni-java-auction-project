@@ -1,8 +1,9 @@
 image: ubuntu
 
 before_script:
-    - apt-get update
-    - apt-get install ant -y
+    - apt-get update &>/dev/null
+    - apt-get install ant -y &>/dev/null
+    - apt-get install wget -y &>/dev/null
     - export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8
     - export JAVA_OPTS=-Dfile.encoding=UTF8
     - wget http://apache.crihan.fr/dist/tomcat/tomcat-8/v8.5.39/bin/apache-tomcat-8.5.39.tar.gz

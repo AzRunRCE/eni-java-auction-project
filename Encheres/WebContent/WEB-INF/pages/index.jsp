@@ -3,20 +3,25 @@
 %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="f" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<fmt:setBundle basename="fr.eni.ecole.messages.accueil" var="r"/>
 
 <jsp:include page="../fragments/header.jsp">
 	<jsp:param value="Liste des encheres" name="title" />
 </jsp:include>
+
 <div class="container">
-<h2>Liste des enchères</h2>
+<h2><fmt:message key="msg.title" bundle="${r}"></fmt:message></h2>
 <hr>
-	<h3>Filtres</h3>
+	<h3><fmt:message key="msg.filters_title" bundle="${r}"></fmt:message></h3>
 	<form id="filterForm" action="/Encheres/webapi/enchere/" method="post">
 		<div class="form-row accueil">
 			<div class="col-md-8">
 				<div class="form-group row">
-					<label for="inputPassword" class="col-md-4 col-form-label">Recherche par nom</label>		
+					<label for="inputPassword" class="col-md-4 col-form-label">
+						<fmt:message key="msg.filters_searchByName" bundle="${r}"></fmt:message>
+					</label>		
 					<input 
 						type="search"
 						name="nameFilter" 
@@ -27,13 +32,17 @@
 					>
 				</div>
 				<div class="form-group row">
-					<label for="SelectCategorie" class="col-md-4 col-form-label">Catégorie</label>
+					<label for="SelectCategorie" class="col-md-4 col-form-label">
+						<fmt:message key="msg.filters_category" bundle="${r}"></fmt:message>
+					</label>
 				    <select 
 				    	class="form-control col-md-8" 
 				    	id="SelectCategorie"
 				    	name="categorie" 
 				    >
-						<option value="-1">Toutes</option>
+						<option value="-1">
+							<fmt:message key="msg.filters_categoryAll" bundle="${r}"></fmt:message>
+						</option>
 						<c:forEach var="cat" items="${ listeCategories}">
 							<option value="${ cat.getNoCategorie() }">${ cat.getLibelle() }</option>
 						</c:forEach>
@@ -52,7 +61,9 @@
 										class="custom-control-input"
 										checked
 									> 
-										<label class="custom-control-label" for="achatsRadio">Achats</label>
+										<label class="custom-control-label" for="achatsRadio">
+											<fmt:message key="msg.filters_purchases" bundle="${r}"></fmt:message>
+										</label>
 								</div>
 							</div>
 							<div class="col-md-6">
@@ -64,7 +75,9 @@
 										value="mesVentes"
 										class="custom-control-input"
 									> 
-										<label class="custom-control-label" for="ventesRadio">Mes ventes</label>
+										<label class="custom-control-label" for="ventesRadio">
+											<fmt:message key="msg.filters_mySales" bundle="${r}"></fmt:message>
+										</label>
 								</div>
 							</div>
 						</div>
@@ -79,7 +92,7 @@
 							  		id="encheresOuvertes"
 						  		>
 							  <label class="form-check-label" for="encheresOuvertes">
-							    Enchères ouvertes
+							    <fmt:message key="msg.filters_open_auctions" bundle="${r}"></fmt:message>
 							  </label>
 							</div>
 							<div class="form-check">
@@ -90,7 +103,7 @@
 							  		id="encheresEnCours"
 					  			>
 							  <label class="form-check-label" for="encheresEnCours">
-							    Mes enchères en cours
+							    <fmt:message key="msg.filters_my_current_auctions" bundle="${r}"></fmt:message>
 							  </label>
 							</div>
 							<div class="form-check">
@@ -101,7 +114,7 @@
 							  		id="encheresRemportees"
 					  			>
 							  <label class="form-check-label" for="encheresRemportees">
-							    Mes enchères remportées
+							    <fmt:message key="msg.filters_my_won_auctions" bundle="${r}"></fmt:message>
 							  </label>
 							</div>
 						</div>
@@ -115,7 +128,7 @@
 					  				disabled
 				  				>
 							  <label class="form-check-label" for="ventesEnCours">
-							    Mes ventes en cours
+							    <fmt:message key="msg.filters_my_current_sales" bundle="${r}"></fmt:message>
 							  </label>
 							</div>
 							<div class="form-check">
@@ -127,7 +140,7 @@
 							  		disabled
 						  		>
 							  <label class="form-check-label" for="ventesNonDebutees">
-							    Ventes non débutées
+							    <fmt:message key="msg.filters_sales_not_started" bundle="${r}"></fmt:message>
 							  </label>
 							</div>
 							<div class="form-check">
@@ -139,7 +152,7 @@
 					  				disabled
 				  				>
 							  <label class="form-check-label" for="ventesTerminees">
-							    Ventes terminées
+							    <fmt:message key="msg.filters_sales_completed" bundle="${r}"></fmt:message>
 							  </label>
 							</div>
 						</div>			
@@ -147,7 +160,9 @@
 				</c:if>	
 			</div>
 			<div class="col-md-4">
-				<button type="submit" class="btn btn-light">Rechercher</button>
+				<button type="submit" class="btn btn-light">
+					<fmt:message key="msg.filters_search_button" bundle="${r}"></fmt:message>
+				</button>
 			</div>
 		</div>
 	</form>

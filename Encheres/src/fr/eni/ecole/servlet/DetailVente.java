@@ -100,7 +100,7 @@ public class DetailVente extends HttpServlet {
 				response.sendError(404);
 			}
 		} catch (BLLException e) {
-			e.printStackTrace();
+			response.sendError(500);
 		}
 		
 	}
@@ -176,7 +176,7 @@ public class DetailVente extends HttpServlet {
 					}
 				
 				} catch (BLLException e) {
-					e.printStackTrace();
+					response.sendError(500);
 				}
 			}
 		}else {

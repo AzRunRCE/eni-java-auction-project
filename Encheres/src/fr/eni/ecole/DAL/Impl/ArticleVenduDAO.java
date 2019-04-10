@@ -53,28 +53,34 @@ public class ArticleVenduDAO implements IDAOArticleVendu {
 
 	@Override
 	public boolean update(ArticleVendu obj) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public ArticleVendu find(int id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public int delete(ArticleVendu obj) throws DALException {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int updatePrixVenteArticle(int noArticle, int montant) throws DALException {
-		// TODO Auto-generated method stub
-		return 0;
+		int rs = 0;
+		
+		try(Connection connect = AccesBase.getConnection();
+				PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_PRIX_VENTE)) {
+
+			preparedStatement.setInt(1, montant);
+			preparedStatement.setInt(2, noArticle);
+			rs = preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			throw new DALException("Problème avec la méthode updatePrixVenteArticle", e);
+		} 
+		return rs;
 	}
 
-	
 
 }

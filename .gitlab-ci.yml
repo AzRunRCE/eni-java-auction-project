@@ -3,6 +3,7 @@ image: webratio/ant
 before_script:
     - export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8
     - export JAVA_OPTS=-Dfile.encoding=UTF8
+    - apt-get update
     - apt-get install tomcat7 -y
     - cd Encheres
 

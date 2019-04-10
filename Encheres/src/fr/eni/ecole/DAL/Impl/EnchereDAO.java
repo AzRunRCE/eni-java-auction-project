@@ -19,7 +19,7 @@ import fr.eni.ecole.util.AccesBase;
 
 public class EnchereDAO implements IDAOEnchere {
 
-	private final String SELECT_ALL_WITHOUT_PARAM = "SELECT av.nom_article, av.date_fin_encheres, av.prix_vente, u.pseudo, u.no_utilisateur, av.no_article " + 
+	private final String SELECT_ALL_WITHOUT_PARAM = "SELECT av.nom_article, av.date_fin_encheres, av.prix_vente, u.pseudo, u.no_utilisateur, av.no_article, av.chemin_image " + 
 													"FROM ARTICLES_VENDUS av " +
 													"LEFT JOIN UTILISATEURS u ON av.no_utilisateur = u.no_utilisateur ";
 	
@@ -40,7 +40,7 @@ public class EnchereDAO implements IDAOEnchere {
 	private final String MES_VENTES = "av.no_utilisateur = %d ";
 	private final String MES_VENTES_NON_COMMENCEES = "av.date_debut_encheres > GETDATE() ";
 	private final String MES_VENTES_TERMINEES = "av.date_fin_encheres < GETDATE() ";
-	private final String GROUP_BY_ARTICLE_ID = "GROUP BY av.no_article, av.nom_article, av.date_fin_encheres, av.prix_vente, u.pseudo, u.no_utilisateur ";
+	private final String GROUP_BY_ARTICLE_ID = "GROUP BY av.no_article, av.nom_article, av.date_fin_encheres, av.prix_vente, u.pseudo, u.no_utilisateur, av.chemin_image ";
 	
 	private Boolean whereAlreadySet;
 	
@@ -90,18 +90,15 @@ public class EnchereDAO implements IDAOEnchere {
 	    										rs.getInt("prix_vente"),
 	    										rs.getString("pseudo"),	
 	    										rs.getInt("no_utilisateur"), 
-	    										rs.getInt("no_article")
+	    										rs.getInt("no_article"),
+	    										rs.getString("chemin_image")
 		    									)
 	    		);    
 	    	}
 	    	return listeMsgObjectsAccueil;
 		} catch (SQLException e) {
 			throw new DALException("Erreur dans selectAllWithoutParameters", e);
-		} catch (DALException e1) {
-			System.out.println("Probleme dans selectAllWithoutParameters");
-			e1.printStackTrace();
 		}
-		return null;
 	}
 
 	@Override
@@ -312,18 +309,15 @@ public class EnchereDAO implements IDAOEnchere {
 	    										rs.getInt("prix_vente"),
 	    										rs.getString("pseudo"),	
 	    										rs.getInt("no_utilisateur"), 
-	    										rs.getInt("no_article")
+	    										rs.getInt("no_article"),
+	    										rs.getString("chemin_image")
 		    									)
 	    		);    
 	    	}
 	    	return listeMsgObjectsAccueil;
 		} catch (SQLException e) {
 			throw new DALException("Probleme dans selectAllWithParameters", e);
-		} catch (DALException e1) {
-			System.out.println("Probleme dans selectAllWithParameters");
-			e1.printStackTrace();
 		}
-		return null;
 	}
 	
 	@Override

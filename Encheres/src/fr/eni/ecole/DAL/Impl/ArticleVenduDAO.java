@@ -14,7 +14,7 @@ import fr.eni.ecole.DAL.DALException;
 import fr.eni.ecole.DAL.Interface.IDAOArticleVendu;
 
 public class ArticleVenduDAO implements IDAOArticleVendu {
-	private final String CREATE = "INSERT INTO ARTICLES_VENDUS VALUES (?,?,?,?,?,?,?,?)";
+	private final String CREATE = "INSERT INTO ARTICLES_VENDUS VALUES (?,?,?,?,?,?,?,?,?)";
 	
 	@Override
 	public int create(ArticleVendu new_article) {
@@ -27,8 +27,9 @@ public class ArticleVenduDAO implements IDAOArticleVendu {
 	     	preparedStatement.setTimestamp(4,Timestamp.valueOf(new_article.getDateFinEncheres()));
 	     	preparedStatement.setFloat(5,new_article.getMiseAPrix());
 	     	preparedStatement.setFloat(6,new_article.getPrixVente());
-	      	preparedStatement.setInt(7,new_article.getUtilisateur().getNoUtilisateur());
-	     	preparedStatement.setInt(8,new_article.getCategorie().getNoCategorie());
+	     	preparedStatement.setString(7, new_article.getChemin_image());
+	      	preparedStatement.setInt(8,new_article.getUtilisateur().getNoUtilisateur());
+	     	preparedStatement.setInt(9,new_article.getCategorie().getNoCategorie());
 	    	preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
 	        if(rs.next())

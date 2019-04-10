@@ -20,8 +20,15 @@ public class ArticleVendu implements Serializable {
 	Utilisateur utilisateur;
 	Categorie categorie;
 	Retrait retrait;
+	String chemin_image;
 	
 	
+	public String getChemin_image() {
+		return chemin_image;
+	}
+	public void setChemin_image(String chemin_image) {
+		this.chemin_image = chemin_image;
+	}
 	public Retrait getRetrait() {
 		return retrait;
 	}

@@ -1,11 +1,25 @@
 package fr.eni.ecole.servlet;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.nio.file.attribute.FileTime;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import fr.eni.ecole.beans.ArticleVendu;
 import fr.eni.ecole.beans.Categorie;
@@ -22,8 +36,13 @@ import fr.eni.ecole.util.Utils;
  * Servlet implementation class Sell
  */
 @WebServlet("/Sell")
+@MultipartConfig
 public class Sell extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	public static final String CHAMP_FICHIER     = "inputImage";
+	
+    private final static Logger LOGGER = 
+            Logger.getLogger(Sell.class.getCanonicalName());
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -61,54 +80,128 @@ public class Sell extends HttpServlet {
 		}
 		request.getRequestDispatcher(Constantes.PAGE_SELL).forward(request, response);
 	}
-
-	
 	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-				Boolean isLogged = request.getSession().getAttribute(Constantes.SESS_NUM_UTILISATEUR) != null;
-				if (!isLogged) {
-					request.getRequestDispatcher(Constantes.PAGE_INDEX).forward(request, response);
-					return;
-				}
-				Integer no_utilisateur = (Integer)request.getSession().getAttribute(Constantes.SESS_NUM_UTILISATEUR);
-			
-				VentesManager ventesManagers = new VentesManager() ;
-				CategoriesManager categoriesManager = new CategoriesManager();
-				
-				ArticleVendu new_ArticleVendu = new ArticleVendu();
-				Utilisateur user = new Utilisateur();
-				user.setNoUtilisateur(no_utilisateur);
-				
-				Retrait retrait = new Retrait(0,request.getParameter("inputRue"),request.getParameter("inputCodePostal"),
-						request.getParameter("inputVille"));
-				
-				new_ArticleVendu.setNomArticle(request.getParameter("inputNomArticle"));
-				new_ArticleVendu.setDescription(request.getParameter("inputDescription"));
-				Categorie categorie;
-				try {
-					categorie = categoriesManager.getCategorie(Integer.parseInt(request.getParameter("inputCategorie")));
-					new_ArticleVendu.setCategorie(categorie);
-					new_ArticleVendu.setMiseAPrix(Float.parseFloat(request.getParameter("inputPrix")));
-					new_ArticleVendu.setPrixVente(Float.parseFloat(request.getParameter("inputPrix")));
-					String str = request.getParameter("DateDebutEncheres");
-					new_ArticleVendu.setDateDebutEncheres(Utils.parseDateTime(request.getParameter("DateDebutEncheres")));
-					new_ArticleVendu.setDateFinEncheres(Utils.parseDateTime(request.getParameter("DateFinEncheres")));
-					
-					
-					new_ArticleVendu.setUtilisateur(user);
-					new_ArticleVendu.setEtatVente(false);
-					new_ArticleVendu.setRetrait(retrait);
-					
-					ventesManagers.create(new_ArticleVendu);
-					response.sendRedirect(Constantes.URL_ACCUEIL);
-					} catch (NumberFormatException | BLLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	}
 
+		//multipart
+    	response.setContentType("text/html;charset=UTF-8");
+    	
+    	String path = "C:\\Users\\romai\\Documents\\workspace\\EncheresImages";
+        final Part filePart = request.getPart("inputImage");
+        System.out.println("file "+filePart);
+        final String fileName = getFileName(filePart);
+        final String fileType = filePart.getHeader("content-type").split("/")[1];
+        System.out.println("fileType " + fileType);
+        System.out.println("fileName " + fileName);
+
+        String newFileName = LocalDateTime
+        		.now()
+        		.format(DateTimeFormatter.ofPattern("yyyyMMddhhmmss"));
+        newFileName +="."+fileType;
+        System.out.println(newFileName);
+        /////////
+	    
+		Boolean isLogged = request.getSession().getAttribute(Constantes.SESS_NUM_UTILISATEUR) != null;
+		if (!isLogged) {
+			request.getRequestDispatcher(Constantes.PAGE_INDEX).forward(request, response);
+			return;
+		}
+		Integer no_utilisateur = (Integer)request.getSession().getAttribute(Constantes.SESS_NUM_UTILISATEUR);
+	
+		VentesManager ventesManagers = new VentesManager() ;
+		CategoriesManager categoriesManager = new CategoriesManager();
+		
+		ArticleVendu new_ArticleVendu = new ArticleVendu();
+		Utilisateur user = new Utilisateur();
+		user.setNoUtilisateur(no_utilisateur);
+		
+		Retrait retrait = new Retrait(0,request.getParameter("inputRue"),request.getParameter("inputCodePostal"),
+				request.getParameter("inputVille"));
+		
+		new_ArticleVendu.setNomArticle(request.getParameter("inputNomArticle"));
+		new_ArticleVendu.setDescription(request.getParameter("inputDescription"));
+		Categorie categorie;
+		try {
+			categorie = categoriesManager.getCategorie(Integer.parseInt(request.getParameter("inputCategorie")));
+			new_ArticleVendu.setCategorie(categorie);
+			new_ArticleVendu.setMiseAPrix(Float.parseFloat(request.getParameter("inputPrix")));
+			new_ArticleVendu.setPrixVente(Float.parseFloat(request.getParameter("inputPrix")));
+			String str = request.getParameter("DateDebutEncheres");
+			new_ArticleVendu.setDateDebutEncheres(Utils.parseDateTime(request.getParameter("DateDebutEncheres")));
+			new_ArticleVendu.setDateFinEncheres(Utils.parseDateTime(request.getParameter("DateFinEncheres")));
+			
+			
+			new_ArticleVendu.setUtilisateur(user);
+			new_ArticleVendu.setEtatVente(false);
+			new_ArticleVendu.setRetrait(retrait);
+			//a faire a la fin si tout est ok //fileupload
+			
+			if(filePart.getInputStream().available() != 0 
+					&& ( fileType.equals("gif") || fileType.equals("png") 
+							|| fileType.equals("jpeg") || fileType.equals("bmp")
+							|| fileType.equals("jpg") || fileType.equals("webp") ) 
+					) {
+				try(	OutputStream out = new FileOutputStream(new File( path + File.separator
+						+ newFileName));
+						InputStream filecontent = filePart.getInputStream(); ) {
+					int read = 0;
+					final byte[] bytes = new byte[1024];
+					
+					while ((read = filecontent.read(bytes)) != -1) {
+						out.write(bytes, 0, read);
+					}
+					
+					LOGGER.log(Level.INFO, "File{0}being uploaded to {1}",
+							new Object[]{newFileName, path});
+				} catch (FileNotFoundException fne) {
+					LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}",
+							new Object[]{fne.getMessage()});
+				}
+				//fileupload				
+				new_ArticleVendu.setChemin_image(newFileName);
+			}
+			ventesManagers.create(new_ArticleVendu);
+			
+			
+			response.sendRedirect(Constantes.URL_ACCUEIL);
+			} catch (NumberFormatException | BLLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	private String getFileName(final Part part) {
+        final String partHeader = part.getHeader("content-disposition");
+        LOGGER.log(Level.INFO, "Part Header = {0}", partHeader);
+        for (String content : part.getHeader("content-disposition").split(";")) {
+            if (content.trim().startsWith("filename")) {
+            	System.out.println(content.substring(
+                        content.indexOf('=') + 1).trim().replace("\"", ""));
+                return content.substring(
+                        content.indexOf('=') + 1).trim().replace("\"", "");
+            }
+        }
+        return null;
+    }
+	private String writeFile(String fileName, String path, Part filePart) {
+//		try(	OutputStream out = new FileOutputStream(new File( path + File.separator
+//                + fileName + ".jpeg"));
+//    	InputStream filecontent = filePart.getInputStream(); ) {
+//		    int read = 0;
+//		    final byte[] bytes = new byte[1024];
+//		
+//		    while ((read = filecontent.read(bytes)) != -1) {
+//		        out.write(bytes, 0, read);
+//		    }
+//		    LOGGER.log(Level.INFO, "File{0}being uploaded to {1}",
+//		            new Object[]{fileName, path});
+//		    return path + File.separator + fileName + ".jpeg";
+//		} catch (FileNotFoundException fne) {
+//		    LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}",
+//		            new Object[]{fne.getMessage()});
+		    return null;
+//		}
+    }
 }

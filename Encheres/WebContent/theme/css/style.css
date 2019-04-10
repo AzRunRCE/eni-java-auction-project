@@ -1,3 +1,9 @@
+.container a{
+	text-decoration: none;
+}
+.container a:hover{
+	text-decoration: none;
+}
 
 .accueil .row {
 	margin-left: 0;
@@ -23,6 +29,11 @@
 	text-decoration: underline;
 }
 
+.detail{
+	display: flex;
+	justify-content: center;
+}
+
 .detail img{
 	width: auto;
 	height: 195px;
@@ -31,3 +42,6 @@
 #filterForm input:invalid {
   border: 1px solid red;
 }
+body { overflow-x: scroll; }
+
+

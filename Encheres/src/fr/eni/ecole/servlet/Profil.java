@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.ecole.beans.Utilisateur;
+import fr.eni.ecole.bll.BLLException;
 import fr.eni.ecole.bll.UtilisateursManager;
 import fr.eni.ecole.util.Constantes;
 
@@ -24,16 +25,14 @@ public class Profil extends HttpServlet {
      */
     public Profil() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-		
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		Boolean isLogged = request.getSession().getAttribute(Constantes.SESS_NUM_UTILISATEUR) != null;
 		if (!isLogged) {
 			request.getRequestDispatcher(Constantes.PAGE_INDEX).forward(request, response);
@@ -47,17 +46,22 @@ public class Profil extends HttpServlet {
 			no_utilisateur = Integer.parseInt(SpecifyUserId);
 		}
 		UtilisateursManager usersManager = new UtilisateursManager();
-		Utilisateur user = usersManager.getUtilisateur(no_utilisateur);
-		request.setAttribute(Constantes.ATT_UTILISATEUR, user);
+		Utilisateur user;
+		try {
+			user = usersManager.getUtilisateur(no_utilisateur);
+			request.setAttribute(Constantes.ATT_UTILISATEUR, user);
+			
+			request.getRequestDispatcher(Constantes.PAGE_PROFIL).forward(request, response);
+		} catch (BLLException e) {
+			e.printStackTrace();
+		}
 		
-		request.getRequestDispatcher(Constantes.PAGE_PROFIL).forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

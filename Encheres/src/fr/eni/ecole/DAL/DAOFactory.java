@@ -18,11 +18,6 @@ public class DAOFactory {
 		return new UtilisateurDAO();
 	}
 
-	/**
-	 * @return new EnchereDAO();
-	 */
-
-	
 	public static DAO<Retrait> getRetraitDAO() {
 		return new RetraitDAO();
 	}

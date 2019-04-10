@@ -20,6 +20,10 @@ public class CategoriesManager {
 	}
 	
 	public Categorie getCategorie(int Id) throws BLLException{
-		return daoCategorie.find(Id);
+		try {
+			return daoCategorie.find(Id);
+		} catch (DALException e) {
+			throw new BLLException("Problème avec la métohode getCategorie", e);
+		}
 	}
 }

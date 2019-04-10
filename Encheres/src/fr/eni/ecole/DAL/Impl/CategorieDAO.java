@@ -18,25 +18,22 @@ public class CategorieDAO implements IDAOCategorie {
 	private final String SELECT_BY_ID = "SELECT no_categorie, libelle FROM CATEGORIES WHERE no_categorie = ?";
 	
 	@Override
-	public int create(Categorie obj) {
-		// TODO Auto-generated method stub
+	public int create(Categorie obj) throws DALException {
 		return 0;
 	}
 
 	@Override
-	public boolean delete(Categorie obj) {
-		// TODO Auto-generated method stub
+	public int delete(Categorie obj) throws DALException {
+		return 0;
+	}
+
+	@Override
+	public boolean update(Categorie obj) throws DALException {
 		return false;
 	}
 
 	@Override
-	public boolean update(Categorie obj) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Categorie find(int id) {
+	public Categorie find(int id) throws DALException {
 		try(Connection connect = AccesBase.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(SELECT_BY_ID)) {
 			preparedStatement.setInt(1,id); 
@@ -45,11 +42,8 @@ public class CategorieDAO implements IDAOCategorie {
 	    		return new Categorie(rs.getInt("no_categorie"), rs.getString("libelle"));    
 	    	}
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (DALException e1) {
-			System.out.println("Categorie probleme dans find");
-			e1.printStackTrace();
-		}
+			throw new DALException("Problème avec la méthode find" ,e);
+		} 
 		return null;
 	}
 

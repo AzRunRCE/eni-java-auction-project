@@ -1,0 +1,23 @@
+image: webratio/ant
+
+before_script:
+    - export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8
+    - export JAVA_OPTS=-Dfile.encoding=UTF8
+    - apt-get update
+    - apt-get install tomcat7 -y
+    - ls /usr/share/tomcat7/lib/
+    - cd Encheres
+
+stages:
+  - build
+  - test
+
+builds:
+  stage: build
+  script:
+    - ant -buildfile build-CI.xml compile
+
+tests:
+  stage: test
+  script:
+    - ant -buildfile build-CI.xml test

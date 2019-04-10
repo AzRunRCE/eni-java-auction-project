@@ -1,6 +1,10 @@
 -- Script de création de la base de données ENCHERES
 --   type :      SQL Server 2012
 --
+ALTER DATABASE DB_ENCHERES
+SET SINGLE_USER
+WITH ROLLBACK IMMEDIATE;
+DROP DATABASE DB_ENCHERES;
 
 CREATE DATABASE DB_ENCHERES
 GO
@@ -58,6 +62,7 @@ CREATE TABLE ARTICLES_VENDUS (
     date_fin_encheres             datetime NOT NULL,
     prix_initial                  INTEGER,
     prix_vente                    INTEGER,
+    chemin_image                  VARCHAR(150),  
     no_utilisateur                INTEGER NOT NULL,
     no_categorie                  INTEGER NOT NULL
 )

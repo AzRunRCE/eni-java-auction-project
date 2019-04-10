@@ -54,7 +54,11 @@ public class TestConnexion extends HttpServlet implements Servlet {
 		
 		IDAOUtilisateur daoUsers;
 		daoUsers = DAOFactory.getUtilisateurDAO();
-		Utilisateur p = daoUsers.findByLogin("ApoZLd");
+		try {
+			Utilisateur p = daoUsers.findByLogin("ApoZLd");
+		} catch (DALException e) {
+			e.printStackTrace();
+		}
 		
 	}
 

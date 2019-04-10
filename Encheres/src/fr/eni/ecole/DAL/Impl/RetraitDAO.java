@@ -23,7 +23,7 @@ public class RetraitDAO implements DAO<Retrait> {
 	private final String SELECT_BY_ID = "SELECT no_article, rue, code_postal, ville FROM RETRAITS WHERE no_article = ?";
 	private final String CREATE = "INSERT INTO [RETRAITS] VALUES (?,?,?,?)";
 	@Override
-	public int create(Retrait new_retrait) {
+	public int create(Retrait new_retrait) throws DALException {
 		try(Connection connect = AccesBase.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS)) {
 			preparedStatement.setInt(1,new_retrait.getNo_article()); 
@@ -40,32 +40,22 @@ public class RetraitDAO implements DAO<Retrait> {
              }
 	    	return -1;
 		} catch (SQLException e) {
-			try {
-				throw new DALException(" RetraitDAO probleme avec la methode create",e);
-			} catch (DALException e1) {
-				e1.printStackTrace();
-				return -1;
-			}
-		} catch (DALException e1) {
-			e1.printStackTrace();
-			return -1;
+			throw new DALException(" RetraitDAO probleme avec la methode create",e);
 		}
 	}
 
 	@Override
-	public boolean delete(Retrait obj) {
-		// TODO Auto-generated method stub
+	public int delete(Retrait obj) throws DALException {
+		return 0;
+	}
+
+	@Override
+	public boolean update(Retrait new_retrait) throws DALException {
 		return false;
 	}
 
 	@Override
-	public boolean update(Retrait new_retrait) {
-		// TODO Auto-generated method stub
-				return false;
-	}
-
-	@Override
-	public Retrait find(int id) {
+	public Retrait find(int id) throws DALException {
 		try(Connection connect = AccesBase.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(SELECT_BY_ID)) {
 			preparedStatement.setInt(1,id); 
@@ -74,11 +64,8 @@ public class RetraitDAO implements DAO<Retrait> {
 	    		return new Retrait(rs.getInt("no_article"), rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"));    
 	    	}
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (DALException e1) {
-			System.out.println("Categorie probleme dans find");
-			e1.printStackTrace();
-		}
+			throw new DALException("Problème avec la méthode find",e);
+		} 
 		return null;
 	}
 

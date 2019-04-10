@@ -82,10 +82,6 @@ public class AccesBase {
 
 	public static DataSource getMockDataSource() {
 		SQLServerDataSource ds = new SQLServerDataSource();
-		//DriverManager.getConnection("jdbc:h2:˜/test", "sa", "sa");
-		//ds.setURL("jdbc:h2:mem:;MODE=MSSQLServer");
-		//ds.setUser("sa");
-		//ds.setPassword("sa");
 		ds.setURL("jdbc:sqlserver://10.27.137.24:1433;databasename=DB_ENCHERES_UnitTests");
 		ds.setUser("sa");
 		ds.setPassword("Pa$$w0rd");	

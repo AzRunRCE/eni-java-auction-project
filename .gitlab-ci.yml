@@ -21,7 +21,7 @@ stages:
 builds:
   stage: build
   script:
-    - ant -buildfile build-CI.xml compile
+    - ant -buildfile build-CI.xml
   artifacts:
     paths:
     - Encheres/dist/*.jar

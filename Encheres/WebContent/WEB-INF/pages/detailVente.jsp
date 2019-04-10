@@ -50,100 +50,80 @@
 		
 	</div>
 	<div class="row">
-		<div class="col-md-3">
+		<div class="col-md-3 mb-2">
 			<div class="detail">
 				<img src="img/alienware.jpg" class="img-thumbnail" alt="image alternative">
 			</div>
 		</div>
 		<div class="col-md-9">
-			<h3>${nomArticle }</h3>
-			<div class="row">
-				<div class="col-md-3">
-					Description :
-				</div>	
-				<div class="col-md-6 ">
-					${description}
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-3">
-					Catégorie :
-				</div>	
-				<div class="col-md-6 ">
-					${categorie }
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-3">
-					Meilleure offre :
-				</div>
-				<c:if test="${montantEnchere != 0 }">
-					<c:if test="${no_utilisateur != null}">	
-						<c:if test="${pseudoAcheteur == pseudoVendeur}">	
-							<div class="col-md-6 ">
-								${montantEnchere }
-							</div>
+			<h4>${nomArticle }</h4>
+			<table class="table table-borderless table-sm">
+				<thead>
+					<tr>
+						<th style="width:40%"></th>
+						<th style="width:60%"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Description :</td>
+						<td>${description}</td>
+					</tr>
+					<tr>
+						<td>Catégorie :</td>
+						<td>${categorie }</td>
+					</tr>
+					<tr>
+						<td>Meilleure offre :</td>
+						<c:if test="${montantEnchere != 0 }">
+							<c:if test="${no_utilisateur != null}">	
+								<c:if test="${pseudoAcheteur == pseudoVendeur}">	
+									<td>${montantEnchere }</td>
+								</c:if>
+								<c:if test="${pseudoAcheteur != pseudoVendeur}">
+									<td>${montantEnchere } par <a href="/Profil?userId=${noAcheteur }">${pseudoAcheteur}</a></td>
+								</c:if>
+							</c:if>
+							<c:if test="${no_utilisateur == null}">	
+								<td>${montantEnchere } par ${pseudoAcheteur}</td>
+							</c:if>
 						</c:if>
-						<c:if test="${pseudoAcheteur != pseudoVendeur}">
-							<div class="col-md-6 ">
-								${montantEnchere } par <a href="/Profil?userId=${noAcheteur }">${pseudoAcheteur}</a>
-							</div>
+						<c:if test="${montantEnchere == 0 }">
+							<td>Aucune enchère n'a été faite.</td>
 						</c:if>
-					</c:if>
-					<c:if test="${no_utilisateur == null}">	
-						<div class="col-md-6 ">
-							${montantEnchere } par ${pseudoAcheteur}
-						</div>
-					</c:if>
-				</c:if>
-				<c:if test="${montantEnchere == 0 }">
-					<div class="col-md-6 ">
-						Aucune enchère n'a été faite.
-					</div>
-				</c:if>
-			</div>
-			<div class="row">
-				<div class="col-md-3">
-					Mise à prix :
-				</div>	
-				<div class="col-md-6 ">
-					${prixInitial }
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-3">
-					fin de l'enchère :
-				</div>	
-				<div class="col-md-6 ">
-					<fmt:parseDate value="${dateFinEnchere }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
-					<fmt:formatDate pattern="dd-MM-yyyy 'à' HH:mm" value="${ parsedDateTime }" />	
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-3">
-					Retrait :
-				</div>	
-				<div class="col-md-6 ">
-					${rueRetrait }<br>
-					${codePostalRetrait }<br>
-					${villeRetrait }
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-3">
-					Vendeur :
-				</div>
-				<c:if test="${no_utilisateur != null}">	
-					<div class="col-md-6 ">
-						<a href="Profil?userId=${noVendeur }">${pseudoVendeur }</a>
-					</div>
-				</c:if>
-				<c:if test="${no_utilisateur == null}">	
-					<div class="col-md-6 ">
-						${pseudoVendeur }
-					</div>
-				</c:if>
-			</div>
+					</tr>
+					<tr>
+						<td>Mise à prix :</td>
+						<td>${prixInitial }</td>
+					</tr>
+					<tr>
+						<td>fin de l'enchère :</td>
+						<td>
+							<fmt:parseDate value="${dateFinEnchere }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+							<fmt:formatDate pattern="dd-MM-yyyy 'à' HH:mm" value="${ parsedDateTime }" />
+						</td>
+					</tr>
+					<tr>
+						<td>Retrait :</td>
+						<td>
+							${rueRetrait }<br>
+							${codePostalRetrait }<br>
+							${villeRetrait }
+						</td>
+					</tr>
+					<tr>
+						<td>Vendeur :</td>
+						<c:if test="${no_utilisateur != null}">	
+							<td>
+								<a href="Profil?userId=${noVendeur }">${pseudoVendeur }</a>
+							</td>
+						</c:if>
+						<c:if test="${no_utilisateur == null}">	
+							<td>${pseudoVendeur }</td>
+						</c:if>
+					</tr>
+				</tbody>
+			</table>
 			<c:if test="${noVendeur != no_utilisateur }">
 				<c:if test="${date < dateFinEnchere && date > dateDebutEnchere }">
 					<c:if test="${no_utilisateur != null}">

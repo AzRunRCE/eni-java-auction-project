@@ -85,10 +85,10 @@ public class Sell extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		//multipart
+		//multipart 
     	response.setContentType("text/html;charset=UTF-8");
     	
-    	String path = "C:\\Users\\romai\\Documents\\workspace\\EncheresImages";
+    	String path = "C:\\Users\\fcatin2018\\Desktop\\uploads";
         final Part filePart = request.getPart("inputImage");
         System.out.println("file "+filePart);
         final String fileName = getFileName(filePart);

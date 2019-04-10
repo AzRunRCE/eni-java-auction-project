@@ -90,9 +90,9 @@ public class EditProfil extends HttpServlet {
 			user_update.setTelephone(request.getParameter("inputTelephone"));
 		
 			
-			if (usersManager.updateUtilisateur(user_update));{
+			if (usersManager.updateUtilisateur(user_update)){
 				request.setAttribute("editable", true);
-				request.setAttribute("message", "Votre profil a �t� mis � jour");
+				request.setAttribute("message", "Votre profil a été mis à jour");
 				request.setAttribute(Constantes.ATT_UTILISATEUR, user_update);
 				request.getRequestDispatcher(Constantes.PAGE_PROFIL).forward(request, response);
 			}

@@ -39,7 +39,7 @@ public class CategorieDAO implements IDAOCategorie {
 	}
 
 	@Override
-	public Categorie find(int id) {
+	public Categorie find(int id) throws DALException {
 		try(Connection connect = dataSource.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(SELECT_BY_ID)) {
 			preparedStatement.setInt(1,id); 

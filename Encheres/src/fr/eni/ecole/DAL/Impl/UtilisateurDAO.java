@@ -60,7 +60,7 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 		}
 
 	@Override
-	public boolean delete(Utilisateur obj) {
+	public int delete(Utilisateur obj) throws DALException {
 		int rs = 0;
 		try(Connection connect = dataSource.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(DELETE)) {

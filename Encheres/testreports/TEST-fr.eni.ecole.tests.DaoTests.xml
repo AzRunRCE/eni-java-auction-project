@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="2" failures="0" hostname="osboxes" name="fr.eni.ecole.tests.DaoTests" tests="2" time="0.33" timestamp="2019-04-10T17:13:06">
+  <properties>
+    <property name="java.vendor" value="Oracle Corporation" />
+    <property name="env.SESSION_MANAGER" value="local/osboxes:@/tmp/.ICE-unix/2277,unix/osboxes:/tmp/.ICE-unix/2277" />
+    <property name="env.IM_CONFIG_PHASE" value="2" />
+    <property name="env.LESSOPEN" value="| /usr/bin/lesspipe %s" />
+    <property name="lib.dir" value="/home/osboxes/eni-java-project-bid/Encheres/lib" />
+    <property name="sun.java.launcher" value="SUN_STANDARD" />
+    <property name="env.QT_IM_MODULE" value="xim" />
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers" />
+    <property name="ant.file.Encheres" value="/home/osboxes/eni-java-project-bid/Encheres/build-CI.xml" />
+    <property name="os.name" value="Linux" />
+    <property name="test.reports.dir" value="/home/osboxes/eni-java-project-bid/Encheres/testreports" />
+    <property name="env.PWD" value="/home/osboxes/eni-java-project-bid/Encheres" />
+    <property name="sun.desktop" value="gnome" />
+    <property name="env.LANG" value="en_US.UTF-8" />
+    <property name="java.vm.specification.vendor" value="Oracle Corporation" />
+    <property name="env.XDG_MENU_PREFIX" value="gnome-" />
+    <property name="ant.home" value="/usr/share/ant" />
+    <property name="java.runtime.version" value="11.0.1+13-Ubuntu-3ubuntu3.18.10.1" />
+    <property name="env.GTK_IM_MODULE" value="ibus" />
+    <property name="env.XDG_VTNR" value="2" />
+    <property name="env.DISPLAY" value=":0" />
+    <property name="env.QT4_IM_MODULE" value="xim" />
+    <property name="user.name" value="osboxes" />
+    <property name="env._" value="/usr/bin/ant" />
+    <property name="env.USER" value="osboxes" />
+    <property name="env.GNOME_SHELL_SESSION_MODE" value="ubuntu" />
+    <property name="env.SHELL" value="/bin/bash" />
+    <property name="env.DESKTOP_SESSION" value="ubuntu" />
+    <property name="env.XDG_DATA_DIRS" value="/usr/share/ubuntu:/usr/local/share:/usr/share:/var/lib/snapd/desktop" />
+    <property name="env.XDG_CURRENT_DESKTOP" value="ubuntu:GNOME" />
+    <property name="env.PATH" value="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin" />
+    <property name="user.language" value="en" />
+    <property name="env.XDG_SESSION_DESKTOP" value="ubuntu" />
+    <property name="sun.boot.library.path" value="/usr/lib/jvm/java-11-openjdk-amd64/lib" />
+    <property name="ant.project.default-target" value="builddist" />
+    <property name="ant.project.name" value="Encheres" />
+    <property name="env.GNOME_TERMINAL_SERVICE" value=":1.60" />
+    <property name="java.vm.compressedOopsMode" value="32-bit" />
+    <property name="java.version" value="11.0.1" />
+    <property name="user.timezone" value="" />
+    <property name="env.DBUS_SESSION_BUS_ADDRESS" value="unix:path=/run/user/1000/bus" />
+    <property name="sun.arch.data.model" value="64" />
+    <property name="env.SSH_AGENT_PID" value="2404" />
+    <property name="sun.cpu.isalist" value="" />
+    <property name="sun.jnu.encoding" value="UTF-8" />
+    <property name="env.SHLVL" value="1" />
+    <property name="ECLIPSE_HOME" value="../../../Documents/eclipse-jee-oxygen-2-rc2-win32-x86_64/eclipse/" />
+    <property name="file.separator" value="/" />
+    <property name="java.specification.name" value="Java Platform API Specification" />
+    <property name="java.class.version" value="55.0" />
+    <property name="env.GNOME_DESKTOP_SESSION_ID" value="this-is-deprecated" />
+    <property name="env.GDMSESSION" value="ubuntu" />
+    <property name="user.country" value="US" />
+    <property name="env.GNOME_TERMINAL_SCREEN" value="/org/gnome/Terminal/screen/c12c1102_bf0e_44b0_9cb8_ac1f0c6dccd2" />
+    <property name="java.home" value="/usr/lib/jvm/java-11-openjdk-amd64" />
+    <property name="dist.dir" value="/home/osboxes/eni-java-project-bid/Encheres/dist" />
+    <property name="java.vm.info" value="mixed mode, sharing" />
+    <property name="os.version" value="4.18.0-17-generic" />
+    <property name="ant.file" value="/home/osboxes/eni-java-project-bid/Encheres/build-CI.xml" />
+    <property name="env.LOGNAME" value="osboxes" />
+    <property name="path.separator" value=":" />
+    <property name="java.vm.version" value="11.0.1+13-Ubuntu-3ubuntu3.18.10.1" />
+    <property name="ant.library.dir" value="/usr/share/ant/lib" />
+    <property name="junit.output.dir" value="junit" />
+    <property name="env.XDG_SESSION_TYPE" value="x11" />
+    <property name="java.awt.printerjob" value="sun.print.PSPrinterJob" />
+    <property name="env.TERM" value="xterm-256color" />
+    <property name="env.WINDOWPATH" value="2" />
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle" />
+    <property name="awt.toolkit" value="sun.awt.X11.XToolkit" />
+    <property name="env.XMODIFIERS" value="@im=ibus" />
+    <property name="target" value="1.8" />
+    <property name="user.home" value="/home/osboxes" />
+    <property name="java.version.date" value="2018-10-16" />
+    <property name="env.OLDPWD" value="/home/osboxes/eni-java-project-bid" />
+    <property name="java.specification.vendor" value="Oracle Corporation" />
+    <property name="env.VTE_VERSION" value="5401" />
+    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib" />
+    <property name="java.vendor.url" value="http://java.oracle.com/" />
+    <property name="java.vm.vendor" value="Oracle Corporation" />
+    <property name="env.XDG_SEAT" value="seat0" />
+    <property name="bin.dir" value="/home/osboxes/eni-java-project-bid/Encheres/bin" />
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner fr.eni.ecole.tests.DaoTests skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=true formatter=org.apache.tools.ant.taskdefs.optional.junit.SummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/home/osboxes/eni-java-project-bid/Encheres/testreports/TEST-fr.eni.ecole.tests.DaoTests.xml formatter=org.apache.tools.ant.taskdefs.optional.junit.PlainJUnitResultFormatter crashfile=/home/osboxes/eni-java-project-bid/Encheres/junitvmwatcher3926406132308599301.properties propsfile=/home/osboxes/eni-java-project-bid/Encheres/junit8358251787711369706.properties" />
+    <property name="java.class.path" value="/home/osboxes/eni-java-project-bid/Encheres/WebContent/WEB-INF/lib/aopalliance-repackaged-2.4.0-b34.jar:/home/osboxes/eni-java-project-bid/Encheres/WebContent/WEB-INF/lib/hk2-api-2.4.0-b34.jar:/home/osboxes/eni-java-project-bid/Encheres/WebContent/WEB-INF/lib/hk2-locator-2.4.0-b34.jar:/home/osboxes/eni-java-project-bid/Encheres/WebContent/WEB-INF/lib/hk2-utils-2.4.0-b34.jar:/home/osboxes/eni-java-project-bid/Encheres/WebContent/WEB-INF/lib/jackson-core-asl-1.9.13.jar:/home/osboxes/eni-java-project-bid/Encheres/WebContent/WEB-INF/lib/jackson-jaxrs-1.9.13.jar:/home/osboxes/eni-java-project-bid/Encheres/WebContent/WEB-INF/lib/jackson-mapper-asl-1.9.13.jar:/home/osboxes/eni-java-project-bid/Encheres/WebContent/WEB-INF/lib/jackson-xc-1.9.13.jar:/home/osboxes/eni-java-project-bid/Encheres/WebContent/WEB-INF/lib/javassist-3.18.1-GA.jar:/home/osboxes/eni-java-project-bid/Encheres/WebContent/WEB-INF/lib/javax.annotation-api-1.2.jar:/home/osboxes/eni-java-project-bid/Encheres/WebContent/WEB-INF/lib/javax.inject-2.4.0-b34.jar:/home/osboxes/eni-java-project-bid/Encheres/WebContent/WEB-INF/lib/javax.ws.rs-api-2.0.1.jar:/home/osboxes/eni-java-project-bid/Encheres/WebContent/WEB-INF/lib/jersey-client-2.22.2.jar:/home/osboxes/eni-java-project-bid/Encheres/WebContent/WEB-INF/lib/jersey-common-2.22.2.jar:/home/osboxes/eni-java-project-bid/Encheres/WebContent/WEB-INF/lib/jersey-container-servlet-2.22.2.jar:/home/osboxes/eni-java-project-bid/Encheres/WebContent/WEB-INF/lib/jersey-container-servlet-core-2.22.2.jar:/home/osboxes/eni-java-project-bid/Encheres/WebContent/WEB-INF/lib/jersey-guava-2.22.2.jar:/home/osboxes/eni-java-project-bid/Encheres/WebContent/WEB-INF/lib/jersey-media-jaxb-2.22.2.jar:/home/osboxes/eni-java-project-bid/Encheres/WebContent/WEB-INF/lib/jersey-server-2.22.2.jar:/home/osboxes/eni-java-project-bid/Encheres/WebContent/WEB-INF/lib/jstl-1.2.jar:/home/osboxes/eni-java-project-bid/Encheres/WebContent/WEB-INF/lib/osgi-resource-locator-1.0.1.jar:/home/osboxes/eni-java-project-bid/Encheres/WebContent/WEB-INF/lib/sqljdbc42.jar:/home/osboxes/eni-java-project-bid/Encheres/WebContent/WEB-INF/lib/validation-api-1.1.0.Final.jar:/home/osboxes/eni-java-project-bid/Encheres/lib/annotations-api.jar:/home/osboxes/eni-java-project-bid/Encheres/lib/ant-junit.jar:/home/osboxes/eni-java-project-bid/Encheres/lib/catalina-ant.jar:/home/osboxes/eni-java-project-bid/Encheres/lib/catalina-ha.jar:/home/osboxes/eni-java-project-bid/Encheres/lib/catalina-storeconfig.jar:/home/osboxes/eni-java-project-bid/Encheres/lib/catalina-tribes.jar:/home/osboxes/eni-java-project-bid/Encheres/lib/catalina.jar:/home/osboxes/eni-java-project-bid/Encheres/lib/ecj-4.6.3.jar:/home/osboxes/eni-java-project-bid/Encheres/lib/el-api.jar:/home/osboxes/eni-java-project-bid/Encheres/lib/hamcrest-core-1.3.jar:/home/osboxes/eni-java-project-bid/Encheres/lib/jasper-el.jar:/home/osboxes/eni-java-project-bid/Encheres/lib/jasper.jar:/home/osboxes/eni-java-project-bid/Encheres/lib/jaspic-api.jar:/home/osboxes/eni-java-project-bid/Encheres/lib/jsp-api.jar:/home/osboxes/eni-java-project-bid/Encheres/lib/junit-4.11.jar:/home/osboxes/eni-java-project-bid/Encheres/lib/servlet-api.jar:/home/osboxes/eni-java-project-bid/Encheres/lib/tomcat-api.jar:/home/osboxes/eni-java-project-bid/Encheres/lib/tomcat-coyote.jar:/home/osboxes/eni-java-project-bid/Encheres/lib/tomcat-dbcp.jar:/home/osboxes/eni-java-project-bid/Encheres/lib/tomcat-i18n-es.jar:/home/osboxes/eni-java-project-bid/Encheres/lib/tomcat-i18n-fr.jar:/home/osboxes/eni-java-project-bid/Encheres/lib/tomcat-i18n-ja.jar:/home/osboxes/eni-java-project-bid/Encheres/lib/tomcat-i18n-ru.jar:/home/osboxes/eni-java-project-bid/Encheres/lib/tomcat-jdbc.jar:/home/osboxes/eni-java-project-bid/Encheres/lib/tomcat-jni.jar:/home/osboxes/eni-java-project-bid/Encheres/lib/tomcat-util-scan.jar:/home/osboxes/eni-java-project-bid/Encheres/lib/tomcat-util.jar:/home/osboxes/eni-java-project-bid/Encheres/lib/tomcat-websocket.jar:/home/osboxes/eni-java-project-bid/Encheres/lib/websocket-api.jar:/home/osboxes/eni-java-project-bid/Encheres/bin:/usr/share/java/ant-launcher-1.10.5.jar:/usr/share/ant/lib/ant.jar:/usr/share/ant/lib/ant-junit.jar:/usr/share/ant/lib/ant-junit4.jar" />
+    <property name="ant.version" value="Apache Ant(TM) version 1.10.5 compiled on August 27 2018" />
+    <property name="env.XDG_SESSION_ID" value="2" />
+    <property name="ant.file.type.Encheres" value="file" />
+    <property name="jdk.debug" value="release" />
+    <property name="env.QT_ACCESSIBILITY" value="1" />
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
+    <property name="ant.file.type" value="file" />
+    <property name="java.vm.specification.version" value="11" />
+    <property name="sun.cpu.endian" value="little" />
+    <property name="sun.os.patch.level" value="unknown" />
+    <property name="debuglevel" value="source,lines,vars" />
+    <property name="env.HOME" value="/home/osboxes" />
+    <property name="env.LS_COLORS" value="rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:" />
+    <property name="java.io.tmpdir" value="/tmp" />
+    <property name="java.vendor.url.bug" value="http://bugreport.java.com/bugreport/" />
+    <property name="env.SSH_AUTH_SOCK" value="/run/user/1000/keyring/ssh" />
+    <property name="env.CLUTTER_IM_MODULE" value="xim" />
+    <property name="os.arch" value="amd64" />
+    <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment" />
+    <property name="env.XDG_RUNTIME_DIR" value="/run/user/1000" />
+    <property name="user.dir" value="/home/osboxes/eni-java-project-bid/Encheres" />
+    <property name="env.XAUTHORITY" value="/run/user/1000/gdm/Xauthority" />
+    <property name="env.GTK_MODULES" value="gail:atk-bridge" />
+    <property name="line.separator" value="&#xa;" />
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM" />
+    <property name="env.COLORTERM" value="truecolor" />
+    <property name="basedir" value="/home/osboxes/eni-java-project-bid/Encheres" />
+    <property name="ant.java.version" value="11" />
+    <property name="ant.core.lib" value="/usr/share/ant/lib/ant.jar" />
+    <property name="env.USERNAME" value="osboxes" />
+    <property name="source" value="1.8" />
+    <property name="file.encoding" value="UTF-8" />
+    <property name="env.GPG_AGENT_INFO" value="/run/user/1000/gnupg/S.gpg-agent:0:1" />
+    <property name="java.specification.version" value="11" />
+    <property name="src.dir" value="src" />
+    <property name="env.XDG_CONFIG_DIRS" value="/etc/xdg/xdg-ubuntu:/etc/xdg" />
+    <property name="ant.project.invoked-targets" value="builddist" />
+    <property name="env.LESSCLOSE" value="/usr/bin/lesspipe %s %s" />
+  </properties>
+  <testcase classname="fr.eni.ecole.tests.DaoTests" name="DAOUtilisateur_findByLogin_Test" time="0.075">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at fr.eni.ecole.DAL.Impl.UtilisateurDAO.findByLogin(UtilisateurDAO.java:148)
+	at fr.eni.ecole.tests.DaoTests.DAOUtilisateur_findByLogin_Test(DaoTests.java:58)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+</error>
+  </testcase>
+  <testcase classname="fr.eni.ecole.tests.DaoTests" name="DAOUtilisateur_Remove_Cascade_Test" time="0.003">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at fr.eni.ecole.DAL.Impl.ArticleVenduDAO.find(ArticleVenduDAO.java:97)
+	at fr.eni.ecole.DAL.Impl.ArticleVenduDAO.find(ArticleVenduDAO.java:21)
+	at fr.eni.ecole.tests.DaoTests.DAOUtilisateur_Remove_Cascade_Test(DaoTests.java:70)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+</error>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

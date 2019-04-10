@@ -19,6 +19,7 @@ import fr.eni.ecole.DAL.DALException;
 import fr.eni.ecole.DAL.Interface.IDAOArticleVendu;
 
 public class ArticleVenduDAO implements IDAOArticleVendu {
+	private final String UPDATE_PRIX_VENTE = "UPDATE ARTICLES_VENDUS SET prix_vente = ? WHERE no_article = ?";
 	private final String CREATE = "INSERT INTO ARTICLES_VENDUS VALUES (?,?,?,?,?,?,?,?)";
 	private final String SELECT_BY_ID = 
 			"SELECT TOP 1000 [ARTICLES_VENDUS].[no_article]\r\n" + 
@@ -54,7 +55,7 @@ public class ArticleVenduDAO implements IDAOArticleVendu {
 	}
 	
 	@Override
-	public int create(ArticleVendu new_article) {
+	public int create(ArticleVendu new_article)  throws DALException{
 		try(Connection connect = dataSource.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -82,14 +83,14 @@ public class ArticleVenduDAO implements IDAOArticleVendu {
 
 	@Override
 	public boolean update(ArticleVendu obj) {
-		return false;
+		return true;
+	}
+	
+	@Override
+	public int delete(ArticleVendu obj) {
+		return 0;
 	}
 
-	@Override
-	public boolean update(ArticleVendu obj) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	@Override
 	public ArticleVendu find(int id) {

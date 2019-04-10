@@ -30,7 +30,7 @@ public class RetraitDAO implements DAO<Retrait> {
 		// TODO Auto-generated constructor stub
 	}
 	@Override
-	public int create(Retrait new_retrait) {
+	public int create(Retrait new_retrait) throws DALException{
 		try(Connection connect = dataSource.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS)) {
 			preparedStatement.setInt(1,new_retrait.getNo_article()); 
@@ -62,7 +62,7 @@ public class RetraitDAO implements DAO<Retrait> {
 	}
 
 	@Override
-	public Retrait find(int id) {
+	public Retrait find(int id) throws DALException {
 		try(Connection connect = dataSource.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(SELECT_BY_ID)) {
 			preparedStatement.setInt(1,id); 

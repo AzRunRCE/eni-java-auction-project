@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
 <project basedir="." default="builddist" name="Encheres">
     <property environment="env"/>
     <property name="ECLIPSE_HOME" value="../../../Documents/eclipse-jee-oxygen-2-rc2-win32-x86_64/eclipse/"/>
@@ -112,7 +112,7 @@
 		<!-- Compilation of Java Src Files into bin folder -->
 		<target name="compile" depends="init">
 			<echo>Compiling now...</echo>
-			<javac destdir="bin" debug="true" srcdir="${src.dir}" includeantruntime="false">
+			<javac destdir="bin" debug="true" srcdir="${src.dir}"  encoding="iso-8859-1" includeantruntime="false">
 				<classpath refid="cp" />
 				<classpath refid="Encheres.classpath" />
 				 <compilerarg value="-Xlint"/>

@@ -14,9 +14,9 @@ stages:
 builds:
   stage: build
   script:
-    - ant compile
+    - ant -buildfile build-CI.xml compile
 
 tests:
   stage: test
   script:
-    - ant test
+    - ant -buildfile build-CI.xml test

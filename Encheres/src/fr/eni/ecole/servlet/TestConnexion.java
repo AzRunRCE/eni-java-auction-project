@@ -37,29 +37,7 @@ public class TestConnexion extends HttpServlet implements Servlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		response.setContentType("text/plain");
-		PrintWriter out = response.getWriter();
-		try( Connection cnx = AccesBase.getConnection() ) {
-			out.println("Connexion réussie");
-			out.flush();
-		} catch (DALException e) {
-			out.println("Connexion KO " + e.getMessage() + "\n");
-			out.println("detail : " + e.getStackTrace()[0].getMethodName() + " - " + e.getLocalizedMessage());
-			out.flush();
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}finally {
-			out.close();
-		}
-		
-		IDAOUtilisateur daoUsers;
-		daoUsers = DAOFactory.getUtilisateurDAO();
-		try {
-			Utilisateur p = daoUsers.findByLogin("ApoZLd");
-		} catch (DALException e) {
-			e.printStackTrace();
-		}
-		
+	
 	}
 
 	/**

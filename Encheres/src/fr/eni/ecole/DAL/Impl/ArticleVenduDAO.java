@@ -1,6 +1,9 @@
 package fr.eni.ecole.DAL.Impl;
 
 import fr.eni.ecole.beans.ArticleVendu;
+import fr.eni.ecole.beans.Categorie;
+import fr.eni.ecole.beans.Retrait;
+import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.util.AccesBase;
 
 import java.sql.Connection;
@@ -10,16 +13,50 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 
+import javax.sql.DataSource;
+
 import fr.eni.ecole.DAL.DALException;
 import fr.eni.ecole.DAL.Interface.IDAOArticleVendu;
 
 public class ArticleVenduDAO implements IDAOArticleVendu {
-	private final String CREATE = "INSERT INTO ARTICLES_VENDUS VALUES (?,?,?,?,?,?,?,?,?)";
 	private final String UPDATE_PRIX_VENTE = "UPDATE ARTICLES_VENDUS SET prix_vente = ? WHERE no_article = ?";
+	private final String CREATE = "INSERT INTO ARTICLES_VENDUS VALUES (?,?,?,?,?,?,?,?)";
+	private final String SELECT_BY_ID = 
+			"SELECT TOP 1000 [ARTICLES_VENDUS].[no_article]\r\n" + 
+			"      ,[nom_article]\r\n" + 
+			"      ,[description]\r\n" + 
+			"      ,[date_debut_encheres]\r\n" + 
+			"      ,[date_fin_encheres]\r\n" + 
+			"      ,[prix_initial]\r\n" + 
+			"      ,[prix_vente]\r\n" + 
+			"      ,[ARTICLES_VENDUS].[no_utilisateur]\r\n" + 
+			"      ,[CATEGORIES].[no_categorie]\r\n" + 
+			"	  ,[pseudo]\r\n" + 
+			"      ,[nom]\r\n" + 
+			"      ,[prenom]\r\n" + 
+			"      ,[email]\r\n" + 
+			"      ,[telephone]\r\n" + 
+			"      ,[RETRAITS].[rue]\r\n" + 
+			"      ,[RETRAITS].[code_postal]\r\n" + 
+			"      ,[RETRAITS].[ville]\r\n" + 
+			"      ,[mot_de_passe]\r\n" + 
+			"      ,[credit]\r\n" + 
+			"      ,[administrateur],\r\n" + 
+			"	  [libelle]\r\n" + 
+			"  FROM [DB_ENCHERES_UnitTests].[dbo].[ARTICLES_VENDUS]\r\n" + 
+			"  inner join UTILISATEURS on [ARTICLES_VENDUS].[no_utilisateur] = [UTILISATEURS].[no_utilisateur]\r\n" + 
+			"  inner join CATEGORIES on [ARTICLES_VENDUS].[no_categorie] = CATEGORIES.[no_categorie] \r\n" + 
+			"    inner join RETRAITS on RETRAITS.[no_article] = [ARTICLES_VENDUS].[no_article] where [ARTICLES_VENDUS].no_article = ?";
+	
+	private DataSource dataSource = null;
+	
+	public ArticleVenduDAO(DataSource _dataSource) {
+		dataSource = _dataSource;
+	}
 	
 	@Override
-	public int create(ArticleVendu new_article) throws DALException {
-		try(Connection connect = AccesBase.getConnection();
+	public int create(ArticleVendu new_article)  throws DALException{
+		try(Connection connect = dataSource.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS)) {
 
 			preparedStatement.setString(1,new_article.getNomArticle()); 
@@ -39,24 +76,61 @@ public class ArticleVenduDAO implements IDAOArticleVendu {
 	        }
 	    	return -1;
 		} catch (SQLException e) {
-			throw new DALException(" DAOUtilisateur probleme avec la methode create",e);
+				throw new DALException(" DAOUtilisateur probleme avec la methode create",e);
 			
+			}
 		}
-	}
 
 	@Override
-	public boolean update(ArticleVendu obj) throws DALException {
-		return false;
+	public boolean update(ArticleVendu obj) {
+		return true;
 	}
-
+	
 	@Override
-	public ArticleVendu find(int id) throws DALException {
-		return null;
-	}
-
-	@Override
-	public int delete(ArticleVendu obj) throws DALException {
+	public int delete(ArticleVendu obj) {
 		return 0;
+	}
+
+
+	@Override
+	public ArticleVendu find(int id) {
+		try(Connection connect = dataSource.getConnection();
+				PreparedStatement preparedStatement = connect.prepareStatement(SELECT_BY_ID)) {
+			preparedStatement.setInt(1,id); 
+	    	ResultSet result = preparedStatement.executeQuery();
+	    	if(result.next()) {
+	    		ArticleVendu av = new ArticleVendu();    
+	    		av.setNomArticle(result.getString("nom_article"));
+	    	
+	    		av.setNoArticle(result.getInt("no_article"));
+	    		av.setDateDebutEncheres(result.getTimestamp("date_debut_encheres").toLocalDateTime());
+	    		av.setDateFinEncheres(result.getTimestamp("date_fin_encheres").toLocalDateTime());
+	    		av.setCategorie(new Categorie(result.getInt("no_categorie"),result.getString("libelle")));
+	    		av.setMiseAPrix(result.getFloat("prix_initial"));
+	    		av.setPrixVente(result.getFloat("prix_vente"));	
+		    		Utilisateur utilisateur = new Utilisateur();   
+		    		utilisateur.setPseudo(result.getString("pseudo"));
+		    		utilisateur.setNom(result.getString("nom"));
+		    		utilisateur.setPrenom(result.getString("prenom"));
+		    		utilisateur.setEmail(result.getString("email"));
+		    		utilisateur.setTelephone(result.getString("telephone"));
+		    		utilisateur.setRue(result.getString("rue"));
+		    		utilisateur.setCodePostal(result.getString("code_postal"));
+		    		utilisateur.setVille(result.getString("ville"));
+		    		utilisateur.setMotDePasse(result.getString("mot_de_passe"));
+		    		utilisateur.setCredit(result.getInt("credit"));
+		    		utilisateur.setNoUtilisateur(result.getInt("no_utilisateur"));
+		    		utilisateur.setAdministrateur(result.getInt("administrateur"));
+	    		av.setUtilisateur(utilisateur);
+	    		if (result.getString("rue") != null) {
+	    			av.setRetrait(new Retrait(result.getInt("no_article"), result.getString("rue"), result.getString("code_postal"), result.getString("ville")));
+	    		}
+	    		return av;
+	    	}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		return null;
 	}
 
 	@Override
@@ -74,6 +148,6 @@ public class ArticleVenduDAO implements IDAOArticleVendu {
 		} 
 		return rs;
 	}
-
+	
 
 }

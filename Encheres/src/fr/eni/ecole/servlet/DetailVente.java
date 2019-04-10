@@ -63,6 +63,7 @@ public class DetailVente extends HttpServlet {
 				request.setAttribute("noArticle", enchere.getNoArticle());
 				request.setAttribute("noAcheteur", enchere.getNoAcheteur());
 				request.setAttribute("noVendeur", enchere.getNoVendeur());
+				request.setAttribute("cheminImage", enchere.getChemin_image());
 			}else {
 				enchere = managerEnchere.getArticle(recupNoArticle);
 				if(enchere != null) {
@@ -79,6 +80,7 @@ public class DetailVente extends HttpServlet {
 					request.setAttribute("montantEnchere", "0");
 					request.setAttribute("noArticle", enchere.getNoArticle());
 					request.setAttribute("noVendeur", enchere.getNoVendeur());
+					request.setAttribute("cheminImage", enchere.getChemin_image());
 				}
 			}
 			if(enchere != null) {

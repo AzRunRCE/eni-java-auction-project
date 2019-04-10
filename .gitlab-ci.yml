@@ -3,7 +3,11 @@ image: ubuntu
 services:
 - name: microsoft/mssql-server-linux
   alias: mssql-server-linux
-  command: ["docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=yourStrong(!)Password' -p 1433:1433 -d microsoft/mssql-server-linux:2017-CU8"]
+  environment:
+      - "ACCEPT_EULA=Y"
+      - "SA_PASSWORD=yourStrong(!)Password"
+  command: ["sqlcmd -S localhost -U sa -P yourStrong(!)Password"]
+
 before_script:
     - apt-get update &>/dev/null
     - apt-get install ant -y &>/dev/null

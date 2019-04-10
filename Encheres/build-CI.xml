@@ -113,7 +113,7 @@
 		
 		<!-- 	This task is Used to Unit-Test the Compiled Java Files -->
 		<target name="test">
-			<junit printsummary="yes" fork="true" haltonfailure="no">
+			<junit printsummary="yes" fork="true" haltonfailure="yes">
 				<classpath refid="Encheres.classpath" />
 				<classpath refid="jUnit.cp" />
 				<formatter type="plain" />

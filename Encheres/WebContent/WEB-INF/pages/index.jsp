@@ -7,12 +7,14 @@
 
 <fmt:setBundle basename="fr.eni.ecole.messages.accueil" var="r"/>
 
+<fmt:message key="msg.title" bundle="${r}" var="title"/>
+
 <jsp:include page="../fragments/header.jsp">
-	<jsp:param value="Liste des encheres" name="title" />
+	<jsp:param value="${ title }" name="title" />
 </jsp:include>
 
 <div class="container">
-<h2><fmt:message key="msg.title" bundle="${r}"></fmt:message></h2>
+<h2>${ title }</h2>
 <hr>
 	<h3><fmt:message key="msg.filters_title" bundle="${r}"></fmt:message></h3>
 	<form id="filterForm" action="/Encheres/webapi/enchere/" method="post">
@@ -22,13 +24,15 @@
 					<label for="inputPassword" class="col-md-4 col-form-label">
 						<fmt:message key="msg.filters_searchByName" bundle="${r}"></fmt:message>
 					</label>		
+					<fmt:message key="msg.filters_searchByName_placeholder" bundle="${r}" var="placeholder_search"/>	
+					<fmt:message key="msg.filters_searchByName_title" bundle="${r}" var="title_search"/>	
 					<input 
 						type="search"
 						name="nameFilter" 
 						class="form-control col-md-8" 
-						placeholder="Le nom de l'article contient"
+						placeholder="${placeholder_search }" 
 						pattern="^(\w(\w|\s)*\w)|(\w)$"
-						title="Caractères alphanumériques uniquement" 
+						title="${title_search }" 
 					>
 				</div>
 				<div class="form-group row">

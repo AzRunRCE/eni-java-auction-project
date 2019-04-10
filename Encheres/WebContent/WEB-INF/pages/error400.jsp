@@ -1,12 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+    <fmt:setBundle basename="fr.eni.ecole.messages.error400" var="r"/>
+<!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" href="${ pageContext.request.contextPath }/theme/css/error400.css">
 	<script src="${pageContext.request.contextPath }/js/error400.js" type="text/javascript"></script>
-	<title>Error 404</title>
+	<title><fmt:message key="msg.title" bundle="${r}"></fmt:message></title>
 </head>
 	<body>
       <div class="container">
@@ -28,8 +30,12 @@
 		<p class="p">4</p>
 		
 		<div class="page-ms">
-			<p class="page-msg"> La page à laquelle vous tentez d'accéder n'existe pas ! </p>
-			<button class="go-back"><a href="${pageContext.request.contextPath }/Accueil">Retour à l'accueil</a></button>
+			<p class="page-msg"><fmt:message key="msg.message" bundle="${r}"></fmt:message></p>
+			<button class="go-back">
+				<a href="${pageContext.request.contextPath }/Accueil">
+					<fmt:message key="msg.link" bundle="${r}"></fmt:message>
+				</a>
+			</button>
 		</div>
 </div>
 	</div>

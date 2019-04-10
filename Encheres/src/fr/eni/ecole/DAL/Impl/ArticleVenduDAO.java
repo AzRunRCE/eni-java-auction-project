@@ -14,15 +14,11 @@ import fr.eni.ecole.DAL.DALException;
 import fr.eni.ecole.DAL.Interface.IDAOArticleVendu;
 
 public class ArticleVenduDAO implements IDAOArticleVendu {
-<<<<<<< HEAD
 	private final String CREATE = "INSERT INTO ARTICLES_VENDUS VALUES (?,?,?,?,?,?,?,?,?)";
-=======
-	private final String CREATE = "INSERT INTO ARTICLES_VENDUS VALUES (?,?,?,?,?,?,?,?)";
 	private final String UPDATE_PRIX_VENTE = "UPDATE ARTICLES_VENDUS SET prix_vente = ? WHERE no_article = ?";
->>>>>>> branch 'dev' of https://gitlab.com:443/AzzRun/eni-java-project-bid.git
 	
 	@Override
-	public int create(ArticleVendu new_article) throws DALException {
+	public int create(ArticleVendu new_article) {
 		try(Connection connect = AccesBase.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -43,39 +39,40 @@ public class ArticleVenduDAO implements IDAOArticleVendu {
 	        }
 	    	return -1;
 		} catch (SQLException e) {
-			throw new DALException(" DAOUtilisateur probleme avec la methode create",e);
+			try {
+				throw new DALException(" DAOUtilisateur probleme avec la methode create",e);
+			} catch (DALException e1) {
+				e1.printStackTrace();
+				return -1;
+			}
+		} catch (DALException e1) {
+			e1.printStackTrace();
+			return -1;
 		}
 	}
 
 	@Override
-	public int delete(ArticleVendu obj) throws DALException {
-		return 0;
-	}
-
-	@Override
-	public boolean update(ArticleVendu obj) throws DALException {
+	public boolean update(ArticleVendu obj) {
+		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public ArticleVendu find(int id) throws DALException {
+	public ArticleVendu find(int id) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int updatePrixVenteArticle(int noArticle, int montant) throws DALException {
-		int rs = 0;
-		
-		try(Connection connect = AccesBase.getConnection();
-				PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_PRIX_VENTE)) {
+	public int delete(ArticleVendu obj) throws DALException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
-			preparedStatement.setInt(1, montant);
-			preparedStatement.setInt(2, noArticle);
-			rs = preparedStatement.executeUpdate();
-		} catch (SQLException e) {
-			throw new DALException("Problème avec la methode updatePrixVenteArticle" ,e);
-		} 
-		return rs;
+	@Override
+	public int updatePrixVenteArticle(int noArticle, int montant) throws DALException {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	

@@ -1,6 +1,7 @@
 image: webratio/ant
 
 before_script:
+    - export JAVA_OPTS=-Dfile.encoding=UTF8
     - cd Encheres
 
 stages:

@@ -1,4 +1,7 @@
 */build/
 Encheres/context.xml
 */.settings/
-*.class
+*/build/
+/builds/AzzRun/eni-java-project-bid/Encheres/bin
+/builds/AzzRun/eni-java-project-bid/Encheres/dist
+/builds/AzzRun/eni-java-project-bid/Encheres/testreports

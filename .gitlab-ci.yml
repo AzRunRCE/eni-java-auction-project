@@ -1,4 +1,4 @@
-image: tomcat:8.5.39-jre8
+image: java:8-jdk-alpine
 
 services:
   - name: microsoft/mssql-server-linux
@@ -10,8 +10,8 @@ variables:
   MYSQL_ROOT_PASSWORD: yourStrong(!)Password
 
 before_script:
-    - apt-get update &>/dev/null
-    - apt-get install ant -y &>/dev/null
+    - apt-get update 
+    - apt-get install ant -y 
   #   - apt-get install wget -y &>/dev/null
     - export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8
     - export JAVA_OPTS=-Dfile.encoding=UTF8
@@ -23,7 +23,6 @@ before_script:
    #  - export CATALINA_HOME=$(pwd)/apache-tomcat-8.5.39
    #  - export PATH=$PATH:$CATALINA_HOME
     - cd Encheres
-
 stages:
   - build
 

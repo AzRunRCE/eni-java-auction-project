@@ -28,6 +28,7 @@ before_script:
     - cd Encheres
     - ls /opt/mssql-tools/bin/sqlcmd*
     - ln -sfn /opt/mssql-tools/bin/sqlcmd /usr/bin/sqlcmd
+    - sqlcmd
 stages:
   - build
 

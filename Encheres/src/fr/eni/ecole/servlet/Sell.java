@@ -82,7 +82,10 @@ public class Sell extends HttpServlet {
 	}
 	
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * Methode qui gere la soumission du formulaire de sell.jsp avec fileupload ( multipart )
+	 * Va chercher dans config.properties le chemin pour la création des fichiers images
+	 * Si le dossier n'existe pas alors il est créé
+	 * Ensuite si tout le reste est ok alors on écrit le fichier dans le dossier en question
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	request.setCharacterEncoding("UTF-8");

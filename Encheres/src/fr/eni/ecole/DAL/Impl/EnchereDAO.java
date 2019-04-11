@@ -128,7 +128,7 @@ public class EnchereDAO implements IDAOEnchere {
 	}
 
 	@Override
-	public Map<ArticleVendu, Utilisateur> selectAllwithParameters(AccueilFilters accueilFilters, Integer idUtilisateur) throws DALException {
+	public Map<ArticleVendu, Utilisateur> selectArticlesWhoRespectFiltersWithSeller(AccueilFilters accueilFilters, Integer idUtilisateur) throws DALException {
 		
 		whereAlreadySet = false;
 		StringBuilder requeteParametree = new StringBuilder();

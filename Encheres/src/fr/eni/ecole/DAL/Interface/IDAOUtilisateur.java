@@ -7,7 +7,7 @@ public interface IDAOUtilisateur  extends DAO<Utilisateur>{
 	
 	  /**
 	   * Méthode de recherche des informations
-	   * @param id
+	   * @param email_or_username
 	   * @return T
 	 * @throws DALException 
 	   */

@@ -24,7 +24,6 @@ public abstract class AbstractDAOFactory {
 		
 	/**
 	 * Méthode nous permettant de récupérer une factory de DAO
-	 * @param type
 	 * @return AbstractDAOFactory
 	 */
 	public static AbstractDAOFactory getFactory(){

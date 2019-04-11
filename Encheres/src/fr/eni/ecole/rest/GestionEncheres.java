@@ -31,19 +31,22 @@ import fr.eni.ecole.rest.mo.AccueilFilters;
 @Path("/enchere")
 public class GestionEncheres {
 
-	private static List<AccueilDashboardTile> listeEncheres;
+	//private static List<AccueilDashboardTile> listeEncheres;
 	
 	static {
-		listeEncheres = new ArrayList<>();
-		listeEncheres.add(new AccueilDashboardTile("pc gamer pour travailler", 
-				LocalDateTime.of(2018, 4, 3, 23, 24).toString(), 2300, "ApoZLd", 2, 1));			
-		listeEncheres.add(new AccueilDashboardTile("Rocket stove pour riz et pates", 
-				LocalDateTime.of(2018, 4, 3, 23, 26).toString(), 10, "Fcatin", 3, 2));		
+//		listeEncheres = new ArrayList<>();
+//		listeEncheres.add(new AccueilDashboardTile("pc gamer pour travailler", 
+//				LocalDateTime.of(2018, 4, 3, 23, 24).toString(), 2300, "ApoZLd", 2, 1));			
+//		listeEncheres.add(new AccueilDashboardTile("Rocket stove pour riz et pates", 
+//				LocalDateTime.of(2018, 4, 3, 23, 26).toString(), 10, "Fcatin", 3, 2));		
 	}
-	
+	/**
+	 * Methode qui permet de recuperer tous les articles avec le vendeur
+	 * @deprecated
+	 * @return
+	 */
 	@GET
 	public List<AccueilDashboardTile> getListeEncheres() {
-		// Find the HttpSession
 		EncheresManager enchereManager = new EncheresManager();
 		try {
 			
@@ -69,6 +72,20 @@ public class GestionEncheres {
 			return null;
 		}
 	}
+	/**
+	 * Methode qui gere la soumission du formulaire de l'accueil avec filtres
+	 * @param nameFilter
+	 * @param noCategorie
+	 * @param radioButtons
+	 * @param enchereOuverte
+	 * @param encheresEnCours
+	 * @param encheresRemportees
+	 * @param ventesEnCours
+	 * @param ventesNonDebutees
+	 * @param ventesTerminees
+	 * @param idUtilisateur
+	 * @return
+	 */
 	@SuppressWarnings("unused")
 	@POST
 	public List<AccueilDashboardTile> getListeEncheresWithParams(
@@ -119,7 +136,6 @@ public class GestionEncheres {
 	    Pattern patternRadioBtn = Pattern.compile("^(mesVentes|mesAchats)$"); // il faut echapper les '\'
 	    Matcher matcherRadioBtn = patternRadioBtn.matcher(radioButtons);
 	    
-	    //System.out.println(nameFilter.length() <= 20);
 	    System.out.println(matcherNameFilter.matches());
 	    System.out.println(nameFilter.equals(""));
 	    System.out.println(nameFilter == null);
@@ -129,7 +145,6 @@ public class GestionEncheres {
 	    
 		if ( (matcherNameFilter.matches() || nameFilter.equals("")) &&
 				(matcherRadioBtn.matches() || radioButtons.equals("")) ) {
-			//nameFilter = nameFilter.trim();
 			AccueilFilters filtresAccueil = 
 					new AccueilFilters(	nameFilter, 
 							noCategorie, 
@@ -146,7 +161,7 @@ public class GestionEncheres {
 			EncheresManager enchereManager = new EncheresManager();
 			try {
 				List<AccueilDashboardTile> listeDashboardsTiles= new ArrayList<AccueilDashboardTile>();
-			      Set<Entry<ArticleVendu, Utilisateur>> entrySet = enchereManager.getListeEncheresAccueilWithParameters(filtresAccueil, idUtilisateur).entrySet();
+			      Set<Entry<ArticleVendu, Utilisateur>> entrySet = enchereManager.getListArticlesWithSellerWithFilters(filtresAccueil, idUtilisateur).entrySet();
 			      Iterator<Entry<ArticleVendu, Utilisateur>> iterator = entrySet.iterator();
 			      while(iterator.hasNext()){
 			         Entry<ArticleVendu, Utilisateur> entry = iterator.next();
@@ -164,7 +179,6 @@ public class GestionEncheres {
 			      }
 			      return listeDashboardsTiles;
 			} catch (BLLException e) {
-				// TODO Auto-generated catch block
 				throw new InternalServerErrorException();
 			}			
 		} else {

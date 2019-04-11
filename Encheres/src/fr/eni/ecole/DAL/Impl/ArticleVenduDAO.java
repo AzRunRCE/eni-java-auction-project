@@ -87,7 +87,7 @@ public class ArticleVenduDAO implements IDAOArticleVendu {
 
 
 	@Override
-	public ArticleVendu find(int id) {
+	public ArticleVendu find(int id) throws DALException {
 		try(Connection connect = dataSource.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(SELECT_BY_ID)) {
 			preparedStatement.setInt(1,id); 
@@ -145,7 +145,6 @@ public class ArticleVenduDAO implements IDAOArticleVendu {
 
 	@Override
 	public int delete(ArticleVendu obj) throws DALException {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

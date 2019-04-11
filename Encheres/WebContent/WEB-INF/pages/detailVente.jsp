@@ -93,7 +93,7 @@
 									<td>${ montantEnchere }</td>
 								</c:if>
 								<c:if test="${pseudoAcheteur != pseudoVendeur}">
-									<td>${ montantEnchere } <fmt:message key="msg.by" bundle="${r}"></fmt:message> <a href="/Profil?userId=${noAcheteur }">${pseudoAcheteur}</a></td>
+									<td>${ montantEnchere } <fmt:message key="msg.by" bundle="${r}"></fmt:message> <a href="Profil?userId=${ noAcheteur }">${pseudoAcheteur}</a></td>
 								</c:if>
 							</c:if>
 							<c:if test="${ no_utilisateur == null }">	

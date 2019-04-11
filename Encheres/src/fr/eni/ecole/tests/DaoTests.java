@@ -9,10 +9,15 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.sql.DataSource;
-import org.junit.Test;
+
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+
 import fr.eni.ecole.DAL.AbstractDAOFactory;
 import fr.eni.ecole.DAL.DALException;
 import fr.eni.ecole.DAL.Interface.DAO;
@@ -26,7 +31,7 @@ public class DaoTests {
 	
 	
 	private static DataSource dataSource;
-	@BeforeAll
+	@BeforeClass
 	public static void Create_Connection() throws DALException {
 		dataSource = getMockDataSource();
 	}
@@ -39,7 +44,7 @@ public class DaoTests {
 		return  (DataSource)ds;
 	}
 	
-	@BeforeEach
+	@Before
 	public void Create_Database() throws DALException {
 	
 		try {
@@ -62,7 +67,7 @@ public class DaoTests {
 	
 	
 
-	@Test
+	@org.junit.Test
 	public void DAOUtilisateur_findByLogin_Test() throws DALException, SQLException {
 		IDAOUtilisateur daoUsers = AbstractDAOFactory.getFactory(dataSource).getUtilisateurDAO();
 		Utilisateur p = daoUsers.findByLogin("fcatin");
@@ -70,7 +75,7 @@ public class DaoTests {
 	}
 	//f.catin@gmail.com
 	
-	@Test
+	@org.junit.Test
 	public void DAOUtilisateur_Remove_Cascade_Test() throws DALException, SQLException {
 		IDAOUtilisateur daoUsers = AbstractDAOFactory.getFactory(dataSource).getUtilisateurDAO();
 		IDAOArticleVendu daoArticleVendu = AbstractDAOFactory.getFactory(dataSource).getArticleVenduDAO();

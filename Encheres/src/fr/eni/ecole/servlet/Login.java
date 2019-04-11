@@ -92,7 +92,7 @@ public class Login extends HttpServlet {
 	}
 	
 	/**
-     * Méthode utilitaire gérant la ré©cupé©ration de la valeur d'un cookie donnée
+     * Méthode utilitaire gérant la récupération de la valeur d'un cookie donnée
      * depuis la requÃªte HTTP.
      */
     private static String getCookieValue( HttpServletRequest request, String nom ) {

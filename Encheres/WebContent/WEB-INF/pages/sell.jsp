@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="f" uri="http://java.sun.com/jsp/jstl/functions" %>
-    
+<%@page import="fr.eni.ecole.util.Constantes"%>    
 
 <c:set var="title" scope="request" value="${ title }"/>
 <jsp:include page="../fragments/header.jsp"></jsp:include>
@@ -23,7 +23,7 @@
 					<div class="form-group col-12">
 						<label for="InputArticle">Article :</label> <input type="text"
 							class="form-control" id="InputArticle" name="inputNomArticle"
-							placeholder="Entrez le nom de votre article" required>
+							placeholder="Entrez le nom de votre article" pattern="[a-zA-Z0-9\s]+" required>
 					</div>
 					<div class="form-group col-12">
 						<label for="InputDescription">Description :</label>
@@ -69,7 +69,7 @@
 									<label class="col-12 col-lg-3 col-xl-3 m-auto pl-0"
 										for="inputRue">Rue :</label> <input type="text"
 										class="form-control col-12 col-lg-9 col-xl-9" name="inputRue"
-										id="inputRue" placeholder="Entrez votre rue"
+										id="inputRue" placeholder="Entrez votre rue" pattern="[a-zA-ZÀ-ž0-9\s\.]+"
 										value="<c:out value="${utilisateur.getRue()}"></c:out>"
 										required>
 								</div>
@@ -78,7 +78,7 @@
 										for="inputCodePostal">Code Postal :</label> <input type="text"
 										class="form-control col-12 col-lg-9 col-xl-9"
 										name="inputCodePostal" id="inputCodePostal"
-										placeholder="Entrez votre Code Postal"
+										placeholder="Entrez votre Code Postal" pattern="[a-zA-ZÀ-ž0-9\s\.]+"
 										value="<c:out value="${utilisateur.getCodePostal()}"></c:out>"
 										required>
 								</div>
@@ -87,7 +87,7 @@
 										:</label> <input type="text"
 										class="form-control col-12 col-lg-9 col-xl-9"
 										name="inputVille" id="InputVille"
-										placeholder="Entrez votre ville"
+										placeholder="Entrez votre ville" pattern="[a-zA-ZÀ-ž0-9\s\.]+"
 										value="<c:out value="${utilisateur.getVille()}"></c:out>"
 										required>
 								</div>
@@ -98,7 +98,7 @@
 				<hr>
 				<div class="row">
 					<div class="col-6 pr-3">
-						<button type="submit" class="btn btn-block btn-success">Enregistrer</button>
+						<button type="submit" id="btnValidSell" class="btn btn-block btn-success">Enregistrer</button>
 					</div>
 					<div class="col-6">
 						<a class="btn btn-block btn-danger" href="/">Annuler</a>
@@ -108,5 +108,5 @@
 		</div>
 	</form>
 </div>
-
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/sell.js"></script>
 <jsp:include page="../fragments/footer.jsp" ></jsp:include>

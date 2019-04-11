@@ -2,6 +2,7 @@ image: ubuntu
 
 services:
   - microsoft/mssql-server-linux
+  alias: mssql
 
 variables:
   # Configure mysql environment variables (https://hub.docker.com/_/mysql/)

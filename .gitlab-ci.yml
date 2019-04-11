@@ -1,12 +1,12 @@
 image: ubuntu
 
 services:
-- name: microsoft/mssql-server-linux
-  alias: mssql-server-linux
-  environment:
-      - "ACCEPT_EULA=Y"
-      - "SA_PASSWORD=yourStrong(!)Password"
-  command: ["sqlcmd -S localhost -U sa -P yourStrong(!)Password"]
+  - microsoft/mssql-server-linux
+
+variables:
+  # Configure mysql environment variables (https://hub.docker.com/_/mysql/)
+  ACCEPT_EULA: Y
+  MYSQL_ROOT_PASSWORD: yourStrong(!)Password
 
 before_script:
     - apt-get update &>/dev/null

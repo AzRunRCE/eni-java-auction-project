@@ -2,6 +2,7 @@ package fr.eni.ecole.bll;
 
 import java.util.List;
 
+import fr.eni.ecole.DAL.AbstractDAOFactory;
 import fr.eni.ecole.DAL.DALException;
 import fr.eni.ecole.DAL.DAOFactory;
 import fr.eni.ecole.DAL.Interface.IDAOEnchere;
@@ -10,7 +11,11 @@ import fr.eni.ecole.rest.mo.AccueilDashboardTile;
 import fr.eni.ecole.rest.mo.DetailEnchere;
 
 public class EncheresManager {
-	IDAOEnchere daoEncheres = DAOFactory.getEnchereDAO();
+	IDAOEnchere daoEncheres = null;
+	
+	public EncheresManager() {
+			daoEncheres = AbstractDAOFactory.getFactory().getEnchereDAO();
+	}
 	
 	/**
 	 * 

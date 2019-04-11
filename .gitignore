@@ -1,4 +1,7 @@
 */build/
 Encheres/context.xml
 */.settings/
-*.class
+Encheres/bin
+Encheres/dist
+*/testreports/*
+

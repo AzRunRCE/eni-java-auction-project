@@ -7,23 +7,39 @@ btnValidSell.onclick = function(e){
 	DateDebutEncheres.setCustomValidity('');
 	var pattern = "^([0-9]{4})-([0-9]{2})-([0-9]{2})([a-zA-Z]{1})([0-9]{2}):([0-9]){2}";
   	if (!new RegExp(pattern,"gm").test(DateDebutEncheres.value) ){
-	  	DateDebutEncheres.setCustomValidity("La date saisie n'est par correcte");
+  		if (navigator.language === 'fr') {
+  			DateDebutEncheres.setCustomValidity("La date saisie n'est par correcte");
+  		} else {
+  			DateDebutEncheres.setCustomValidity("The date entered is not correct");
+  		}
 		return;
   	}
   	if (!new RegExp(pattern,"gm").test(DateFinEncheres.value) ){
-	  	DateFinEncheres.setCustomValidity("La date saisie n'est par correcte");
+  		if (navigator.language === 'fr') {
+  			DateFinEncheres.setCustomValidity("La date saisie n'est par correcte");
+  		} else {
+  			DateDebutEncheres.setCustomValidity("The date entered is not correct");
+  		}
 		return;
   	}
   	
 	var Debut = new Date(Date.parse(DateDebutEncheres.value));
   	var Fin = new Date(Date.parse(DateFinEncheres.value));
   	if (Fin < Debut) {
-  		DateFinEncheres.setCustomValidity("La date de fin ne peut être inférieur à celle de début")
+  		if (navigator.language === 'fr') {
+  			DateFinEncheres.setCustomValidity("La date de fin ne peut être inférieur à celle de début");
+  		} else {
+  			DateFinEncheres.setCustomValidity("The end date can not be less than the start date");
+  		}
   		return;
   	}
   	Debut.setDate(Debut.getDate() + 720);
   	if (Debut < Fin) {
-  		DateFinEncheres.setCustomValidity("La date de fin est trop éloignée")
+  		if (navigator.language === 'fr') {
+  			DateFinEncheres.setCustomValidity("La date de fin est trop éloignée")
+  		} else {
+  			DateFinEncheres.setCustomValidity("The end date is too far");
+  		}
   		return;
   	}
 	DateFinEncheres.setCustomValidity('');

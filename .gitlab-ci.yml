@@ -26,7 +26,8 @@ before_script:
     - source ~/.bashrc
     - bash
     - cd Encheres
-    - sqlcmd
+    - ls /opt/mssql-tools/bin/sqlcmd*
+    - ln -sfn /opt/mssql-tools/bin/sqlcmd /usr/bin/sqlcmd
 stages:
   - build
 

@@ -9,12 +9,10 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.sql.DataSource;
+import org.junit.Test;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
-
 import fr.eni.ecole.DAL.AbstractDAOFactory;
 import fr.eni.ecole.DAL.DALException;
 import fr.eni.ecole.DAL.Interface.DAO;
@@ -23,9 +21,7 @@ import fr.eni.ecole.DAL.Interface.IDAOUtilisateur;
 import fr.eni.ecole.beans.ArticleVendu;
 import fr.eni.ecole.beans.Retrait;
 import fr.eni.ecole.beans.Utilisateur;
-import fr.eni.ecole.util.AccesBase;
-import fr.eni.ecole.util.Utils;;
-
+import fr.eni.ecole.util.Utils;
 public class DaoTests {
 	
 	

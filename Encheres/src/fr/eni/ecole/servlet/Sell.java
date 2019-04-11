@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -89,7 +90,27 @@ public class Sell extends HttpServlet {
 		//multipart 
     	response.setContentType("text/html;charset=UTF-8");
     	
-    	String path = "C:\\Users\\fcatin2018\\Desktop\\uploads";
+    	String path = "";
+    	 try (InputStream input = Sell.class.getClassLoader().getResourceAsStream("fr/eni/ecole/config/config.properties")) {
+
+             Properties prop = new Properties();
+
+             if (input == null) {
+                 System.out.println("Sorry, unable to find config.properties");
+                 return;
+             }
+
+             //load a properties file from class path, inside static method
+             prop.load(input);
+
+             //get the property value and print it out
+             System.out.println(prop.getProperty("file_upload_path"));
+             path = prop.getProperty("file_upload_path");
+
+         } catch (IOException ex) {
+             ex.printStackTrace();
+         }
+    	 
         final Part filePart = request.getPart("inputImage");
         System.out.println("file "+filePart);
         final String fileName = getFileName(filePart);
@@ -138,6 +159,12 @@ public class Sell extends HttpServlet {
 			new_ArticleVendu.setRetrait(retrait);
 			//fileupload
 			
+			// creates the save directory if it does not exists
+	        File fileSaveDir = new File(path);
+	        if (!fileSaveDir.exists()) {
+	            fileSaveDir.mkdirs();
+	        }
+	        
 			if(filePart.getInputStream().available() != 0 
 					&& ( fileType.equals("gif") || fileType.equals("png") 
 							|| fileType.equals("jpeg") || fileType.equals("bmp")

@@ -37,7 +37,7 @@ public class Utils {
 				sb.append(str + "\n ");
 			}
 			in.close();
-			stmt.executeUpdate(sb.toString());
+			stmt.executeUpdate(sb.toString().replace("DB_ENCHERES", "DB_ENCHERES_UnitTests"));
 			isScriptExecuted = true;
 		} catch (Exception e) {
 			System.err.println("Failed to Execute" + aSQLScriptFilePath +". The error is"+ e.getMessage());

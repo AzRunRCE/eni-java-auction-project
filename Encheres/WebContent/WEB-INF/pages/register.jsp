@@ -40,14 +40,14 @@
 			    		<fmt:message key="msg.phone" bundle="${r}"></fmt:message>
 		    		</label>
 		    		<fmt:message key="msg.phone_placeholder" bundle="${r}" var="phone_placeholder"/>
-				    <input required="required" type="text" class="form-control col-7" name="inputTelephone" id="inputTelephone" placeholder="${ phone_placeholder }">
+				    <input required="required" type="text"   pattern="^(?:0|\(?\+33\)?\s?|0033\s?)[1-79](?:[\.\-\s]?\d\d){4}$" class="form-control col-7" name="inputTelephone" id="inputTelephone" placeholder="${ phone_placeholder }">
 			 	</div>
 			   	<div class="form-group row  p-2">
 			    	<label for="inputCodePostal" class="control-label col-5">
 			    		<fmt:message key="msg.zipCode" bundle="${r}"></fmt:message>
    					</label>
    					<fmt:message key="msg.zipCode_placeholder" bundle="${r}" var="zipCode_placeholder"/>
-			    	<input required="required" type="text" pattern="[a-zA-Z0-9\s]+" class="form-control col-7" id="inputCodePostal"  name="inputCodePostal" placeholder="${ zipCode_placeholder }">
+			    	<input required="required" type="text" pattern="[0-9]{5}" class="form-control col-7" id="inputCodePostal"  name="inputCodePostal" placeholder="${ zipCode_placeholder }">
 		  		</div>	
 			</div>
 			<div class="col-md-6">
@@ -63,7 +63,7 @@
 			    		<fmt:message key="msg.email" bundle="${r}"></fmt:message>
 		    		</label>
 		    		<fmt:message key="msg.email_placeholder" bundle="${r}" var="email_placeholder"/>
-			    	<input  required="required" type="email" class="form-control col-7" id="inputEmail"  name="inputEmail"aria-describedby="emailHelp" placeholder="${ email_placeholder }">
+			    	<input  required="required" type="email" class="form-control col-7" id="inputEmail"  name="inputEmail"aria-describedby="emailHelp" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"  placeholder="${ email_placeholder }">
 				</div>
 		   		<div class="form-group row p-2">
 		    		<label for="inputRue" class="control-label col-5">
@@ -113,25 +113,5 @@
 		</div>
 	</form>
 </div>
-	
-<script>
-var password = document.getElementById("inputPassword")
-, confirm_password = document.getElementById("inputConfirmationPassword");
-
-function validatePassword(){
-if(password.value != confirm_password.value) {
-	if( navigator.language === 'fr'){
-	  confirm_password.setCustomValidity("Les mot de passes de correspondent pas.");		
-	} else {
-		confirm_password.setCustomValidity("Passwords do not match.");
-	}
-} else {
-  confirm_password.setCustomValidity('');
-}
-}
-
-password.onchange = validatePassword;
-confirm_password.onkeyup = validatePassword;
-</script>
-
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/register.js"></script>
 <jsp:include page="../fragments/footer.jsp" ></jsp:include>

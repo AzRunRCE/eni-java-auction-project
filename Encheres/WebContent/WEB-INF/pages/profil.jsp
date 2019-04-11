@@ -1,5 +1,4 @@
 <%@page import="fr.eni.ecole.beans.Utilisateur"%>
-<%@page import="fr.eni.ecole.util.Constantes"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -13,7 +12,7 @@
 <jsp:include page="../fragments/header.jsp"></jsp:include>
 
 <div class="container">
-	<h2>${ title }</h2>
+	<h2><c:out value="${profil_label}"></c:out></h2>
 	<hr>
 	<c:if test="${message != null}"> 
 		<div class="alert alert-success" role="alert">

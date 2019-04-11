@@ -80,11 +80,5 @@ public class AccesBase {
 		
 	}
 
-	public static DataSource getMockDataSource() {
-		SQLServerDataSource ds = new SQLServerDataSource();
-		ds.setURL("jdbc:sqlserver://10.27.137.24:1433;databasename=DB_ENCHERES_UnitTests");
-		ds.setUser("sa");
-		ds.setPassword("Pa$$w0rd");	
-		return  (DataSource)ds;
-	}
+	
 }

@@ -3,7 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="f" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-    
+<%@page import="fr.eni.ecole.util.Constantes"%>    
 <fmt:setBundle basename="fr.eni.ecole.messages.sell" var="r"/>
 <fmt:message key="msg.title" bundle="${r}" var="title"/>
 
@@ -30,7 +30,7 @@
 						<fmt:message key="msg.article_name_placeholder" bundle="${r}" var="article_name_placeholder"/>
 						<input type="text"
 							class="form-control" id="InputArticle" name="inputNomArticle"
-							placeholder="${ article_name_placeholder }" required>
+							placeholder="${ article_name_placeholder }" pattern="[a-zA-Z0-9\s]+" required>
 					</div>
 					<div class="form-group col-12">
 						<label for="InputDescription">
@@ -99,7 +99,7 @@
 									<fmt:message key="msg.calling_off_place_street_placeholder" bundle="${r}" var="calling_off_place_street_placeholder"/>
 									<input type="text"
 										class="form-control col-12 col-lg-9 col-xl-9" name="inputRue"
-										id="inputRue" placeholder="${ calling_off_place_street_placeholder }"
+										id="inputRue" placeholder="${ calling_off_place_street_placeholder }" pattern="[a-zA-ZÀ-ž0-9\s\.]+"
 										value="<c:out value="${utilisateur.getRue()}"></c:out>"
 										required>
 								</div>
@@ -112,7 +112,7 @@
 									<input type="text"
 										class="form-control col-12 col-lg-9 col-xl-9"
 										name="inputCodePostal" id="inputCodePostal"
-										placeholder="${ calling_off_zip_code_placeholder }"
+										placeholder="${ calling_off_zip_code_placeholder }"  pattern="[a-zA-ZÀ-ž0-9\s\.]+"
 										value="<c:out value="${utilisateur.getCodePostal()}"></c:out>"
 										required>
 								</div>
@@ -124,7 +124,7 @@
 									<input type="text"
 										class="form-control col-12 col-lg-9 col-xl-9"
 										name="inputVille" id="InputVille"
-										placeholder="${ calling_off_city_placeholder }"
+										placeholder="${ calling_off_city_placeholder }"  pattern="[a-zA-ZÀ-ž0-9\s\.]+"
 										value="<c:out value="${utilisateur.getVille()}"></c:out>"
 										required>
 								</div>
@@ -135,7 +135,7 @@
 				<hr>
 				<div class="row">
 					<div class="col-6 pr-3">
-						<button type="submit" class="btn btn-block btn-success">
+						<button type="submit" id="btnValidSell" class="btn btn-block btn-success">
 							<fmt:message key="msg.save_button" bundle="${r}"></fmt:message>
 						</button>
 					</div>
@@ -149,5 +149,5 @@
 		</div>
 	</form>
 </div>
-
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/sell.js"></script>
 <jsp:include page="../fragments/footer.jsp" ></jsp:include>

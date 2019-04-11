@@ -12,7 +12,6 @@
 
 <c:set var="title" scope="request" value="${ title }"/>
 <jsp:include page="../fragments/header.jsp"></jsp:include>
-
 <div class="container">
 	<h2>${ title }</h2>
 	<hr>
@@ -35,13 +34,13 @@
 			    	<label for="inputTelephone" class="justify-content-start control-label col-5">
 			    		<fmt:message key="msg.phone" bundle="${r}"></fmt:message>
 		    		</label>
-				    <input required="required" type="text" value="<c:out value="${utilisateur.getTelephone()}"></c:out>" class="form-control col-7" name="inputTelephone" id="inputTelephone" placeholder="Entrez votre numéro de téléphone">
+				    <input required="required" type="text" value="<c:out value="${utilisateur.getTelephone()}"></c:out>" class="form-control col-7" name="inputTelephone" id="inputTelephone" pattern="^(?:0|\(?\+33\)?\s?|0033\s?)[1-79](?:[\.\-\s]?\d\d){4}$" placeholder="Entrez votre numéro de téléphone">
 			 	</div>
 				<div class="form-group row  p-2">
 			    	<label for="inputCodePostal" class="justify-content-start control-label col-5">
 			    		<fmt:message key="msg.zipCode" bundle="${r}"></fmt:message>
 		    		</label>
-			    	<input required="required" type="text" value="<c:out value="${utilisateur.getCodePostal()}"></c:out>" pattern="[a-zA-Z0-9\s]+" class="form-control col-7" id="inputCodePostal"  name="inputCodePostal" placeholder=" Entrez votre code postal">
+			    	<input required="required" type="text" value="<c:out value="${utilisateur.getCodePostal()}"></c:out>" pattern="[a-zA-Z0-9\s]+" class="form-control col-7" id="inputCodePostal"  pattern="[0-9]{5}" name="inputCodePostal" placeholder=" Entrez votre code postal">
 		  		</div>
 			</div>
 			<div class="col-md-6">
@@ -55,7 +54,7 @@
 			    	<label for="inputEmail" class="justify-content-start control-label col-5">
 			    		<fmt:message key="msg.email" bundle="${r}"></fmt:message>
 		    		</label>
-			    	<input  required="required" type="email" class="form-control col-7" id="inputEmail" value="<c:out value="${utilisateur.getEmail()}"></c:out>"   name="inputEmail"aria-describedby="emailHelp" placeholder="Entrez votre email">
+			    	<input  required="required" type="email" class="form-control col-7" id="inputEmail" value="<c:out value="${utilisateur.getEmail()}"></c:out>"   name="inputEmail"aria-describedby="emailHelp" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Entrez votre email">
 				</div>
 		   		<div class="form-group row p-2">
 		    		<label for="inputRue" class="justify-content-start control-label col-5">
@@ -74,18 +73,18 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group row p-2">
-			    	<label for="inputCurrentPassword" class="justify-content-start control-label col-5">
+			    	<label for="inputPassword" class="justify-content-start control-label col-5">
 			    		<fmt:message key="msg.password" bundle="${r}"></fmt:message>
 		    		</label>
-			    	<input type="password" class="form-control col-7" id="inputCurrentPassword"   name="inputPassword" placeholder="Entrez votre mot de passe actuel">
+			    	<input type="password" class="form-control col-7" id="inputPassword"   name="inputPassword" placeholder="Entrez votre mot de passe actuel">
 			  	</div>
 			</div>
 			<div class="col-md-6">
 				<div class="form-group row p-2">
-			    	<label for="inputPassword" class="justify-content-start control-label col-5">
+			    	<label for="inputNewPassword" class="justify-content-start control-label col-5">
 			    		<fmt:message key="msg.new_password" bundle="${r}"></fmt:message>
 		    		</label>
-			    	<input  type="password" class="form-control col-7" id="inputPassword"   name="inputPassword" placeholder="Entrez votre nouveau mot de passe">
+			    	<input  type="password" class="form-control col-7" id="inputNewPassword"   name="inputNewPassword" placeholder="Entrez votre nouveau mot de passe">
 			  	</div>
 				<div class="form-group row p-2"> 
 				   	<label for="inputConfirmationPassword"  class="justify-content-start control-label col-5">
@@ -97,7 +96,7 @@
 		</div>
 		<div class="col-12">
 	  		<div class="d-flex justify-content-center">
-	     		<button type="submit" class="btn btn-success p-2 m-2">
+	     		<button type="submit" id="updateProfil" class="btn btn-success p-2 m-2">
 	     			<fmt:message key="msg.save_button" bundle="${r}"></fmt:message>
      			</button>                   
 	       		<button type="button" id="deleteAccountBtn" class="btn btn-danger  p-2 m-2">
@@ -111,25 +110,5 @@
 		 <input type="hidden" style="display:none;" value="true"  name="inputDeleteAccount">
 	</form>	
 </div>
-<script>
-
-$( "#deleteAccountBtn" ).click(function() {
-	 $("#deleteAccountForm").submit();
-	});
-
-var password = document.getElementById("inputPassword")
-, confirm_password = document.getElementById("inputConfirmationPassword");
-
-function validatePassword(){
-if(password.value != confirm_password.value) {
-  confirm_password.setCustomValidity("Les mot de passes de correspondent pas.");
-} else {
-  confirm_password.setCustomValidity('');
-}
-}
-
-password.onchange = validatePassword;
-confirm_password.onkeyup = validatePassword;
-</script>
-</div>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/editProfil.js"></script>
 <jsp:include page="../fragments/footer.jsp" ></jsp:include>

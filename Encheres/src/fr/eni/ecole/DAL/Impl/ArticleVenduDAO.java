@@ -19,8 +19,8 @@ import fr.eni.ecole.DAL.DALException;
 import fr.eni.ecole.DAL.Interface.IDAOArticleVendu;
 
 public class ArticleVenduDAO implements IDAOArticleVendu {
+	private final String CREATE = "INSERT INTO ARTICLES_VENDUS VALUES (?,?,?,?,?,?,?,?,?)";
 	private final String UPDATE_PRIX_VENTE = "UPDATE ARTICLES_VENDUS SET prix_vente = ? WHERE no_article = ?";
-	private final String CREATE = "INSERT INTO ARTICLES_VENDUS VALUES (?,?,?,?,?,?,?,?)";
 	private final String SELECT_BY_ID = 
 			"SELECT TOP 1000 [ARTICLES_VENDUS].[no_article]\r\n" + 
 			"      ,[nom_article]\r\n" + 
@@ -49,7 +49,6 @@ public class ArticleVenduDAO implements IDAOArticleVendu {
 			"    inner join RETRAITS on RETRAITS.[no_article] = [ARTICLES_VENDUS].[no_article] where [ARTICLES_VENDUS].no_article = ?";
 	
 	private DataSource dataSource = null;
-	
 	public ArticleVenduDAO(DataSource _dataSource) {
 		dataSource = _dataSource;
 	}
@@ -76,24 +75,19 @@ public class ArticleVenduDAO implements IDAOArticleVendu {
 	        }
 	    	return -1;
 		} catch (SQLException e) {
-				throw new DALException(" DAOUtilisateur probleme avec la methode create",e);
+			throw new DALException(" DAOUtilisateur probleme avec la methode create",e);
 			
-			}
 		}
+	}
 
 	@Override
-	public boolean update(ArticleVendu obj) {
-		return true;
-	}
-	
-	@Override
-	public int delete(ArticleVendu obj) {
-		return 0;
+	public boolean update(ArticleVendu obj) throws DALException {
+		return false;
 	}
 
 
 	@Override
-	public ArticleVendu find(int id) {
+	public ArticleVendu find(int id) throws DALException {
 		try(Connection connect = dataSource.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(SELECT_BY_ID)) {
 			preparedStatement.setInt(1,id); 
@@ -128,7 +122,7 @@ public class ArticleVenduDAO implements IDAOArticleVendu {
 	    		return av;
 	    	}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DALException("Problème avec la méthode find", e);
 		} 
 		return null;
 	}
@@ -148,6 +142,11 @@ public class ArticleVenduDAO implements IDAOArticleVendu {
 		} 
 		return rs;
 	}
-	
+
+	@Override
+	public int delete(ArticleVendu obj) throws DALException {
+		return 0;
+	}
+
 
 }

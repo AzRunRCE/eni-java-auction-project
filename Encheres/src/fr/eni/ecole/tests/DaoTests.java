@@ -38,9 +38,12 @@ public class DaoTests {
 	
 	public static DataSource getMockDataSource() {
 		SQLServerDataSource ds = new SQLServerDataSource();
-		ds.setURL("jdbc:sqlserver://10.27.137.24:1433;databasename=DB_ENCHERES_UnitTests");
+		ds.setURL("jdbc:sqlserver://mssql-server-linux:1433;databasename=DB_ENCHERES_UnitTests");
 		ds.setUser("sa");
-		ds.setPassword("Pa$$w0rd");	
+		ds.setPassword("yourStrong(!)Password");	
+		//ds.setURL("jdbc:sqlserver://10.27.137.24:1433;databasename=DB_ENCHERES_UnitTests");
+		//ds.setUser("sa");
+		//ds.setPassword("Pa$$w0rd");	
 		return  (DataSource)ds;
 	}
 	
@@ -50,7 +53,7 @@ public class DaoTests {
 		try {
 			Connection conn = dataSource.getConnection();
 		    Statement stmt = conn.createStatement();
-		    String script_Path = System.getProperty("user.dir") + "\\..\\Enoncé\\projetEncheres.org\\04-ModelePhysique\\create_bd_trocencheres.sql";
+		    String script_Path = System.getProperty("user.dir") + "\\..\\Enonc\\projetEncheres.org\\04-ModelePhysique\\create_bd_trocencheres.sql";
 		    System.out.println("Execute Script: " + script_Path);
 		    Utils.executeDBScripts(script_Path, stmt);
 

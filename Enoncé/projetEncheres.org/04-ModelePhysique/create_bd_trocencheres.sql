@@ -5,11 +5,15 @@ ALTER DATABASE DB_ENCHERES
 SET SINGLE_USER
 WITH ROLLBACK IMMEDIATE;
 DROP DATABASE DB_ENCHERES;
+IF DB_ID('DB_ENCHERES_UnitTests') IS NOT NULL
+BEGIN
+USE master
+ALTER DATABASE [DB_ENCHERES_UnitTests] SET  SINGLE_USER WITH ROLLBACK IMMEDIATE
+DROP DATABASE DB_ENCHERES_UnitTests
+CREATE DATABASE DB_ENCHERES_UnitTests
+USE DB_ENCHERES_UnitTests
+END
 
-CREATE DATABASE DB_ENCHERES
-GO
-USE DB_ENCHERES
-GO
 CREATE TABLE CATEGORIES (
     no_categorie   INTEGER IDENTITY(1,1) NOT NULL,
     libelle        VARCHAR(30) NOT NULL
@@ -97,4 +101,44 @@ ALTER TABLE ARTICLES_VENDUS
         REFERENCES utilisateurs ( no_utilisateur )
 ON DELETE NO ACTION 
     ON UPDATE no action 
+
+INSERT INTO UTILISATEURS VALUES 
+('ApoZLd', 'GABORIT', 'Romain', 'romain@gmail.com', '0631212957', 'Allee des fougeres',
+ '44240', 'La Chapelle sur Erdre', 'hello', 10, 1),
+ ('Fcatin', 'CATIN', 'Fabien', 'f.catin@gmail.com', '06xxxxxxxx', 'route de bimedia',
+ '86000', 'La Roche sur Yon', 'coucou', 0, 0);
+ 
+INSERT INTO CATEGORIES VALUES('Velos'), ('Voitures');
+ 
+INSERT INTO ARTICLES_VENDUS VALUES('Velo Giant', 'VTT', '2018-02-04', '2018-03-04', 30, 120, 1, 1),
+                            ('207 5P', 'Voitures', '2018-02-06', '2018-03-07', 3000, 5200, 2, 2);
+							
+INSERT INTO ENCHERES VALUES(1, 1, '2018-02-04', 120), (2, 2, '2018-02-06', 3000);
+
+INSERT INTO RETRAITS VALUES(1, 'rue du retrait', 44470, 'Carquefou'),
+(2, 'rue du retrait', 44600, 'Saint Herblain');				
+
+
+ALTER TABLE ENCHERES DROP CONSTRAINT encheres_articles_vendus_fk 
+ALTER TABLE ARTICLES_VENDUS DROP CONSTRAINT encheres_utilisateur_fk 
+ALTER TABLE RETRAITS DROP CONSTRAINT retraits_articles_vendus_fk 
+
+ALTER TABLE ENCHERES 
+ADD CONSTRAINT encheres_articles_vendus_fk 
+FOREIGN KEY (no_article) 
+REFERENCES ARTICLES_VENDUS(no_article) 
+ON DELETE CASCADE;
+
+ALTER TABLE RETRAITS 
+ADD CONSTRAINT retraits_articles_vendus_fk 
+FOREIGN KEY (no_article) 
+REFERENCES ARTICLES_VENDUS(no_article) 
+ON DELETE CASCADE;
+
+ALTER TABLE ARTICLES_VENDUS 
+ADD CONSTRAINT encheres_utilisateur_fk 
+FOREIGN KEY (no_utilisateur) 
+REFERENCES UTILISATEURS(no_utilisateur) 
+ON DELETE CASCADE;
+
 

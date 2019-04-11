@@ -1,13 +1,16 @@
 package fr.eni.ecole.bll;
 
-
+import fr.eni.ecole.DAL.AbstractDAOFactory;
 import fr.eni.ecole.DAL.DALException;
 import fr.eni.ecole.DAL.DAOFactory;
 import fr.eni.ecole.DAL.Interface.IDAOUtilisateur;
 import fr.eni.ecole.beans.Utilisateur;
 
 public class UtilisateursManager {
-	IDAOUtilisateur daoUtilisateurs = DAOFactory.getUtilisateurDAO();
+	IDAOUtilisateur daoUtilisateurs = null;
+	public UtilisateursManager() {
+			daoUtilisateurs = AbstractDAOFactory.getFactory().getUtilisateurDAO();
+	}
 	
 	/**
 	 * 
@@ -17,7 +20,7 @@ public class UtilisateursManager {
 	 */
 	public Utilisateur getUtilisateur(int no_utilisateur) throws BLLException  {
 		try {
-			return daoUtilisateurs.find(no_utilisateur);
+		return daoUtilisateurs.find(no_utilisateur);
 		} catch (DALException e) {
 			throw new BLLException("Problème avec la méthode getUtilisateur", e);
 			
@@ -32,12 +35,12 @@ public class UtilisateursManager {
 	 */
 	public Boolean updateUtilisateur(Utilisateur Utilisateur) throws BLLException  {
 		try {
-			return daoUtilisateurs.update(Utilisateur);
+		return daoUtilisateurs.update(Utilisateur);
 		} catch (DALException e) {
 			throw new BLLException("Problème avec la méthode updateUtilisateur", e);
-		}
 	}
-	
+	}
+
 	/**
 	 * 
 	 * @param usersManager
@@ -46,13 +49,13 @@ public class UtilisateursManager {
 	 */
 	public int deleteUtilisateur(Utilisateur usersManager) throws BLLException {
 		try {
-			return daoUtilisateurs.delete(usersManager);
+		return daoUtilisateurs.delete(usersManager);
 		} catch (DALException e) {
 			throw new BLLException("Problème avec la méthode deleteUtilisateur", e);
 		}
 		
 	}
-	
+		
 	/**
 	 * 
 	 * @param new_user

@@ -59,7 +59,12 @@
 	<div class="row">
 		<div class="col-md-3 mb-2">
 			<div class="detail">
-				<img src="img/alienware.jpg" class="img-thumbnail" alt="image alternative">
+				<c:if test="${cheminImage != null }">
+					<img src="http://localhost:8080/EncheresImages/${cheminImage }" class="img-thumbnail" alt="${cheminImage }">
+				</c:if>
+				<c:if test="${cheminImage == null }">
+					<img src="http://localhost:8080/EncheresImages/default.jpg" class="img-thumbnail" alt="image alternative">
+				</c:if>
 			</div>
 		</div>
 		<div class="col-md-9">
@@ -187,12 +192,12 @@
 					</c:if>
 				</c:if>
 			</c:if>
-			<c:if test="${ noVendeur == no_utilisateur }">
-				<c:if test="${ date < dateFinEnchere }">
-					<c:if test="${ no_utilisateur != null }">
+			<c:if test="${noVendeur == no_utilisateur }">
+				<c:if test="${date < dateDebutEnchere  }">
+					<c:if test="${no_utilisateur != null}">
 						<div class="row">
 							<div class="col-md-6 mt-2">
-								<button type="button" class="btn btn-primary" disabled><fmt:message key="msg.modify_button" bundle="${r}"></fmt:message></button>
+								<a href="./Sell?noArticle=${noArticle }" role="button" class="btn btn-light"><fmt:message key="msg.modify_button" bundle="${r}"></fmt:message></a>
 							</div>
 						</div>
 					</c:if>

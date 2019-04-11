@@ -95,7 +95,7 @@
 		<!-- Compilation of Java Src Files into bin folder -->
 		<target name="compile" depends="init">
 			<echo>Compiling now...</echo>
-			<javac destdir="bin" debug="true" srcdir="${src.dir}" includeantruntime="false">
+			<javac destdir="bin" debug="true" srcdir="${src.dir}" encoding="iso-8859-1" includeantruntime="false">
 				<classpath refid="cp" />
 				<classpath refid="Encheres.classpath" />
 				 <compilerarg value="-Xlint"/>

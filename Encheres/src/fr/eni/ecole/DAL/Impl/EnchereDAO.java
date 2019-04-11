@@ -44,7 +44,7 @@ public class EnchereDAO implements IDAOEnchere {
 	
 	private Boolean whereAlreadySet;
 	
-	private final String SELECT_BY_ID = "SELECT av.nom_article, av.description, c.libelle, av.date_debut_encheres, av.date_fin_encheres, av.prix_initial, av.no_utilisateur as vendeur, e.montant_enchere, e.no_utilisateur as acheteur, e.no_article, u.pseudo, r.code_postal, r.rue, r.ville " + 
+	private final String SELECT_BY_ID = "SELECT av.nom_article, av.description, c.libelle, av.date_debut_encheres, av.date_fin_encheres, av.prix_initial, av.no_utilisateur as vendeur, av.chemin_image, e.montant_enchere, e.no_utilisateur as acheteur, e.no_article, u.pseudo, r.code_postal, r.rue, r.ville " + 
 										"FROM ENCHERES e " + 
 										"LEFT JOIN UTILISATEURS u ON e.no_utilisateur = u.no_utilisateur " + 
 										"LEFT JOIN ARTICLES_VENDUS av  ON e.no_article = av.no_article " + 
@@ -53,7 +53,7 @@ public class EnchereDAO implements IDAOEnchere {
 										"WHERE e.no_article = ? " + 
 										"ORDER BY e.montant_enchere DESC";
 	
-	private final String SELECT_BY_ID_ARTICLE = "SELECT av.nom_article, av.description, av.no_utilisateur as vendeur, c.libelle, av.date_debut_encheres, av.date_fin_encheres, av.prix_initial, av.prix_vente, av.no_article, u.pseudo, r.code_postal, r.rue, r.ville " + 
+	private final String SELECT_BY_ID_ARTICLE = "SELECT av.nom_article, av.description, av.no_utilisateur as vendeur, c.libelle, av.date_debut_encheres, av.date_fin_encheres, av.prix_initial, av.prix_vente, av.no_article, av.chemin_image, u.pseudo, r.code_postal, r.rue, r.ville " + 
 												"FROM ARTICLES_VENDUS av " + 
 												"LEFT JOIN UTILISATEURS u ON av.no_utilisateur = u.no_utilisateur " + 
 												"LEFT JOIN RETRAITS r ON av.no_article = r.no_article " + 
@@ -349,9 +349,10 @@ public class EnchereDAO implements IDAOEnchere {
 	    										rs.getTimestamp("date_fin_encheres").toLocalDateTime(),
 	    										rs.getInt("prix_initial"),
 	    										rs.getInt("montant_enchere"),
-	    										rs.getInt("no_article"),
+	    										rs.getInt("no_article"),									
 	    										rs.getInt("acheteur"),
-	    										rs.getInt("vendeur"));
+	    										rs.getInt("vendeur"),
+	    										rs.getString("chemin_image"));
 	    	}
 	    	return enchere;
 		} catch (SQLException e) {
@@ -381,7 +382,8 @@ public class EnchereDAO implements IDAOEnchere {
 	    										rs.getInt("prix_initial"),
 	    										rs.getInt("prix_vente"),
 	    										rs.getInt("no_article"),
-	    										rs.getInt("vendeur"));
+	    										rs.getInt("vendeur"),
+	    										rs.getString("chemin_image"));
 	    	}
 	    	return enchere;
 		} catch (SQLException e) {

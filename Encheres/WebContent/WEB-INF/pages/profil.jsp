@@ -8,11 +8,11 @@
 <fmt:setBundle basename="fr.eni.ecole.messages.profile" var="r"/>
 <fmt:message key="msg.title" bundle="${r}" var="title"/>
 
-<c:set var="title" scope="request" value="${ title }"/>
+<c:set var="title" scope="request" value="${ title } ${ pseudo_label }"/>
 <jsp:include page="../fragments/header.jsp"></jsp:include>
 
 <div class="container">
-	<h2><c:out value="${profil_label}"></c:out></h2>
+	<h2><c:out value="${ title } ${ pseudo_label }"></c:out></h2>
 	<hr>
 	<c:if test="${message != null}"> 
 		<div class="alert alert-success" role="alert">

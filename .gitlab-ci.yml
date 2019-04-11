@@ -12,6 +12,7 @@ variables:
 before_script:
     - apt-get update 
     - apt-get install ant -y 
+    - apt-get install -y gnupg2
     - apt-get install curl -y 
     - apt-get install wget -y &>/dev/null
     - export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8

@@ -11,14 +11,12 @@ variables:
 
 before_script:
     - apt-get update &>/dev/null
+    - apt-get install -y gnupg2 &>/dev/null
     - apt-get install wget -y &>/dev/null
     - wget -qO - https://packages.microsoft.com/keys/microsoft.asc | iconv -f windows-1251 |  apt-key add -
     - wget -qO - https://packages.microsoft.com/config/ubuntu/16.04/prod.list | iconv -f windows-1251 | tee /etc/apt/sources.list.d/msprod.list
     - apt-get update &>/dev/null
     - apt-get install ant -y &>/dev/null
-    - apt-get install -y gnupg2 &>/dev/null
-    - apt-get install curl -y &>/dev/null 
-    - apt-get install wget -y &>/dev/null
     - export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8
     - export JAVA_OPTS=-Dfile.encoding=UTF8
     - apt-get install -y mssql-tools unixodbc-dev

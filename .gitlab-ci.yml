@@ -1,7 +1,7 @@
 image: ubuntu
 
 services:
-  - microsoft/mssql-server-linux
+  name: microsoft/mssql-server-linux
   alias: mssql
 
 variables:

@@ -16,7 +16,7 @@ import fr.eni.ecole.DAL.Interface.IDAOArticleVendu;
 public class ArticleVenduDAO implements IDAOArticleVendu {
 	private final String CREATE = "INSERT INTO ARTICLES_VENDUS VALUES (?,?,?,?,?,?,?,?,?)";
 	private final String UPDATE_PRIX_VENTE = "UPDATE ARTICLES_VENDUS SET prix_vente = ? WHERE no_article = ?";
-	
+	private final String SELECT_BY_NO_ARTICLE = "";
 	@Override
 	public int create(ArticleVendu new_article) throws DALException {
 		try(Connection connect = AccesBase.getConnection();

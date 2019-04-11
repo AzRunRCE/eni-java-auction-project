@@ -28,7 +28,7 @@ before_script:
     - cd Encheres
     - ls /opt/mssql-tools/bin/sqlcmd*
     - ln -sfn /opt/mssql-tools/bin/sqlcmd /usr/bin/sqlcmd
-    - sqlcmd
+    - sqlcmd -S mssql -U sa -P yourStrong(!)Password -i script/create_bd_trocencheres.sql
 stages:
   - build
 

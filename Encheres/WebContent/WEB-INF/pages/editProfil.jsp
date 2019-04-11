@@ -20,15 +20,15 @@
 				</div>
 				<div class="form-group row  p-2">
 			    	<label for="inputSpeudo" class="justify-content-start control-label col-5">Pseudo</label>
-				    <input required="required" type="text" value="<c:out value="${utilisateur.getPseudo()}"></c:out>" pattern="[a-zA-Z0-9\s]+" class="form-control col-7" name="inputPseudo" id="inputPseudo" placeholder="Entrez votre pseudo">
+				    <input required="required" type="text" value="<c:out value="${utilisateur.getPseudo()}"></c:out>"  pattern="[a-zA-Z0-9\s]+" class="form-control col-7" name="inputPseudo" id="inputPseudo" placeholder="Entrez votre pseudo">
 			    </div>
 			    <div class="form-group row  p-2">
 			    	<label for="inputTelephone" class="justify-content-start control-label col-5">Telephone</label>
-				    <input required="required" type="text" value="<c:out value="${utilisateur.getTelephone()}"></c:out>" class="form-control col-7" name="inputTelephone" id="inputTelephone" placeholder="Entrez votre numéro de téléphone">
+				    <input required="required" type="text" value="<c:out value="${utilisateur.getTelephone()}"></c:out>" class="form-control col-7" pattern="^(?:0|\(?\+33\)?\s?|0033\s?)[1-79](?:[\.\-\s]?\d\d){4}$" name="inputTelephone" id="inputTelephone" placeholder="Entrez votre numéro de téléphone">
 			 	</div>
 				<div class="form-group row  p-2">
 			    	<label for="inputCodePostal" class="justify-content-start control-label col-5">Code Postal</label>
-			    	<input required="required" type="text" value="<c:out value="${utilisateur.getCodePostal()}"></c:out>" pattern="[a-zA-Z0-9\s]+" class="form-control col-7" id="inputCodePostal"  name="inputCodePostal" placeholder=" Entrez votre code postal">
+			    	<input required="required" type="text" value="<c:out value="${utilisateur.getCodePostal()}"></c:out>"  pattern="[0-9]{5}" class="form-control col-7" id="inputCodePostal"  name="inputCodePostal" placeholder=" Entrez votre code postal">
 		  		</div>
 			</div>
 			<div class="col-md-6">
@@ -38,11 +38,11 @@
 		   		</div>
 		   		<div class="form-group row p-2">
 			    	<label for="inputEmail" class="justify-content-start control-label col-5">Email address</label>
-			    	<input  required="required" type="email" class="form-control col-7" id="inputEmail" value="<c:out value="${utilisateur.getEmail()}"></c:out>"   name="inputEmail"aria-describedby="emailHelp" placeholder="Entrez votre email">
+			    	<input  required="required" type="email" class="form-control col-7" id="inputEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" value="<c:out value="${utilisateur.getEmail()}"></c:out>"   name="inputEmail" aria-describedby="emailHelp" placeholder="Entrez votre email">
 				</div>
 		   		<div class="form-group row p-2">
 		    		<label for="inputRue" class="justify-content-start control-label col-5">Rue</label>
-		    		<input required="required" type="text" class="form-control col-7" id="inputRue"  value="<c:out value="${utilisateur.getRue()}"></c:out>" name="inputRue" placeholder="Entrez votre rue">
+		    		<input required="required" type="text" class="form-control col-7" id="inputRue"   value="<c:out value="${utilisateur.getRue()}"></c:out>" name="inputRue" placeholder="Entrez votre rue">
 		  		</div>
 		  		<div class="form-group row p-2">
 		    		<label for="inputVille" class="justify-content-start control-label col-5">Ville</label>	
@@ -53,14 +53,14 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group row p-2">
-			    	<label for="inputCurrentPassword" class="justify-content-start control-label col-5">Mot de passe actuel</label>
-			    	<input type="password" class="form-control col-7" id="inputCurrentPassword"   name="inputPassword" placeholder="Entrez votre mot de passe actuel">
+			    	<label for="inputPassword" class="justify-content-start control-label col-5">Mot de passe actuel</label>
+			    	<input type="password" class="form-control col-7" id="inputPassword"   name="inputPassword" placeholder="Entrez votre mot de passe actuel">
 			  	</div>
 			</div>
 			<div class="col-md-6">
 				<div class="form-group row p-2">
 			    	<label for="inputPassword" class="justify-content-start control-label col-5">Nouveau mot de passe</label>
-			    	<input  type="password" class="form-control col-7" id="inputPassword"   name="inputPassword" placeholder="Entrez votre nouveau mot de passe">
+			    	<input  type="password" class="form-control col-7" id="inputNewPassword"   name="inputNewPassword" placeholder="Entrez votre nouveau mot de passe">
 			  	</div>
 				<div class="form-group row p-2"> 
 				   	<label for="inputConfirmationPassword"  class="justify-content-start control-label col-5">Confirmation</label>
@@ -70,7 +70,7 @@
 		</div>
 		<div class="col-12">
 	  		<div class="d-flex justify-content-center">
-	     		<button type="submit" class="btn btn-success p-2 m-2">Enregistrer</button>                   
+	     		<button type="submit" id="updateProfil" class="btn btn-success p-2 m-2">Enregistrer</button>                   
 	       		<button type="button" id="deleteAccountBtn" class="btn btn-danger  p-2 m-2">Suprimer mon compte</button>      
 	    	</div>
 		</div>
@@ -85,18 +85,26 @@
 $( "#deleteAccountBtn" ).click(function() {
 	 $("#deleteAccountForm").submit();
 	});
-
-var password = document.getElementById("inputPassword")
+var password = document.getElementById("inputNewPassword")
 , confirm_password = document.getElementById("inputConfirmationPassword");
 
-function validatePassword(){
-if(password.value != confirm_password.value) {
-  confirm_password.setCustomValidity("Les mot de passes de correspondent pas.");
-} else {
-  confirm_password.setCustomValidity('');
-}
-}
 
+function validatePassword(){
+	if(password.value != confirm_password.value) {
+	  confirm_password.setCustomValidity("Les mot de passes de correspondent pas.");
+	} else {
+	  confirm_password.setCustomValidity('');
+	}
+}
+document.getElementById("updateProfil").onclick = function(){
+	if ($("#inputPassword").val() != '' && ($("#inputNewPassword").val() === '' || $("#inputConfirmationPassword").val() === '')){
+		document.getElementById("inputNewPassword").setCustomValidity("Inserez un nouveau mot de passe");
+		return;
+	}
+	else {
+		document.getElementById("inputNewPassword").setCustomValidity('');
+	}
+};
 password.onchange = validatePassword;
 confirm_password.onkeyup = validatePassword;
 </script>

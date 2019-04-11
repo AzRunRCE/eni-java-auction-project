@@ -28,11 +28,11 @@
 			    </div>
 			    <div class="form-group row  p-2">
 			    	<label for="inputTelephone" class="control-label col-5">Telephone</label>
-				    <input required="required" type="text" class="form-control col-7" name="inputTelephone" id="inputTelephone" placeholder="Entrez votre numéro de téléphone">
+				    <input required="required" type="text"  pattern="^(?:0|\(?\+33\)?\s?|0033\s?)[1-79](?:[\.\-\s]?\d\d){4}$" class="form-control col-7" name="inputTelephone" id="inputTelephone" placeholder="Entrez votre numéro de téléphone">
 			 	</div>
 			   	<div class="form-group row  p-2">
 			    	<label for="inputCodePostal" class="control-label col-5">Code Postal</label>
-			    	<input required="required" type="text" pattern="[a-zA-Z0-9\s]+" class="form-control col-7" id="inputCodePostal"  name="inputCodePostal" placeholder=" Entrez votre code postal">
+			    	<input required="required" type="text" pattern="[0-9]{5}" class="form-control col-7" id="inputCodePostal"  name="inputCodePostal" placeholder=" Entrez votre code postal">
 		  		</div>	
 			</div>
 			<div class="col-md-6">
@@ -42,7 +42,7 @@
 				</div>
 		   		<div class="form-group row p-2">
 			    	<label for="inputEmail" class="control-label col-5">Email address</label>
-			    	<input  required="required" type="email" class="form-control col-7" id="inputEmail"  name="inputEmail"aria-describedby="emailHelp" placeholder="Entrez votre email">
+			    	<input  required="required" type="email" class="form-control col-7" id="inputEmail"  name="inputEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" aria-describedby="emailHelp" placeholder="Entrez votre email">
 				</div>
 		   		<div class="form-group row p-2">
 		    		<label for="inputRue" class="control-label col-5">Rue</label>

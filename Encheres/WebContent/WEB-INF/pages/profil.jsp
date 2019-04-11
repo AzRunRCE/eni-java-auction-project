@@ -10,7 +10,7 @@
 <jsp:include page="../fragments/header.jsp"></jsp:include>
 
 <div class="container">
-	<h2>Mon profil</h2>
+	<h2><c:out value="${profil_label}"></c:out></h2>
 	<hr>
 	<c:if test="${message != null}"> 
 		<div class="alert alert-success" role="alert">

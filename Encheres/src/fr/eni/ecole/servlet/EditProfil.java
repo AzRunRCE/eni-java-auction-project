@@ -76,8 +76,11 @@ public class EditProfil extends HttpServlet {
 				usersManager.deleteUtilisateur(user_update);
 				return;
 			}
-			if (request.getParameter("inputPassword") != "") {
-				user_update.setMotDePasse(request.getParameter("inputPassword"));
+			String str = request.getParameter("inputPassword");
+			if (request.getParameter("inputPassword").equals(user_update.getMotDePasse())) {
+				if (request.getParameter("inputConfirmationPassword").equals(request.getParameter("inputNewPassword"))) {
+					user_update.setMotDePasse(request.getParameter("inputNewPassword"));
+				}
 			}
 			
 			user_update.setEmail(request.getParameter("inputEmail"));
@@ -92,7 +95,7 @@ public class EditProfil extends HttpServlet {
 			
 			if (usersManager.updateUtilisateur(user_update)){
 				request.setAttribute("editable", true);
-				request.setAttribute("message", "Votre profil a Ã©tÃ© mis Ã  jour");
+				request.setAttribute("message", "Votre profil a été mis a jour");
 				request.setAttribute(Constantes.ATT_UTILISATEUR, user_update);
 				request.getRequestDispatcher(Constantes.PAGE_PROFIL).forward(request, response);
 			}

@@ -33,19 +33,20 @@ public class DaoTests {
 	private static DataSource dataSource;
 	@BeforeClass
 	public static void Create_Connection() throws DALException {
-		dataSource = getMockDataSource();
+		dataSource = getMockDataSource(false);
 	}
 	
-	public static DataSource getMockDataSource() {
+	public static DataSource getMockDataSource(boolean setDBName) {
+
 		SQLServerDataSource ds = new SQLServerDataSource();
-		ds.setURL("jdbc:sqlserver://mssql:1433;databasename=DB_ENCHERES_UnitTests");
+		ds.setURL("jdbc:sqlserver://mssql:1433;");
 		ds.setUser("sa");
 		ds.setPassword("yourStrong(!)Password");	
-		//ds.setURL("jdbc:sqlserver://10.27.137.24:1433;databasename=DB_ENCHERES_UnitTests");
-		//ds.setUser("sa");
-		//ds.setPassword("Pa$$w0rd");	
+		if (setDBName)
+			ds.setURL(ds.getURL() + "databasename=DB_ENCHERES_UnitTests");
 		return  (DataSource)ds;
 	}
+
 	
 	@Before
 	public void Create_Database() throws DALException {
@@ -53,10 +54,10 @@ public class DaoTests {
 		try {
 			Connection conn = dataSource.getConnection();
 		    Statement stmt = conn.createStatement();
-		    String script_Path = System.getProperty("user.dir") + "\\..\\Enonc\\projetEncheres.org\\04-ModelePhysique\\create_bd_trocencheres.sql";
+		    String script_Path = System.getProperty("user.dir") + "/../Enoncé/projetEncheres.org/04-ModelePhysique/create_bd_trocencheres.sql";
 		    System.out.println("Execute Script: " + script_Path);
 		    Utils.executeDBScripts(script_Path, stmt);
-
+		    dataSource = getMockDataSource(true);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

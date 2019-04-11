@@ -7,11 +7,15 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import fr.eni.ecole.DAL.DALException;
 import fr.eni.ecole.DAL.Interface.IDAOEnchere;
+import fr.eni.ecole.beans.ArticleVendu;
 import fr.eni.ecole.beans.Enchere;
+import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.rest.mo.AccueilDashboardTile;
 import fr.eni.ecole.rest.mo.AccueilFilters;
 import fr.eni.ecole.rest.mo.DetailEnchere;
@@ -85,33 +89,46 @@ public class EnchereDAO implements IDAOEnchere {
 	}
 	
 	@Override
-	public List<AccueilDashboardTile> selectAllWithoutParameters() throws DALException{
+	public Map<ArticleVendu, Utilisateur> selectAllWithoutParameters() throws DALException{
 		try(Connection connect = AccesBase.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(SELECT_ALL_WITHOUT_PARAM)) {
 
 			List<AccueilDashboardTile> listeMsgObjectsAccueil= new ArrayList<>();
-			
+			Map<ArticleVendu, Utilisateur> mapUtilisateurArticleVendu = new LinkedHashMap<ArticleVendu, Utilisateur>();
 	    	ResultSet rs = preparedStatement.executeQuery();
 	    	while(rs.next()) {
-	    		listeMsgObjectsAccueil.add(new AccueilDashboardTile( 
-	    										rs.getString("nom_article"), 
-	    										rs.getTimestamp("date_fin_encheres").toLocalDateTime().toString(), 
-	    										rs.getInt("prix_vente"),
-	    										rs.getString("pseudo"),	
-	    										rs.getInt("no_utilisateur"), 
-	    										rs.getInt("no_article"),
-	    										rs.getString("chemin_image")
-		    									)
-	    		);    
+	    		Utilisateur user = new Utilisateur();
+	    		user.setNoUtilisateur(rs.getInt("no_utilisateur"));
+	    		user.setPseudo(rs.getString("pseudo"));
+	    		ArticleVendu article = new ArticleVendu();
+	    		article.setNoArticle(rs.getInt("no_article"));
+	    		article.setNomArticle(rs.getString("nom_article"));
+	    		article.setChemin_image(rs.getString("chemin_image"));
+	    		article.setDateFinEncheres(rs.getTimestamp("date_fin_encheres").toLocalDateTime());
+	    		article.setPrixVente(rs.getInt("prix_vente"));
+	    		article.setNoArticle(rs.getInt("no_article"));
+	    		mapUtilisateurArticleVendu.put(article, user);
+	    		
+//	    		listeMsgObjectsAccueil.add(new AccueilDashboardTile( 
+//	    										rs.getString("nom_article"), 
+//	    										rs.getTimestamp("date_fin_encheres").toLocalDateTime().toString(), 
+//	    										rs.getInt("prix_vente"),
+//	    										rs.getString("pseudo"),	
+//	    										rs.getInt("no_utilisateur"), 
+//	    										rs.getInt("no_article"),
+//	    										rs.getString("chemin_image")
+//		    									)
+//	    		);    
 	    	}
-	    	return listeMsgObjectsAccueil;
+	    	//return listeMsgObjectsAccueil;
+	    	return mapUtilisateurArticleVendu;
 		} catch (SQLException e) {
 			throw new DALException("Erreur dans selectAllWithoutParameters", e);
 		}
 	}
 
 	@Override
-	public List<AccueilDashboardTile> selectAllwithParameters(AccueilFilters accueilFilters, Integer idUtilisateur) throws DALException {
+	public Map<ArticleVendu, Utilisateur> selectAllwithParameters(AccueilFilters accueilFilters, Integer idUtilisateur) throws DALException {
 		
 		whereAlreadySet = false;
 		StringBuilder requeteParametree = new StringBuilder();
@@ -308,22 +325,33 @@ public class EnchereDAO implements IDAOEnchere {
 															GROUP_BY_ARTICLE_ID)
 						) {
 			System.out.println(requeteParametree.toString() + GROUP_BY_ARTICLE_ID);
-			List<AccueilDashboardTile> listeMsgObjectsAccueil= new ArrayList<>();
-			
+			//List<AccueilDashboardTile> listeMsgObjectsAccueil= new ArrayList<>();
+			Map<ArticleVendu, Utilisateur> mapUtilisateurArticleVendu = new LinkedHashMap<ArticleVendu, Utilisateur>();
 	    	ResultSet rs = preparedStatement.executeQuery();
 	    	while(rs.next()) {
-	    		listeMsgObjectsAccueil.add(new AccueilDashboardTile( 
-	    										rs.getString("nom_article"), 
-	    										rs.getTimestamp("date_fin_encheres").toLocalDateTime().toString(), 
-	    										rs.getInt("prix_vente"),
-	    										rs.getString("pseudo"),	
-	    										rs.getInt("no_utilisateur"), 
-	    										rs.getInt("no_article"),
-	    										rs.getString("chemin_image")
-		    									)
-	    		);    
+	    		Utilisateur user = new Utilisateur();
+	    		user.setNoUtilisateur(rs.getInt("no_utilisateur"));
+	    		user.setPseudo(rs.getString("pseudo"));
+	    		ArticleVendu article = new ArticleVendu();
+	    		article.setNoArticle(rs.getInt("no_article"));
+	    		article.setNomArticle(rs.getString("nom_article"));
+	    		article.setChemin_image(rs.getString("chemin_image"));
+	    		article.setDateFinEncheres(rs.getTimestamp("date_fin_encheres").toLocalDateTime());
+	    		article.setPrixVente(rs.getInt("prix_vente"));
+	    		article.setNoArticle(rs.getInt("no_article"));
+	    		mapUtilisateurArticleVendu.put(article, user);
+//	    		listeMsgObjectsAccueil.add(new AccueilDashboardTile( 
+//	    										rs.getString("nom_article"), 
+//	    										rs.getTimestamp("date_fin_encheres").toLocalDateTime().toString(), 
+//	    										rs.getInt("prix_vente"),
+//	    										rs.getString("pseudo"),	
+//	    										rs.getInt("no_utilisateur"), 
+//	    										rs.getInt("no_article"),
+//	    										rs.getString("chemin_image")
+//		    									)
+//	    		);    
 	    	}
-	    	return listeMsgObjectsAccueil;
+	    	return mapUtilisateurArticleVendu;
 		} catch (SQLException e) {
 			throw new DALException("Probleme dans selectAllWithParameters", e);
 		}

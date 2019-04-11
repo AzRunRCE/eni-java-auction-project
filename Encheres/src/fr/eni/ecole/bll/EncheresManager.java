@@ -1,11 +1,14 @@
 package fr.eni.ecole.bll;
 
 import java.util.List;
+import java.util.Map;
 
 import fr.eni.ecole.DAL.AbstractDAOFactory;
 import fr.eni.ecole.DAL.DALException;
 import fr.eni.ecole.DAL.DAOFactory;
 import fr.eni.ecole.DAL.Interface.IDAOEnchere;
+import fr.eni.ecole.beans.ArticleVendu;
+import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.rest.mo.AccueilFilters;
 import fr.eni.ecole.rest.mo.AccueilDashboardTile;
 import fr.eni.ecole.rest.mo.DetailEnchere;
@@ -22,7 +25,7 @@ public class EncheresManager {
 	 * @return une liste de AccueilDashboardTile
 	 * @throws BLLException 
 	 */
-	public List<AccueilDashboardTile> getListeEncheresAccueilWithoutParameters() throws BLLException {
+	public Map<ArticleVendu, Utilisateur> getListeEncheresAccueilWithoutParameters() throws BLLException {
 		try {
 			return daoEncheres.selectAllWithoutParameters();
 		} catch (DALException e) {
@@ -37,7 +40,7 @@ public class EncheresManager {
     * @return une liste de AccueilDashboardTile
      * @throws BLLException 
     */
-	public List<AccueilDashboardTile> getListeEncheresAccueilWithParameters(AccueilFilters accueilFilters, Integer idUtilisateur) throws BLLException {
+	public Map<ArticleVendu, Utilisateur> getListeEncheresAccueilWithParameters(AccueilFilters accueilFilters, Integer idUtilisateur) throws BLLException {
 		try {
 			return daoEncheres.selectAllwithParameters(accueilFilters, idUtilisateur);
 		} catch (DALException e) {

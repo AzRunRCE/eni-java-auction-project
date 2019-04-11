@@ -2,7 +2,10 @@ package fr.eni.ecole.rest;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,6 +17,8 @@ import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 
+import fr.eni.ecole.beans.ArticleVendu;
+import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.bll.BLLException;
 import fr.eni.ecole.bll.EncheresManager;
 import fr.eni.ecole.rest.mo.AccueilDashboardTile;
@@ -41,7 +46,25 @@ public class GestionEncheres {
 		// Find the HttpSession
 		EncheresManager enchereManager = new EncheresManager();
 		try {
-			return enchereManager.getListeEncheresAccueilWithoutParameters();
+			
+				List<AccueilDashboardTile> listeDashboardsTiles= new ArrayList<AccueilDashboardTile>();
+		      Set<Entry<ArticleVendu, Utilisateur>> entrySet = enchereManager.getListeEncheresAccueilWithoutParameters().entrySet();
+		      Iterator<Entry<ArticleVendu, Utilisateur>> iterator = entrySet.iterator();
+		      while(iterator.hasNext()){
+		         Entry<ArticleVendu, Utilisateur> entry = iterator.next();
+		         listeDashboardsTiles.add(new AccueilDashboardTile(
+		        		 entry.getKey().getNomArticle(), 
+		        		 entry.getKey().getDateFinEncheres().toString(),
+		        		 (int) entry.getKey().getPrixVente(),
+		        		 entry.getValue().getPseudo(),
+		        		 entry.getValue().getNoUtilisateur(),
+		        		 entry.getKey().getNoArticle(),
+		        		 entry.getKey().getChemin_image()
+		        		 )
+        		 );
+		         System.out.println(entry.getKey().getNomArticle() + " : " + entry.getValue().getPseudo());
+		      }
+			return listeDashboardsTiles;
 		} catch (BLLException e) {
 			return null;
 		}
@@ -122,7 +145,24 @@ public class GestionEncheres {
 			
 			EncheresManager enchereManager = new EncheresManager();
 			try {
-				return enchereManager.getListeEncheresAccueilWithParameters(filtresAccueil, idUtilisateur);
+				List<AccueilDashboardTile> listeDashboardsTiles= new ArrayList<AccueilDashboardTile>();
+			      Set<Entry<ArticleVendu, Utilisateur>> entrySet = enchereManager.getListeEncheresAccueilWithParameters(filtresAccueil, idUtilisateur).entrySet();
+			      Iterator<Entry<ArticleVendu, Utilisateur>> iterator = entrySet.iterator();
+			      while(iterator.hasNext()){
+			         Entry<ArticleVendu, Utilisateur> entry = iterator.next();
+			         listeDashboardsTiles.add(new AccueilDashboardTile(
+			        		 entry.getKey().getNomArticle(), 
+			        		 entry.getKey().getDateFinEncheres().toString(),
+			        		 (int) entry.getKey().getPrixVente(),
+			        		 entry.getValue().getPseudo(),
+			        		 entry.getValue().getNoUtilisateur(),
+			        		 entry.getKey().getNoArticle(),
+			        		 entry.getKey().getChemin_image()
+			        		 )
+	        		 );
+			         System.out.println(entry.getKey().getNomArticle() + " : " + entry.getValue().getPseudo());
+			      }
+			      return listeDashboardsTiles;
 			} catch (BLLException e) {
 				// TODO Auto-generated catch block
 				throw new InternalServerErrorException();

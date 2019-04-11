@@ -1,9 +1,12 @@
 package fr.eni.ecole.DAL.Interface;
 
 import java.util.List;
+import java.util.Map;
 
 import fr.eni.ecole.DAL.DALException;
+import fr.eni.ecole.beans.ArticleVendu;
 import fr.eni.ecole.beans.Enchere;
+import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.rest.mo.AccueilFilters;
 import fr.eni.ecole.rest.mo.DetailEnchere;
 import fr.eni.ecole.rest.mo.AccueilDashboardTile;
@@ -15,7 +18,7 @@ public interface IDAOEnchere extends DAO<Enchere> {
 	   * @return une liste de getAccueil
 	 * @throws DALException 
 	   */ 
-	  public List<AccueilDashboardTile> selectAllWithoutParameters() throws DALException;
+	  public Map<ArticleVendu, Utilisateur> selectAllWithoutParameters() throws DALException;
 	  
 
 	  /**
@@ -25,7 +28,7 @@ public interface IDAOEnchere extends DAO<Enchere> {
 	   * @return une liste de AccueilDashboardTile
 	 * @throws DALException 
 	   */
-	  public List<AccueilDashboardTile> selectAllwithParameters(AccueilFilters accueilFilters, Integer idUtilisateur) throws DALException;
+	  public Map<ArticleVendu, Utilisateur> selectAllwithParameters(AccueilFilters accueilFilters, Integer idUtilisateur) throws DALException;
 	  
 	  /**
 	   * Methode de recherche d'une ench�re pour un article

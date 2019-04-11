@@ -10,6 +10,7 @@ variables:
   SA_PASSWORD: yourStrong(!)Password
 
 before_script:
+    - apt-get install wget -y &>/dev/null
     - wget -qO - https://packages.microsoft.com/keys/microsoft.asc | iconv -f windows-1251 |  apt-key add -
     - wget -qO - https://packages.microsoft.com/config/ubuntu/16.04/prod.list | iconv -f windows-1251 | tee /etc/apt/sources.list.d/msprod.list
     - apt-get update &>/dev/null

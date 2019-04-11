@@ -56,9 +56,9 @@ public class Login extends HttpServlet {
 			valide = false;
 		
 		if (!valide) {
-			request.setAttribute("erreur", "L'email et le mot de passe doivent Ãªtre saisis");
+			request.setAttribute("erreur", "L'email et le mot de passe doivent étre saisis");
 			request.getRequestDispatcher(Constantes.PAGE_LOGIN).forward(request, response);
-			
+			return;
 		}
 		
 		recupLogin = request.getParameter("login").trim();
@@ -92,7 +92,7 @@ public class Login extends HttpServlet {
 	}
 	
 	/**
-     * MÃ©thode utilitaire gÃ©rant la rÃ©cupÃ©ration de la valeur d'un cookie donnÃ©
+     * Méthode utilitaire gérant la ré©cupé©ration de la valeur d'un cookie donnée
      * depuis la requÃªte HTTP.
      */
     private static String getCookieValue( HttpServletRequest request, String nom ) {

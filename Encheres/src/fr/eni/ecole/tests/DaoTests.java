@@ -54,7 +54,7 @@ public class DaoTests {
 		try {
 			Connection conn = dataSource.getConnection();
 		    Statement stmt = conn.createStatement();
-		    String script_Path = System.getProperty("user.dir") + "/../Enoncé/projetEncheres.org/04-ModelePhysique/create_bd_trocencheres.sql";
+		    String script_Path = System.getProperty("user.dir") + "/script/create_bd_trocencheres.sql";
 		    System.out.println("Execute Script: " + script_Path);
 		    Utils.executeDBScripts(script_Path, stmt);
 		    dataSource = getMockDataSource(true);

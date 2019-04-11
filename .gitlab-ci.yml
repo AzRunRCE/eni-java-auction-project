@@ -1,4 +1,4 @@
-image: ubuntu
+image: tomcat:8.5.39-jre8
 
 services:
   - name: microsoft/mssql-server-linux
@@ -12,17 +12,17 @@ variables:
 before_script:
     - apt-get update &>/dev/null
     - apt-get install ant -y &>/dev/null
-    - apt-get install wget -y &>/dev/null
+  #   - apt-get install wget -y &>/dev/null
     - export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8
     - export JAVA_OPTS=-Dfile.encoding=UTF8
-    - wget http://apache.crihan.fr/dist/tomcat/tomcat-8/v8.5.39/bin/apache-tomcat-8.5.39.tar.gz &>/dev/null
-    - mkdir tomcat8
-    - cd tomcat8
-    - mv ../apache-tomcat-8.5.39.tar.gz .
-    - tar xvzf apache-tomcat-8.5.39.tar.gz &>/dev/null
-    - export CATALINA_HOME=$(pwd)/apache-tomcat-8.5.39
-    - export PATH=$PATH:$CATALINA_HOME
-    - cd ../Encheres
+   #  - wget http://apache.crihan.fr/dist/tomcat/tomcat-8/v8.5.39/bin/apache-tomcat-8.5.39.tar.gz &>/dev/null
+   #  - mkdir tomcat8
+   #  - cd tomcat8
+   #  - mv ../apache-tomcat-8.5.39.tar.gz .
+   #  - tar xvzf apache-tomcat-8.5.39.tar.gz &>/dev/null
+   #  - export CATALINA_HOME=$(pwd)/apache-tomcat-8.5.39
+   #  - export PATH=$PATH:$CATALINA_HOME
+   #  - cd ../Encheres
 
 stages:
   - build

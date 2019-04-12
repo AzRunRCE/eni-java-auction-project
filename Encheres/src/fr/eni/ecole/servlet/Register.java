@@ -65,7 +65,11 @@ public class Register extends HttpServlet {
 				}
 			}
 			else {
-				request.setAttribute("erreur", "Une erreur s'est produite durant l'enregistrement. Le pseudo est peut-Ãªtre dÃ©jÃ  pris.");
+				if(request.getLocale().toString().equals("fr")) {
+					request.setAttribute("erreur", "Une erreur s'est produite durant l'enregistrement. Le pseudo est peut-être déjà pris.");					
+				} else {
+					request.setAttribute("erreur", "An error occurred during the recording. The pseudo may already be taken.");
+				}
 				request.getRequestDispatcher(Constantes.PAGE_REGISTER).forward(request, response);
 			}
 		} catch (BLLException e) {

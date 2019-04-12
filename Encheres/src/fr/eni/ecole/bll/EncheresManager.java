@@ -1,17 +1,14 @@
 package fr.eni.ecole.bll;
 
-import java.util.List;
 import java.util.Map;
 
 import fr.eni.ecole.DAL.AbstractDAOFactory;
 import fr.eni.ecole.DAL.DALException;
-import fr.eni.ecole.DAL.DAOFactory;
 import fr.eni.ecole.DAL.Interface.IDAOEnchere;
+import fr.eni.ecole.beans.Enchere;
 import fr.eni.ecole.beans.ArticleVendu;
 import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.rest.mo.AccueilFilters;
-import fr.eni.ecole.rest.mo.AccueilDashboardTile;
-import fr.eni.ecole.rest.mo.DetailEnchere;
 
 public class EncheresManager {
 	IDAOEnchere daoEncheres = null;
@@ -21,7 +18,7 @@ public class EncheresManager {
 	}
 	
 	/**
-	 * 
+	 * @deprecated
 	 * @return une liste de AccueilDashboardTile
 	 * @throws BLLException 
 	 */
@@ -40,39 +37,23 @@ public class EncheresManager {
     * @return une liste de AccueilDashboardTile
      * @throws BLLException 
     */
-	public Map<ArticleVendu, Utilisateur> getListeEncheresAccueilWithParameters(AccueilFilters accueilFilters, Integer idUtilisateur) throws BLLException {
+	public Map<ArticleVendu, Utilisateur> getListArticlesWithSellerWithFilters(AccueilFilters accueilFilters, Integer idUtilisateur) throws BLLException {
 		try {
-			return daoEncheres.selectAllwithParameters(accueilFilters, idUtilisateur);
+			return daoEncheres.selectArticlesWhoRespectFiltersWithSeller(accueilFilters, idUtilisateur);
 		} catch (DALException e) {
 			throw new BLLException("Probleme dans getListeWithParameters", e);
 		}
 	}
 	
-	/**
-	 * 
-	 * @param noArticle
-	 * @return mon objet pour la page détail vente
-	 */
-	public DetailEnchere getEnchere(int noArticle)throws BLLException {
+	public Enchere getEnchere(int noAticle) throws BLLException {
 		try {
-			return daoEncheres.selectById(noArticle);
-		} catch (DALException e) {
+			return daoEncheres.find(noAticle);
+		}catch (DALException e) {
 			throw new BLLException("Probleme dans getEnchere", e);
 		}
 	}
 	
-	/**
-	 * 
-	 * @param noArticle
-	 * @return
-	 */
-	public DetailEnchere getArticle(int noArticle) throws BLLException {
-		try {
-			return daoEncheres.selectByIdArticle(noArticle);
-		} catch (DALException e) {
-			throw new BLLException("Probleme dans getArticle", e);
-		}
-	}
+	
 	
 	/**
 	 * Methode permettant d'ajouter en base une enchere

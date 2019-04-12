@@ -23,8 +23,7 @@ public abstract class AbstractDAOFactory {
 	public abstract IDAOArticleVendu getArticleVenduDAO() ;
 		
 	/**
-	 * Méthode nous permettant de récupérer une factory de DAO
-	 * @param type
+	 * Mï¿½thode nous permettant de rï¿½cupï¿½rer une factory de DAO
 	 * @return AbstractDAOFactory
 	 */
 	public static AbstractDAOFactory getFactory(){

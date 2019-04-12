@@ -15,38 +15,20 @@ import java.sql.Timestamp;
 
 import javax.sql.DataSource;
 
+import fr.eni.ecole.DAL.AbstractDAOFactory;
 import fr.eni.ecole.DAL.DALException;
+import fr.eni.ecole.DAL.Interface.DAO;
 import fr.eni.ecole.DAL.Interface.IDAOArticleVendu;
+import fr.eni.ecole.DAL.Interface.IDAOCategorie;
+import fr.eni.ecole.DAL.Interface.IDAOUtilisateur;
 
 public class ArticleVenduDAO implements IDAOArticleVendu {
 	private final String CREATE = "INSERT INTO ARTICLES_VENDUS VALUES (?,?,?,?,?,?,?,?,?)";
 	private final String UPDATE_PRIX_VENTE = "UPDATE ARTICLES_VENDUS SET prix_vente = ? WHERE no_article = ?";
-	private final String SELECT_BY_ID = 
-			"SELECT TOP 1000 [ARTICLES_VENDUS].[no_article]\r\n" + 
-			"      ,[nom_article]\r\n" + 
-			"      ,[description]\r\n" + 
-			"      ,[date_debut_encheres]\r\n" + 
-			"      ,[date_fin_encheres]\r\n" + 
-			"      ,[prix_initial]\r\n" + 
-			"      ,[prix_vente]\r\n" + 
-			"      ,[ARTICLES_VENDUS].[no_utilisateur]\r\n" + 
-			"      ,[CATEGORIES].[no_categorie]\r\n" + 
-			"	  ,[pseudo]\r\n" + 
-			"      ,[nom]\r\n" + 
-			"      ,[prenom]\r\n" + 
-			"      ,[email]\r\n" + 
-			"      ,[telephone]\r\n" + 
-			"      ,[RETRAITS].[rue]\r\n" + 
-			"      ,[RETRAITS].[code_postal]\r\n" + 
-			"      ,[RETRAITS].[ville]\r\n" + 
-			"      ,[mot_de_passe]\r\n" + 
-			"      ,[credit]\r\n" + 
-			"      ,[administrateur],\r\n" + 
-			"	  [libelle]\r\n" + 
-			"  FROM [DB_ENCHERES_UnitTests].[dbo].[ARTICLES_VENDUS]\r\n" + 
-			"  inner join UTILISATEURS on [ARTICLES_VENDUS].[no_utilisateur] = [UTILISATEURS].[no_utilisateur]\r\n" + 
-			"  inner join CATEGORIES on [ARTICLES_VENDUS].[no_categorie] = CATEGORIES.[no_categorie] \r\n" + 
-			"    inner join RETRAITS on RETRAITS.[no_article] = [ARTICLES_VENDUS].[no_article] where [ARTICLES_VENDUS].no_article = ?";
+	private final String SELECT_BY_ID = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, " +
+										"prix_initial, prix_vente, chemin_image, no_utilisateur, no_categorie "+
+										"FROM ARTICLES_VENDUS "+
+										"WHERE no_article = ?";
 	
 	private DataSource dataSource = null;
 	public ArticleVenduDAO(DataSource _dataSource) {
@@ -65,7 +47,7 @@ public class ArticleVenduDAO implements IDAOArticleVendu {
 	     	preparedStatement.setFloat(5,new_article.getMiseAPrix());
 	     	preparedStatement.setFloat(6,new_article.getPrixVente());
 	     	preparedStatement.setString(7, new_article.getChemin_image());
-	      	preparedStatement.setInt(8,new_article.getUtilisateur().getNoUtilisateur());
+	      	preparedStatement.setInt(8,new_article.getVendeur().getNoUtilisateur());
 	     	preparedStatement.setInt(9,new_article.getCategorie().getNoCategorie());
 	    	preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
@@ -87,44 +69,42 @@ public class ArticleVenduDAO implements IDAOArticleVendu {
 
 
 	@Override
-	public ArticleVendu find(int id) throws DALException {
+	public ArticleVendu find(int no_article) throws DALException {
+		ArticleVendu av = null;
+		Utilisateur utilisateur = null;
+		IDAOUtilisateur utilisateurDAO = null;
+		DAO<Retrait> retraitDAO = null;
+		Retrait retrait = null;
+		IDAOCategorie categorieDAO = null;
+		Categorie categorie = null;
 		try(Connection connect = dataSource.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(SELECT_BY_ID)) {
-			preparedStatement.setInt(1,id); 
+			preparedStatement.setInt(1,no_article); 
 	    	ResultSet result = preparedStatement.executeQuery();
 	    	if(result.next()) {
-	    		ArticleVendu av = new ArticleVendu();    
-	    		av.setNomArticle(result.getString("nom_article"));
-	    	
+	    		av = new ArticleVendu();    
 	    		av.setNoArticle(result.getInt("no_article"));
+	    		av.setNomArticle(result.getString("nom_article"));
+	    		av.setDescription(result.getString("description"));
 	    		av.setDateDebutEncheres(result.getTimestamp("date_debut_encheres").toLocalDateTime());
 	    		av.setDateFinEncheres(result.getTimestamp("date_fin_encheres").toLocalDateTime());
-	    		av.setCategorie(new Categorie(result.getInt("no_categorie"),result.getString("libelle")));
-	    		av.setMiseAPrix(result.getFloat("prix_initial"));
-	    		av.setPrixVente(result.getFloat("prix_vente"));	
-		    		Utilisateur utilisateur = new Utilisateur();   
-		    		utilisateur.setPseudo(result.getString("pseudo"));
-		    		utilisateur.setNom(result.getString("nom"));
-		    		utilisateur.setPrenom(result.getString("prenom"));
-		    		utilisateur.setEmail(result.getString("email"));
-		    		utilisateur.setTelephone(result.getString("telephone"));
-		    		utilisateur.setRue(result.getString("rue"));
-		    		utilisateur.setCodePostal(result.getString("code_postal"));
-		    		utilisateur.setVille(result.getString("ville"));
-		    		utilisateur.setMotDePasse(result.getString("mot_de_passe"));
-		    		utilisateur.setCredit(result.getInt("credit"));
-		    		utilisateur.setNoUtilisateur(result.getInt("no_utilisateur"));
-		    		utilisateur.setAdministrateur(result.getInt("administrateur"));
-	    		av.setUtilisateur(utilisateur);
-	    		if (result.getString("rue") != null) {
-	    			av.setRetrait(new Retrait(result.getInt("no_article"), result.getString("rue"), result.getString("code_postal"), result.getString("ville")));
-	    		}
-	    		return av;
+	    		av.setMiseAPrix(result.getInt("prix_initial"));
+	    		av.setPrixVente(result.getInt("prix_vente"));
+	    		av.setChemin_image(result.getString("chemin_image"));
+	    		categorieDAO = AbstractDAOFactory.getFactory().getCategorieDAO();
+	    		categorie = categorieDAO.find(result.getInt("no_categorie"));
+	    		av.setCategorie(categorie);
+	    		retraitDAO = AbstractDAOFactory.getFactory().getRetraitDAO();
+	    		retrait = retraitDAO.find(result.getInt("no_article"));
+	    		av.setRetrait(retrait);
+	    		utilisateurDAO = AbstractDAOFactory.getFactory().getUtilisateurDAO();
+	    		utilisateur = utilisateurDAO.find(result.getInt("no_utilisateur"));
+	    		av.setVendeur(utilisateur);
 	    	}
 		} catch (SQLException e) {
 			throw new DALException("Problème avec la méthode find", e);
 		} 
-		return null;
+		return av;
 	}
 
 	@Override

@@ -14,7 +14,6 @@ import javax.sql.DataSource;
 import fr.eni.ecole.DAL.DALException;
 import fr.eni.ecole.DAL.Interface.DAO;
 import fr.eni.ecole.beans.Retrait;
-import fr.eni.ecole.util.AccesBase;
 
 public class RetraitDAO implements DAO<Retrait> {
 
@@ -27,7 +26,7 @@ public class RetraitDAO implements DAO<Retrait> {
 		dataSource = _dataSource;
 	}
 	public RetraitDAO() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	@Override
 	public int create(Retrait new_retrait) throws DALException{
@@ -62,18 +61,19 @@ public class RetraitDAO implements DAO<Retrait> {
 	}
 
 	@Override
-	public Retrait find(int id) throws DALException {
+	public Retrait find(int no_article) throws DALException {
+		Retrait retrait = null;
 		try(Connection connect = dataSource.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(SELECT_BY_ID)) {
-			preparedStatement.setInt(1,id); 
+			preparedStatement.setInt(1,no_article); 
 	    	ResultSet rs = preparedStatement.executeQuery();
 	    	if(rs.next()) {
-	    		return new Retrait(rs.getInt("no_article"), rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"));    
+	    		 retrait = new Retrait(rs.getInt("no_article"), rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"));    
 	    	}
 		} catch (SQLException e) {
 			throw new DALException("Problème avec la méthode find",e);
 		}
-		return null;
+		return retrait;
 	}
 
 }

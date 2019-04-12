@@ -28,7 +28,9 @@ public class UtilisateurDAO implements IDAOUtilisateur {
 		dataSource = _dataSource;
 	}
 
-
+	public UtilisateurDAO() {
+		
+	}
 
 	@Override
 	public int create(Utilisateur new_user) throws DALException {

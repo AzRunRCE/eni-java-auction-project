@@ -8,26 +8,29 @@
 
 <c:set var="title" scope="request" value="${ title }"/>
 <jsp:include page="../fragments/header.jsp"></jsp:include>
+<fmt:message key="msg.at" bundle="${r}" var="at"/>
 
 <div class="container">
 	<c:if test="${ date < dateFinEnchere }">
 		<h2>${ title }</h2>
 	</c:if>
 	<c:if test="${ date > dateFinEnchere }">
-		<c:if test="${ noAcheteur == no_utilisateur }">
-			<h2><fmt:message key="msg.sale_won" bundle="${r}"></fmt:message></h2>
+		<c:if test="${ pseudoAncienAcheteur != null  }">
+			<c:if test="${ noAncienAcheteur == no_utilisateur  }">
+				<h2><fmt:message key="msg.sale_won" bundle="${r}"></fmt:message></h2>
+			</c:if>
+			<c:if test="${noAncienAcheteur != no_utilisateur }">
+				<c:if test="${ pseudoAncienAcheteur != null }">
+					<h2>
+						<fmt:message key="msg.sale_lost" bundle="${ r }">
+							<fmt:param value="${ pseudoAncienAcheteur }"></fmt:param>
+						</fmt:message>
+					</h2>
+				</c:if>
+			</c:if>
 		</c:if>
-		<c:if test="${noAcheteur != no_utilisateur }">
-			<c:if test="${ pseudoAcheteur != pseudoVendeur }">
-				<h2>
-					<fmt:message key="msg.sale_lost" bundle="${ r }">
-						<fmt:param value="${ pseudoAcheteur }"></fmt:param>
-					</fmt:message>
-				</h2>
-			</c:if>
-			<c:if test="${ pseudoAcheteur == pseudoVendeur }">
-				<h2><fmt:message key="msg.article_not_sale" bundle="${r}"></fmt:message></h2>
-			</c:if>
+		<c:if test="${ pseudoAncienAcheteur == null  }">
+			<h2><fmt:message key="msg.article_not_sale" bundle="${r}"></fmt:message></h2>
 		</c:if>
 	</c:if>
 	<hr>
@@ -44,9 +47,8 @@
 		</c:if>
 		<c:if test="${ date < dateDebutEnchere }"> 
 			<div class="alert alert-warning" role="alert">
-				<fmt:message key="msg.at" bundle="${r}" var="at"/>
 		  		<fmt:message key="msg.auction_not_started" bundle="${r}"></fmt:message> <fmt:parseDate value="${ dateDebutEnchere }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
-					<fmt:formatDate pattern="dd-MM-yyyy '${at}' HH:mm" value="${ parsedDateTime }" />
+					<fmt:formatDate pattern="dd/MM/yyyy '${at}' HH'H'mm" value="${ parsedDateTime }" />
 			</div>
 		</c:if>
 		<c:if test="${ credit <= montantEnchere && date < dateFinEnchere  }">
@@ -89,15 +91,15 @@
 						<td><fmt:message key="msg.best_offer" bundle="${r}"></fmt:message></td>
 						<c:if test="${ montantEnchere != 0 }">
 							<c:if test="${ no_utilisateur != null }">	
-								<c:if test="${ pseudoAcheteur == pseudoVendeur }">	
+								<c:if test="${ pseudoAncienAcheteur == pseudoVendeur }">	
 									<td>${ montantEnchere }</td>
 								</c:if>
-								<c:if test="${pseudoAcheteur != pseudoVendeur}">
-									<td>${ montantEnchere } <fmt:message key="msg.by" bundle="${r}"></fmt:message> <a href="Profil?userId=${ noAcheteur }">${pseudoAcheteur}</a></td>
+								<c:if test="${pseudoAncienAcheteur != pseudoVendeur}">
+									<td>${ montantEnchere } <fmt:message key="msg.by" bundle="${r}"></fmt:message> <a href="./Profil?userId=${noAcheteur }">${pseudoAncienAcheteur}</a></td>
 								</c:if>
 							</c:if>
 							<c:if test="${ no_utilisateur == null }">	
-								<td>${ montantEnchere } <fmt:message key="msg.by" bundle="${r}"></fmt:message> ${ pseudoAcheteur }</td>
+								<td>${ montantEnchere } <fmt:message key="msg.by" bundle="${r}"></fmt:message> ${ pseudoAncienAcheteur }</td>
 							</c:if>
 						</c:if>
 						<c:if test="${ montantEnchere == 0 }">
@@ -111,8 +113,8 @@
 					<tr>
 						<td><fmt:message key="msg.end_of_auction" bundle="${r}"></fmt:message></td>
 						<td>
-							<fmt:parseDate value="${ dateFinEnchere }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
-							<fmt:formatDate pattern="dd-MM-yyyy '${ at }' HH'H'mm" value="${ parsedDateTime }" />
+							<fmt:parseDate value="${dateFinEnchere }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+							<fmt:formatDate pattern="dd/MM/yyyy '${at}' HH'H'mm" value="${ parsedDateTime }" />
 						</td>
 					</tr>
 					<tr>
@@ -152,12 +154,12 @@
 											<fmt:parseNumber var="montantPropose" type="number" value="${ prixInitial }" />
 											<input type="number" class="form-control form-control-sm  mr-sm-2" id="nouveauMontant" name="nouveauMontant" value="${montantPropose +1 }">
 										</c:if>
-										<input type="hidden" id="noAcheteur" name="noAcheteur" value="${ noAcheteur }">
+										<input type="hidden" id="noAncienAcheteur" name="noAncienAcheteur" value="${ noAncienAcheteur }">
 										<input type="hidden" id="noVendeur" name="noVendeur" value="${ noVendeur }">
 										<input type="hidden" id="noArticle" name="noArticle" value="${ noArticle }">
 										<input type="hidden" id="prixInitial" name="prixInitial" value="${ prixInitial }">
 										<input type="hidden" id="ancienMontant" name="ancienMontant" value="${ montantEnchere }">
-										<c:if test="${ noAcheteur != no_utilisateur }">
+										<c:if test="${ noAncienAcheteur != no_utilisateur }">
 											<c:if test="${ credit <= montantEnchere  }">
 												<div>
 													<button type="button" class="btn btn-primary" disabled>
@@ -173,7 +175,7 @@
 												</div>
 											</c:if>
 										</c:if>
-										<c:if test="${ noAcheteur == no_utilisateur }">
+										<c:if test="${ noAncienAcheteur == no_utilisateur }">
 											<div>
 												<button type="button" class="btn btn-primary" disabled>
 													<fmt:message key="msg.auction_button" bundle="${r}"></fmt:message>
@@ -182,7 +184,7 @@
 										</c:if>
 										<div class="row col-12">
 											<fmt:message key="msg.points_left" bundle="${ r }">
-												<fmt:param value="${ credit }"></fmt:param>
+												<fmt:param value="${credit }"></fmt:param>
 											</fmt:message>
 										</div>
 									</div>

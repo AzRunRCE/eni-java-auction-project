@@ -100,7 +100,6 @@ public class Utilisateur implements Serializable{
 	}
 
 	public Utilisateur() {
-		// TODO Auto-generated constructor stub
 		listeEncheres = new ArrayList<Enchere>();
 		listeArticlesAchetes = new ArrayList<ArticleVendu>();
 		listeArticlesVendus = new ArrayList<ArticleVendu>();

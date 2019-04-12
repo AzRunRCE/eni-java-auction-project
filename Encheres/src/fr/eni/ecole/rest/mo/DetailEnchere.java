@@ -143,7 +143,7 @@ public class DetailEnchere implements Serializable {
 	 * 
 	 * @param nomArticle
 	 * @param descriptionArticle
-	 * @param nomCategorie
+	 * @param nomCategorie 
 	 * @param pseudoUtilisateur
 	 * @param codePostalRetrait
 	 * @param rueRetrait

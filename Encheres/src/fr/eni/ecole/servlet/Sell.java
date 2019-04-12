@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -59,7 +60,7 @@ public class Sell extends HttpServlet {
 				
 		Boolean isLogged = request.getSession().getAttribute(Constantes.SESS_NUM_UTILISATEUR) != null;
 		if (!isLogged) {
-			request.getRequestDispatcher(Constantes.PAGE_INDEX).forward(request, response);
+			response.sendRedirect(Constantes.URL_ACCUEIL);
 			return;
 		}
 		
@@ -81,7 +82,10 @@ public class Sell extends HttpServlet {
 	}
 	
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * Methode qui gere la soumission du formulaire de sell.jsp avec fileupload ( multipart )
+	 * Va chercher dans config.properties le chemin pour la cr�ation des fichiers images
+	 * Si le dossier n'existe pas alors il est cr��
+	 * Ensuite si tout le reste est ok alors on �crit le fichier dans le dossier en question
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	request.setCharacterEncoding("UTF-8");
@@ -89,7 +93,27 @@ public class Sell extends HttpServlet {
 		//multipart 
     	response.setContentType("text/html;charset=UTF-8");
     	
-    	String path = "C:\\Users\\fcatin2018\\Desktop\\uploads";
+    	String path = "";
+    	 try (InputStream input = Sell.class.getClassLoader().getResourceAsStream("fr/eni/ecole/config/config.properties")) {
+
+             Properties prop = new Properties();
+
+             if (input == null) {
+                 System.out.println("Sorry, unable to find config.properties");
+                 return;
+             }
+
+             //load a properties file from class path, inside static method
+             prop.load(input);
+
+             //get the property value and print it out
+             System.out.println(prop.getProperty("file_upload_path"));
+             path = prop.getProperty("file_upload_path");
+
+         } catch (IOException ex) {
+             ex.printStackTrace();
+         }
+    	 
         final Part filePart = request.getPart("inputImage");
         System.out.println("file "+filePart);
         final String fileName = getFileName(filePart);
@@ -127,17 +151,23 @@ public class Sell extends HttpServlet {
 		try {
 			categorie = categoriesManager.getCategorie(Integer.parseInt(request.getParameter("inputCategorie")));
 			new_ArticleVendu.setCategorie(categorie);
-			new_ArticleVendu.setMiseAPrix(Float.parseFloat(request.getParameter("inputPrix")));
-			new_ArticleVendu.setPrixVente(Float.parseFloat(request.getParameter("inputPrix")));
+			new_ArticleVendu.setMiseAPrix(Integer.parseInt(request.getParameter("inputPrix")));
+			new_ArticleVendu.setPrixVente(Integer.parseInt(request.getParameter("inputPrix")));
 			new_ArticleVendu.setDateDebutEncheres(Utils.parseDateTime(request.getParameter("DateDebutEncheres")));
 			new_ArticleVendu.setDateFinEncheres(Utils.parseDateTime(request.getParameter("DateFinEncheres")));
 			
 			
-			new_ArticleVendu.setUtilisateur(user);
+			new_ArticleVendu.setVendeur(user);
 			new_ArticleVendu.setEtatVente(false);
 			new_ArticleVendu.setRetrait(retrait);
 			//fileupload
 			
+			// creates the save directory if it does not exists
+	        File fileSaveDir = new File(path);
+	        if (!fileSaveDir.exists()) {
+	            fileSaveDir.mkdirs();
+	        }
+	        
 			if(filePart.getInputStream().available() != 0 
 					&& ( fileType.equals("gif") || fileType.equals("png") 
 							|| fileType.equals("jpeg") || fileType.equals("bmp")

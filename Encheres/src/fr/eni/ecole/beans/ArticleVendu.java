@@ -1,7 +1,6 @@
 package fr.eni.ecole.beans;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class ArticleVendu implements Serializable {
@@ -14,24 +13,60 @@ public class ArticleVendu implements Serializable {
 	String description;
 	LocalDateTime dateDebutEncheres;
 	LocalDateTime dateFinEncheres;
-	float miseAPrix;
-	float prixVente;
+	int miseAPrix;
+	int prixVente;
 	Boolean etatVente;
-	Utilisateur utilisateur;
+	Utilisateur vendeur;
 	Categorie categorie;
 	Retrait retrait;
 	String chemin_image;
+	
+	public ArticleVendu() {
+		super();
+	}
+	
+	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDateTime dateDebutEncheres,
+			LocalDateTime dateFinEncheres, int miseAPrix, int prixVente, Boolean etatVente, String chemin_image) {
+		setNoArticle(noArticle);
+		setNomArticle(nomArticle);
+		setDescription(description);
+		setDateDebutEncheres(dateDebutEncheres);
+		setDateFinEncheres(dateFinEncheres);
+		setMiseAPrix(miseAPrix);
+		setPrixVente(prixVente);
+		setEtatVente(etatVente);
+		setChemin_image(chemin_image);
+	}
+	
+	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDateTime dateDebutEncheres,
+			LocalDateTime dateFinEncheres, int miseAPrix, int prixVente, Boolean etatVente, String chemin_image, 
+			Utilisateur vendeur, Retrait retrait) {
+		setNoArticle(noArticle);
+		setNomArticle(nomArticle);
+		setDescription(description);
+		setDateDebutEncheres(dateDebutEncheres);
+		setDateFinEncheres(dateFinEncheres);
+		setMiseAPrix(miseAPrix);
+		setPrixVente(prixVente);
+		setEtatVente(etatVente);
+		setChemin_image(chemin_image);
+		setVendeur(vendeur);
+		setRetrait(retrait);
+	}
 	
 	
 	public String getChemin_image() {
 		return chemin_image;
 	}
+	
 	public void setChemin_image(String chemin_image) {
 		this.chemin_image = chemin_image;
 	}
+	
 	public Retrait getRetrait() {
 		return retrait;
 	}
+	
 	public void setRetrait(Retrait retrait) {
 		this.retrait = retrait;
 	}
@@ -39,77 +74,83 @@ public class ArticleVendu implements Serializable {
 	public Categorie getCategorie() {
 		return categorie;
 	}
+	
 	public void setCategorie(Categorie categorie) {
 		this.categorie = categorie;
 	}
-	public Utilisateur getUtilisateur() {
-		return utilisateur;
+	
+	public Utilisateur getVendeur() {
+		return vendeur;
 	}
-	public void setUtilisateur(Utilisateur utilisateur) {
-		this.utilisateur = utilisateur;
+	
+	public void setVendeur(Utilisateur vendeur) {
+		this.vendeur = vendeur;
 	}
+	
 	public int getNoArticle() {
 		return noArticle;
 	}
+	
 	public void setNoArticle(int noArticle) {
 		this.noArticle = noArticle;
 	}
+	
 	public String getNomArticle() {
 		return nomArticle;
 	}
+	
 	public void setNomArticle(String nomArticle) {
 		this.nomArticle = nomArticle;
 	}
+	
 	public String getDescription() {
 		return description;
 	}
+	
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
 	public LocalDateTime getDateDebutEncheres() {
 		return dateDebutEncheres;
 	}
+	
 	public void setDateDebutEncheres(LocalDateTime dateDebutEncheres) {
 		this.dateDebutEncheres = dateDebutEncheres;
 	}
+	
 	public LocalDateTime getDateFinEncheres() {
 		return dateFinEncheres;
 	}
+	
 	public void setDateFinEncheres(LocalDateTime dateFinEncheres) {
 		this.dateFinEncheres = dateFinEncheres;
 	}
-	public float getMiseAPrix() {
+	
+	public int getMiseAPrix() {
 		return miseAPrix;
 	}
-	public void setMiseAPrix(float miseAPrix) {
+	
+	public void setMiseAPrix(int miseAPrix) {
 		this.miseAPrix = miseAPrix;
 	}
-	public float getPrixVente() {
+	
+	public int getPrixVente() {
 		return prixVente;
 	}
-	public void setPrixVente(float prixVente) {
+	
+	public void setPrixVente(int prixVente) {
 		this.prixVente = prixVente;
 	}
+	
 	public Boolean getEtatVente() {
 		return etatVente;
 	}
+	
 	public void setEtatVente(Boolean etatVente) {
 		this.etatVente = etatVente;
 	}
-	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDateTime dateDebutEncheres,
-			LocalDateTime dateFinEncheres, float miseAPrix, float prixVente, Boolean etatVente) {
-		super();
-		this.noArticle = noArticle;
-		this.nomArticle = nomArticle;
-		this.description = description;
-		this.dateDebutEncheres = dateDebutEncheres;
-		this.dateFinEncheres = dateFinEncheres;
-		this.miseAPrix = miseAPrix;
-		this.prixVente = prixVente;
-		this.etatVente = etatVente;
-	}
-	public ArticleVendu() {
-		super();
-	}
+	
+	
 	
 }

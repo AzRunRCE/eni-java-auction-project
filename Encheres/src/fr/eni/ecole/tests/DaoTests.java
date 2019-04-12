@@ -87,9 +87,9 @@ public class DaoTests {
 		
 		int id = 1;
 		ArticleVendu article = daoArticleVendu.find(id);
-		daoUsers.delete(article.getUtilisateur());
+		daoUsers.delete(article.getVendeur());
 		ArticleVendu resultArticle = daoArticleVendu.find(id);
-		Utilisateur resultUser = daoUsers.find(article.getUtilisateur().getNoUtilisateur());
+		Utilisateur resultUser = daoUsers.find(article.getVendeur().getNoUtilisateur());
 		Retrait resultRetrait = daoRetrait.find(article.getRetrait().getNo_article());
 		
 		assertNull(resultArticle);

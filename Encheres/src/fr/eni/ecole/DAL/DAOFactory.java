@@ -39,7 +39,7 @@ public class DAOFactory  extends AbstractDAOFactory {
 		return new RetraitDAO(this.getDataSource());
 	}
 	public IDAOEnchere getEnchereDAO() {
-		return new EnchereDAO();
+		return new EnchereDAO(this.getDataSource());
 	}
 	public  IDAOCategorie getCategorieDAO() {
 		return new CategorieDAO(this.getDataSource());

@@ -117,6 +117,7 @@
 		<!-- 	This task is Used to Unit-Test the Compiled Java Files -->
 		<target name="test">
 			<junit printsummary="yes" fork="true" haltonfailure="yes">
+			    <sysproperty key="SQL_PASSWORD" value="SQLPASSWORD"/>
 				<classpath refid="Encheres.classpath" />
 				<classpath refid="jUnit.cp" />
 				<formatter type="xml" />

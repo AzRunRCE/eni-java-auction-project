@@ -24,7 +24,6 @@ public class Register extends HttpServlet {
      */
     public Register() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -66,7 +65,7 @@ public class Register extends HttpServlet {
 				}
 			}
 			else {
-				request.setAttribute("erreur", "Une erreur s'est produite durant l'enregistrement. Le pseudo est peut-�tre d�j� pris.");
+				request.setAttribute("erreur", "Une erreur s'est produite durant l'enregistrement. Le pseudo est peut-être déjà pris.");
 				request.getRequestDispatcher(Constantes.PAGE_REGISTER).forward(request, response);
 			}
 		} catch (BLLException e) {

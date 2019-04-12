@@ -60,7 +60,7 @@ public class Sell extends HttpServlet {
 				
 		Boolean isLogged = request.getSession().getAttribute(Constantes.SESS_NUM_UTILISATEUR) != null;
 		if (!isLogged) {
-			request.getRequestDispatcher(Constantes.PAGE_INDEX).forward(request, response);
+			response.sendRedirect(Constantes.URL_ACCUEIL);
 			return;
 		}
 		
@@ -83,9 +83,9 @@ public class Sell extends HttpServlet {
 	
 	/**
 	 * Methode qui gere la soumission du formulaire de sell.jsp avec fileupload ( multipart )
-	 * Va chercher dans config.properties le chemin pour la création des fichiers images
-	 * Si le dossier n'existe pas alors il est créé
-	 * Ensuite si tout le reste est ok alors on écrit le fichier dans le dossier en question
+	 * Va chercher dans config.properties le chemin pour la crï¿½ation des fichiers images
+	 * Si le dossier n'existe pas alors il est crï¿½ï¿½
+	 * Ensuite si tout le reste est ok alors on ï¿½crit le fichier dans le dossier en question
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	request.setCharacterEncoding("UTF-8");

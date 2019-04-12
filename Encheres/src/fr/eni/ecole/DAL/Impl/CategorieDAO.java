@@ -12,7 +12,6 @@ import javax.sql.DataSource;
 import fr.eni.ecole.DAL.DALException;
 import fr.eni.ecole.DAL.Interface.IDAOCategorie;
 import fr.eni.ecole.beans.Categorie;
-import fr.eni.ecole.util.AccesBase;
 
 public class CategorieDAO implements IDAOCategorie {
 

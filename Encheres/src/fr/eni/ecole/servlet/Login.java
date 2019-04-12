@@ -57,38 +57,37 @@ public class Login extends HttpServlet {
 		
 		if (!valide) {
 			request.setAttribute("erreur", "L'email et le mot de passe doivent être saisis");
-			request.getRequestDispatcher(Constantes.PAGE_LOGIN).forward(request, response);
-			
-		}
-		
-		recupLogin = request.getParameter("login").trim();
-		recupPassword = request.getParameter("password".trim());
-		
-		UtilisateursManager managerUtilisateur = new UtilisateursManager();		
-		try {
-			utilisateur = managerUtilisateur.connexion(recupLogin, recupPassword);
-		} catch (BLLException e) {
-			e.printStackTrace();
-		}
-		if (utilisateur != null) {
-			recupRemberMe = request.getParameter("rememberMe");
-			if(recupRemberMe != null) {
-				Cookie userCookie = new Cookie("userCookie", recupLogin);
-				userCookie.setMaxAge(1296000);
-				response.addCookie(userCookie);	
-			}
-			Cookie idUtilisateur = new Cookie("idUtilisateur", String.valueOf(utilisateur.getNoUtilisateur()));
-			response.addCookie(idUtilisateur);
-			request.getSession().setAttribute(Constantes.SESS_PSEUDO, utilisateur.getPseudo());
-			//request.getSession().setAttribute(Constantes.SESS_NOM, utilisateur.getNom());
-			//request.getSession().setAttribute(Constantes.SESS_PRENOM, utilisateur.getPrenom());
-			request.getSession().setAttribute(Constantes.SESS_NUM_UTILISATEUR, utilisateur.getNoUtilisateur());
-			response.sendRedirect(Constantes.URL_ACCUEIL);
+			doGet(request, response);
 		}else {
-			request.setAttribute("erreur", "Login ou mot de passe incorrect!");
-			request.getRequestDispatcher(Constantes.PAGE_LOGIN).forward(request, response);
+			recupLogin = request.getParameter("login").trim();
+			recupPassword = request.getParameter("password".trim());
+			
+			UtilisateursManager managerUtilisateur = new UtilisateursManager();		
+			try {
+				utilisateur = managerUtilisateur.connexion(recupLogin, recupPassword);
+			} catch (BLLException e) {
+				e.printStackTrace();
+			}
+			if (utilisateur != null) {
+				recupRemberMe = request.getParameter("rememberMe");
+				if(recupRemberMe != null) {
+					Cookie userCookie = new Cookie("userCookie", recupLogin);
+					userCookie.setMaxAge(1103200);
+					response.addCookie(userCookie);	
+				}
+				Cookie idUtilisateur = new Cookie("idUtilisateur", String.valueOf(utilisateur.getNoUtilisateur()));
+				idUtilisateur.setMaxAge(7500);
+				response.addCookie(idUtilisateur);
+				request.getSession().setAttribute(Constantes.SESS_PSEUDO, utilisateur.getPseudo());
+				//request.getSession().setAttribute(Constantes.SESS_NOM, utilisateur.getNom());
+				//request.getSession().setAttribute(Constantes.SESS_PRENOM, utilisateur.getPrenom());
+				request.getSession().setAttribute(Constantes.SESS_NUM_UTILISATEUR, utilisateur.getNoUtilisateur());
+				response.sendRedirect(Constantes.URL_ACCUEIL);
+			}else {
+				request.setAttribute("erreur", "Login ou mot de passe incorrect!");
+				request.getRequestDispatcher(Constantes.PAGE_LOGIN).forward(request, response);
+			}
 		}
-		
 	}
 	
 	/**

@@ -1,8 +1,6 @@
 package fr.eni.ecole.bll;
 import fr.eni.ecole.DAL.AbstractDAOFactory;
 import fr.eni.ecole.DAL.DALException;
-import fr.eni.ecole.DAL.DAOFactory;
-import fr.eni.ecole.DAL.AbstractDAOFactory;
 import fr.eni.ecole.DAL.Interface.DAO;
 import fr.eni.ecole.DAL.Interface.IDAOArticleVendu;
 import fr.eni.ecole.beans.ArticleVendu;
@@ -24,6 +22,14 @@ public class VentesManager {
 			daoRetraitDao.create(new_article.getRetrait());	
 		} catch (DALException e) {
 			throw new BLLException("Problème avec lors de la création de l'article", e);
+		}
+	}
+	
+	public ArticleVendu searchArticle(int noArticle) throws BLLException {
+		try {
+			return daoArticleVendus.find(noArticle);
+		} catch (DALException e) {
+			throw new BLLException("Problème avec la méthose searchArticle", e);
 		}
 	}
 	

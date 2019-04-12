@@ -9,17 +9,21 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
+import fr.eni.ecole.DAL.AbstractDAOFactory;
 import fr.eni.ecole.DAL.DALException;
 import fr.eni.ecole.DAL.Interface.IDAOEnchere;
+import fr.eni.ecole.DAL.Interface.IDAOUtilisateur;
 import fr.eni.ecole.beans.Enchere;
+import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.rest.mo.AccueilDashboardTile;
 import fr.eni.ecole.rest.mo.AccueilFilters;
-import fr.eni.ecole.rest.mo.DetailEnchere;
 import fr.eni.ecole.util.AccesBase;
 
 public class EnchereDAO implements IDAOEnchere {
 
-	private final String SELECT_ALL_WITHOUT_PARAM = "SELECT av.nom_article, av.date_fin_encheres, av.prix_vente, u.pseudo, u.no_utilisateur, av.no_article, av.chemin_image " + 
+		private final String SELECT_ALL_WITHOUT_PARAM = "SELECT av.nom_article, av.date_fin_encheres, av.prix_vente, u.pseudo, u.no_utilisateur, av.no_article, av.chemin_image " + 
 													"FROM ARTICLES_VENDUS av " +
 													"LEFT JOIN UTILISATEURS u ON av.no_utilisateur = u.no_utilisateur ";
 	
@@ -44,26 +48,22 @@ public class EnchereDAO implements IDAOEnchere {
 	
 	private Boolean whereAlreadySet;
 	
-	private final String SELECT_BY_ID = "SELECT av.nom_article, av.description, c.libelle, av.date_debut_encheres, av.date_fin_encheres, av.prix_initial, av.no_utilisateur as vendeur, av.chemin_image, e.montant_enchere, e.no_utilisateur as acheteur, e.no_article, u.pseudo, r.code_postal, r.rue, r.ville " + 
-										"FROM ENCHERES e " + 
-										"LEFT JOIN UTILISATEURS u ON e.no_utilisateur = u.no_utilisateur " + 
-										"LEFT JOIN ARTICLES_VENDUS av  ON e.no_article = av.no_article " + 
-										"LEFT JOIN RETRAITS r ON e.no_article = r.no_article " + 
-										"LEFT JOIN CATEGORIES c ON c.no_categorie = av.no_categorie " + 
-										"WHERE e.no_article = ? " + 
-										"ORDER BY e.montant_enchere DESC";
+	private final String SELECT_BY_ID = "SELECT no_utilisateur, date_enchere, montant_enchere " + 
+										"FROM ENCHERES "+
+										"WHERE no_article = ? "+
+										"ORDER BY montant_enchere DESC";
 	
-	private final String SELECT_BY_ID_ARTICLE = "SELECT av.nom_article, av.description, av.no_utilisateur as vendeur, c.libelle, av.date_debut_encheres, av.date_fin_encheres, av.prix_initial, av.prix_vente, av.no_article, av.chemin_image, u.pseudo, r.code_postal, r.rue, r.ville " + 
-												"FROM ARTICLES_VENDUS av " + 
-												"LEFT JOIN UTILISATEURS u ON av.no_utilisateur = u.no_utilisateur " + 
-												"LEFT JOIN RETRAITS r ON av.no_article = r.no_article " + 
-												"LEFT JOIN CATEGORIES c ON c.no_categorie = av.no_categorie " + 
-												"WHERE av.no_article = ? ";
 	
 	private final String CREATE = "INSERT INTO ENCHERES VALUES(?, ?, ?, ?)";
 	
 	private final String DELETE = "DELETE FROM ENCHERES WHERE no_utilisateur = ? AND no_article = ?";
-								
+					
+	private DataSource dataSource = null;
+	
+	public EnchereDAO(DataSource _dataSource) {
+		dataSource = _dataSource;
+	}
+
 	@Override
 	public int create(Enchere obj) throws DALException{
 		return 0;
@@ -80,8 +80,26 @@ public class EnchereDAO implements IDAOEnchere {
 	}
 
 	@Override
-	public Enchere find(int id) throws DALException {
-		return null;
+	public Enchere find(int noArticle) throws DALException {
+		Enchere enchere = null;
+		Utilisateur acheteur = null;
+		IDAOUtilisateur UtilisateurDAO = null;
+		ResultSet rs = null;
+		try(Connection connect = AccesBase.getConnection();
+				PreparedStatement preparedStatement = connect.prepareStatement(SELECT_BY_ID)) {
+			preparedStatement.setInt(1,noArticle);
+			rs = preparedStatement.executeQuery();
+	    	if(rs.next()) {
+	    		UtilisateurDAO = AbstractDAOFactory.getFactory().getUtilisateurDAO();
+	    		acheteur = UtilisateurDAO.find(rs.getInt("no_utilisateur"));
+	    		enchere = new Enchere(rs.getTimestamp("date_enchere").toLocalDateTime(),
+	    								rs.getInt("montant_enchere"),
+	    								acheteur);
+	    	}
+	    	return enchere;
+		} catch (SQLException e) {
+			throw new DALException("Problème avec la méthode selectById2", e);
+		} 
 	}
 	
 	@Override
@@ -329,67 +347,7 @@ public class EnchereDAO implements IDAOEnchere {
 		}
 	}
 	
-	@Override
-	public DetailEnchere selectById(int noArticle) throws DALException {
-		DetailEnchere enchere = null;
-		ResultSet rs = null;
-		try(Connection connect = AccesBase.getConnection();
-				PreparedStatement preparedStatement = connect.prepareStatement(SELECT_BY_ID)) {
-			preparedStatement.setInt(1,noArticle);
-			rs = preparedStatement.executeQuery();
-	    	if(rs.next()) {
-	    		enchere = new DetailEnchere(rs.getString("nom_article"),
-	    										rs.getString("description"),
-	    										rs.getString("libelle"),
-	    										rs.getString("pseudo"),
-	    										rs.getString("code_postal"),
-	    										rs.getString("rue"),
-	    										rs.getString("ville"),
-	    										rs.getTimestamp("date_debut_encheres").toLocalDateTime(),
-	    										rs.getTimestamp("date_fin_encheres").toLocalDateTime(),
-	    										rs.getInt("prix_initial"),
-	    										rs.getInt("montant_enchere"),
-	    										rs.getInt("no_article"),									
-	    										rs.getInt("acheteur"),
-	    										rs.getInt("vendeur"),
-	    										rs.getString("chemin_image"));
-	    	}
-	    	return enchere;
-		} catch (SQLException e) {
-			throw new DALException("Problème avec la méthode selectById", e);
-		} 
-	}
 	
-	@Override
-	public DetailEnchere selectByIdArticle(int noArticle) throws DALException {
-		DetailEnchere enchere = null;
-		ResultSet rs = null;
-		try(Connection connect = AccesBase.getConnection();
-				PreparedStatement preparedStatement = connect.prepareStatement(SELECT_BY_ID_ARTICLE)) {
-			preparedStatement.setInt(1,noArticle);
-			rs = preparedStatement.executeQuery();
-	    	if(rs.next()) {
-	    		//rs.first();
-	    		enchere = new DetailEnchere(rs.getString("nom_article"),
-	    										rs.getString("description"),
-	    										rs.getString("libelle"),
-	    										rs.getString("pseudo"),
-	    										rs.getString("code_postal"),
-	    										rs.getString("rue"),
-	    										rs.getString("ville"),
-	    										rs.getTimestamp("date_debut_encheres").toLocalDateTime(),
-	    										rs.getTimestamp("date_fin_encheres").toLocalDateTime(),
-	    										rs.getInt("prix_initial"),
-	    										rs.getInt("prix_vente"),
-	    										rs.getInt("no_article"),
-	    										rs.getInt("vendeur"),
-	    										rs.getString("chemin_image"));
-	    	}
-	    	return enchere;
-		} catch (SQLException e) {
-			throw new DALException("Probleme avec la méthode selectByIdArticle", e);
-		}
-	}
 	
 	/**
 	 * Cette methode permet la construction de la partie filtres mode non connecté de la requete SQL

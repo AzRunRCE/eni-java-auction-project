@@ -9,12 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.ecole.beans.ArticleVendu;
+import fr.eni.ecole.beans.Categorie;
+import fr.eni.ecole.beans.Enchere;
+import fr.eni.ecole.beans.Retrait;
 import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.bll.BLLException;
+import fr.eni.ecole.bll.CategoriesManager;
 import fr.eni.ecole.bll.EncheresManager;
 import fr.eni.ecole.bll.UtilisateursManager;
 import fr.eni.ecole.bll.VentesManager;
-import fr.eni.ecole.rest.mo.DetailEnchere;
 import fr.eni.ecole.util.Constantes;
 
 /**
@@ -37,65 +41,62 @@ public class DetailVente extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int recupNoArticle;
 		EncheresManager managerEnchere = null;
-		DetailEnchere enchere = null;
-		UtilisateursManager managerUtilisiateur = null;
+		Enchere enchere = null;
 		Utilisateur vendeur = null;
-		Utilisateur acheteur = null;
-		String pseudoVendeur = null;
-		int creditAcheteur;
+		Utilisateur nouveauAcheteur = null;
+		Utilisateur ancienAcheteur = null;
+		ArticleVendu article = null;
+		VentesManager managerVente = null;
+		Retrait retrait = null;
+		Categorie categorie = null;
+		UtilisateursManager  managerUtilisateur= null;
+		int nouveauNoAcheteur;
 		
-		recupNoArticle = Integer.parseInt(request.getParameter("noArticle"));
-		managerEnchere = new EncheresManager();
+		
 		try {
-			enchere = managerEnchere.getEnchere(recupNoArticle);
-			if(enchere != null) {
-				request.setAttribute("nomArticle", enchere.getNomArticle());
-				request.setAttribute("description", enchere.getDescriptionArticle());
-				request.setAttribute("categorie", enchere.getNomCategorie());
-				request.setAttribute("pseudoAcheteur", enchere.getPseudoUtilisateur());
-				request.setAttribute("codePostalRetrait", enchere.getCodePostalRetrait());
-				request.setAttribute("rueRetrait", enchere.getRueRetrait());
-				request.setAttribute("villeRetrait", enchere.getVilleRetrait());
-				request.setAttribute("dateDebutEnchere", enchere.getDateDebutEnchere());
-				request.setAttribute("dateFinEnchere", enchere.getDateFinEnchere());
-				request.setAttribute("prixInitial", enchere.getPrixInitial());
-				request.setAttribute("montantEnchere", enchere.getMontantEnchere());
-				request.setAttribute("noArticle", enchere.getNoArticle());
-				request.setAttribute("noAcheteur", enchere.getNoAcheteur());
-				request.setAttribute("noVendeur", enchere.getNoVendeur());
-				request.setAttribute("cheminImage", enchere.getChemin_image());
-			}else {
-				enchere = managerEnchere.getArticle(recupNoArticle);
-				if(enchere != null) {
-					request.setAttribute("nomArticle", enchere.getNomArticle());
-					request.setAttribute("description", enchere.getDescriptionArticle());
-					request.setAttribute("categorie", enchere.getNomCategorie());
-					request.setAttribute("pseudoAcheteur", enchere.getPseudoUtilisateur());
-					request.setAttribute("codePostalRetrait", enchere.getCodePostalRetrait());
-					request.setAttribute("rueRetrait", enchere.getRueRetrait());
-					request.setAttribute("villeRetrait", enchere.getVilleRetrait());
-					request.setAttribute("dateDebutEnchere", enchere.getDateDebutEnchere());
-					request.setAttribute("dateFinEnchere", enchere.getDateFinEnchere());
-					request.setAttribute("prixInitial", enchere.getPrixInitial());
-					request.setAttribute("montantEnchere", "0");
-					request.setAttribute("noArticle", enchere.getNoArticle());
-					request.setAttribute("noVendeur", enchere.getNoVendeur());
-					request.setAttribute("cheminImage", enchere.getChemin_image());
+			if(request.getParameter("noArticle") != null) {
+				recupNoArticle = Integer.parseInt(request.getParameter("noArticle"));
+				managerVente = new VentesManager();
+				managerEnchere = new EncheresManager();
+				article = managerVente.searchArticle(recupNoArticle);
+				if (article != null) {
+					retrait = article.getRetrait();
+					vendeur = article.getVendeur();
+					categorie = article.getCategorie();
+					request.setAttribute("nomArticle", article.getNomArticle());
+					request.setAttribute("description", article.getDescription());
+					request.setAttribute("codePostalRetrait", retrait.getCode_postal());
+					request.setAttribute("rueRetrait", retrait.getRue());
+					request.setAttribute("villeRetrait", retrait.getVille());
+					request.setAttribute("dateDebutEnchere", article.getDateDebutEncheres());
+					request.setAttribute("dateFinEnchere", article.getDateFinEncheres());
+					request.setAttribute("prixInitial", article.getMiseAPrix());
+					request.setAttribute("noArticle", article.getNoArticle());
+					request.setAttribute("noVendeur", vendeur.getNoUtilisateur());
+					request.setAttribute("cheminImage", article.getChemin_image());
+					request.setAttribute("pseudoVendeur", vendeur.getPseudo());
+					request.setAttribute("date", LocalDateTime.now());
+					request.setAttribute("categorie", categorie.getLibelle());
+					enchere = managerEnchere.getEnchere(recupNoArticle);
+					if(request.getSession().getAttribute("no_utilisateur") != null) {
+						nouveauNoAcheteur = (int) request.getSession().getAttribute("no_utilisateur");
+						managerUtilisateur = new UtilisateursManager();
+						nouveauAcheteur = managerUtilisateur.getUtilisateur(nouveauNoAcheteur);
+						request.setAttribute("noNouveauAcheteur", nouveauAcheteur.getNoUtilisateur());
+						request.setAttribute("credit", nouveauAcheteur.getCredit());
+					}
+					if(enchere != null) {
+						request.setAttribute("montantEnchere", enchere.getMontantEnchere());
+						ancienAcheteur = enchere.getAcheteur();
+						request.setAttribute("pseudoAncienAcheteur", ancienAcheteur.getPseudo());
+						request.setAttribute("noAncienAcheteur", ancienAcheteur.getNoUtilisateur());
+					}else {
+						request.setAttribute("montantEnchere", "0");
+					}
+					request.getRequestDispatcher(Constantes.PAGE_DETAIL_VENTE).forward(request, response);
+				}else {
+					response.sendError(404);
 				}
-			}
-			if(enchere != null) {
-				managerUtilisiateur = new UtilisateursManager();
-				vendeur = managerUtilisiateur.getUtilisateur(enchere.getNoVendeur());
-				pseudoVendeur = vendeur.getPseudo();
-				if(request.getSession().getAttribute("no_utilisateur")!= null) {
-					int noUtilisateur = (int) request.getSession().getAttribute("no_utilisateur");
-					acheteur = managerUtilisiateur.getUtilisateur(noUtilisateur);
-					creditAcheteur = acheteur.getCredit();
-					request.setAttribute("credit", creditAcheteur);
-				}
-				request.setAttribute("pseudoVendeur", pseudoVendeur);
-				request.setAttribute("date", LocalDateTime.now());
-				request.getRequestDispatcher(Constantes.PAGE_DETAIL_VENTE).forward(request, response);
 			}else {
 				response.sendError(404);
 			}
@@ -155,7 +156,7 @@ public class DetailVente extends HttpServlet {
 						newPrixVente = managerVentes.updatePrixVenteArticle(recupNoArticle, recupNouveauMontant);
 						if(recupAncienMontnant != 0) {
 							//on récupère les info de l'ancien acheteur et met à jour son credit
-							recupNoAncienAcheteur = Integer.valueOf(request.getParameter("noAcheteur"));
+							recupNoAncienAcheteur = Integer.valueOf(request.getParameter("noAncienAcheteur"));
 							ancienAcheteur = managerUtilisateurs.getUtilisateur(recupNoAncienAcheteur);
 							creditAncienAcheteur = ancienAcheteur.getCredit();
 							creditAncienAcheteur += recupAncienMontnant;
@@ -174,7 +175,6 @@ public class DetailVente extends HttpServlet {
 						request.setAttribute("noArticle", recupNoArticle);
 						doGet(request, response);
 					}
-				
 				} catch (BLLException e) {
 					response.sendError(500);
 				}

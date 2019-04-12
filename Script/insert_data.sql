@@ -10,3 +10,5 @@ INSERT INTO UTILISATEURS VALUES
 INSERT INTO CATEGORIES VALUES('Informatique'), ('Ameublement'), ('Vêtement'), ('Sport & Loisir');	
 
 INSERT INTO ARTICLES_VENDUS VALUES('PC HP 450-G5', 'Super PC état comme neuf, processeur Intel Core I7 16GO DDR4', '2019-11-04 09:32', '2019-11-05 09:32', '300', NULL, '20190410032640.jpeg', 2, 1);
+
+INSERT INTO RETRAITS (1, 'route de bimedia', '85000', 'La Roche sur Yon');

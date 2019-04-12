@@ -127,13 +127,13 @@ public class Sell extends HttpServlet {
 		try {
 			categorie = categoriesManager.getCategorie(Integer.parseInt(request.getParameter("inputCategorie")));
 			new_ArticleVendu.setCategorie(categorie);
-			new_ArticleVendu.setMiseAPrix(Float.parseFloat(request.getParameter("inputPrix")));
-			new_ArticleVendu.setPrixVente(Float.parseFloat(request.getParameter("inputPrix")));
+			new_ArticleVendu.setMiseAPrix(Integer.parseInt(request.getParameter("inputPrix")));
+			new_ArticleVendu.setPrixVente(Integer.parseInt(request.getParameter("inputPrix")));
 			new_ArticleVendu.setDateDebutEncheres(Utils.parseDateTime(request.getParameter("DateDebutEncheres")));
 			new_ArticleVendu.setDateFinEncheres(Utils.parseDateTime(request.getParameter("DateFinEncheres")));
 			
 			
-			new_ArticleVendu.setUtilisateur(user);
+			new_ArticleVendu.setVendeur(user);
 			new_ArticleVendu.setEtatVente(false);
 			new_ArticleVendu.setRetrait(retrait);
 			//fileupload

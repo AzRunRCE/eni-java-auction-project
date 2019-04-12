@@ -50,7 +50,7 @@ public class DaoTests {
 		try {
 			Connection conn = dataSource.getConnection();
 		    Statement stmt = conn.createStatement();
-		    String script_Path = System.getProperty("user.dir") + "\\..\\Enoncé\\projetEncheres.org\\04-ModelePhysique\\create_bd_trocencheres.sql";
+		    String script_Path = System.getProperty("user.dir") + "\\..\\Enoncï¿½\\projetEncheres.org\\04-ModelePhysique\\create_bd_trocencheres.sql";
 		    System.out.println("Execute Script: " + script_Path);
 		    Utils.executeDBScripts(script_Path, stmt);
 
@@ -83,9 +83,9 @@ public class DaoTests {
 		
 		int id = 1;
 		ArticleVendu article = daoArticleVendu.find(id);
-		daoUsers.delete(article.getUtilisateur());
+		daoUsers.delete(article.getVendeur());
 		ArticleVendu resultArticle = daoArticleVendu.find(id);
-		Utilisateur resultUser = daoUsers.find(article.getUtilisateur().getNoUtilisateur());
+		Utilisateur resultUser = daoUsers.find(article.getVendeur().getNoUtilisateur());
 		Retrait resultRetrait = daoRetrait.find(article.getRetrait().getNo_article());
 		
 		assertNull(resultArticle);

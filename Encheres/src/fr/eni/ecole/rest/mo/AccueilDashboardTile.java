@@ -1,7 +1,6 @@
 package fr.eni.ecole.rest.mo;
 
 import java.io.Serializable;
-import java.util.Base64;
 /**
  * Classe reprenant toutes les donnees utiles pour l'affichage des dashboard tiles
  * Sert a renvoyer un JSON

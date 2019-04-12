@@ -41,7 +41,8 @@ public class Profil extends HttpServlet {
 		Integer no_utilisateur = (Integer)request.getSession().getAttribute(Constantes.SESS_NUM_UTILISATEUR);
 		String SpecifyUserId = request.getParameter("userId");
 		request.setAttribute("editable", true);
-		if (SpecifyUserId != null) {
+		
+		if (SpecifyUserId != null && no_utilisateur != Integer.parseInt(SpecifyUserId)) {
 			request.setAttribute("editable", false);
 			no_utilisateur = Integer.parseInt(SpecifyUserId);
 		}
@@ -49,6 +50,7 @@ public class Profil extends HttpServlet {
 		Utilisateur user;
 		try {
 			user = usersManager.getUtilisateur(no_utilisateur);
+			request.setAttribute("pseudo_label", user.getPseudo());
 			request.setAttribute(Constantes.ATT_UTILISATEUR, user);
 			
 			request.getRequestDispatcher(Constantes.PAGE_PROFIL).forward(request, response);

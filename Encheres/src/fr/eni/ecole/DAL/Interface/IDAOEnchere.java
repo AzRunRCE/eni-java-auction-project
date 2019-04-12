@@ -1,30 +1,32 @@
 package fr.eni.ecole.DAL.Interface;
 
-import java.util.List;
+import java.util.Map;
 
 import fr.eni.ecole.DAL.DALException;
+import fr.eni.ecole.beans.ArticleVendu;
 import fr.eni.ecole.beans.Enchere;
+import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.rest.mo.AccueilFilters;
-import fr.eni.ecole.rest.mo.AccueilDashboardTile;
 
 public interface IDAOEnchere extends DAO<Enchere> {
 	
 	  /**
-	   * Methode permettant d'aller chercher tous les enregistrements
-	   * @return une liste de getAccueil
+	   * Methode permettant d'aller chercher tous les enregistrements sans filtres
+	   * @return une Map(ArticleVendu, Utilisateur)  
+	   * @deprecated
 	 * @throws DALException 
 	   */ 
-	  public List<AccueilDashboardTile> selectAllWithoutParameters() throws DALException;
+	  public Map<ArticleVendu, Utilisateur> selectAllWithoutParameters() throws DALException;
 	  
 
 	  /**
 	   * Methode permettant d'aller chercher en base les enregistrements respectant les filtres
 	   * @param accueilFilters Structure de donnes contenant les filtres saisis
 	   * @param idUtilisateur
-	   * @return une liste de AccueilDashboardTile
+	   * @return une Map(ArticleVendu, Utilisateur) 
 	 * @throws DALException 
 	   */
-	  public List<AccueilDashboardTile> selectAllwithParameters(AccueilFilters accueilFilters, Integer idUtilisateur) throws DALException;
+	  public Map<ArticleVendu, Utilisateur> selectArticlesWhoRespectFiltersWithSeller(AccueilFilters accueilFilters, Integer idUtilisateur) throws DALException;
 	  
 	  
 	  
@@ -32,7 +34,6 @@ public interface IDAOEnchere extends DAO<Enchere> {
 	   * Ajoute une nouvelle enchère en base
 	   * @param noUtilisateur
 	   * @param noArticle
-	   * @param date
 	   * @param montant
 	   * @return le nombre de ligne inseréé dans la table ENCHERES
 	   */

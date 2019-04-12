@@ -3,7 +3,7 @@ package fr.eni.ecole.rest.mo;
 import java.io.Serializable;
 /**
  * Classe reprenant toutes les donnees utiles pour l'affichage des dashboard tiles
- * Sert a renvoyer un JSON
+ * Sert a la serialisation en JSON
  * @author romai
  *
  */

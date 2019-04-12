@@ -66,13 +66,21 @@ function createDashboard(data) {
 				endDate.setAttribute('class', 'card-text');
 				
 				let dateEnchere = moment(enchere.dateFinEnchere, moment.ISO_8601);
-				dateEnchere.locale('fr');
-				
-				endDate.innerText = "Fin de l'enchère : " + dateEnchere.format('DD/MM/YYYY - h[H]mm');
+				if (navigator.language === 'fr') {
+					dateEnchere.locale('fr');
+					endDate.innerText = "Fin de l'enchère : " + dateEnchere.format('DD/MM/YYYY - HH[H]mm');					
+				} else {
+					dateEnchere.locale('en');
+					endDate.innerText = "End of auction : " + dateEnchere.format('DD/MM/YYYY - hh[H]mm A');	
+				}
 
 				let amount = document.createElement('p');
 				amount.setAttribute('class', 'card-text');
-				amount.innerText = 'Prix : ' + enchere.montant + ' points';
+				if (navigator.language === 'fr') {
+					amount.innerText = 'Prix : ' + enchere.montant + ' points';					
+				} else {
+					amount.innerText = 'Price : ' + enchere.montant + ' points';		
+				}
 				
 				let pseudo = document.createElement('p');
 				pseudo.setAttribute('class', 'card-text');
@@ -81,10 +89,18 @@ function createDashboard(data) {
 					let linkDetailVendeur = '/Encheres/Profil?userId=' + enchere.noVendeur;
 					linkVendeur.setAttribute('href', linkDetailVendeur);
 					
-					linkVendeur.innerText = 'Vendeur : ' + enchere.pseudoVendeur;					
-					pseudo.appendChild(linkVendeur);
+					if (navigator.language === 'fr') {
+						linkVendeur.innerText = 'Vendeur : ' + enchere.pseudoVendeur;										
+					} else {
+						linkVendeur.innerText = 'Seller : ' + enchere.pseudoVendeur;	
+					}
+					pseudo.appendChild(linkVendeur);	
 				} else {
-					pseudo.innerText = 'Vendeur : ' + enchere.pseudoVendeur;
+					if (navigator.language === 'fr') {
+						pseudo.innerText = 'Vendeur : ' + enchere.pseudoVendeur;										
+					} else {
+						pseudo.innerText = 'Seller : ' + enchere.pseudoVendeur;	
+					}
 				}
 				
 				
@@ -123,9 +139,17 @@ function cleanDashboard() {
 
 function echec(codeReponse) {
 	if(codeReponse == '200' || codeReponse == null) {
-		document.getElementById("echec").innerText = 'Aucun article ne semble correspondre aux filtres saisis.';	
+		if (navigator.language === 'fr') {
+			document.getElementById("echec").innerText = 'Aucun article ne semble correspondre aux filtres saisis.';				
+		} else {
+			document.getElementById("echec").innerText = 'No article seems to match the filters entered.';
+		}
 	} else if (codeReponse == '500') {
-		document.getElementById("echec").innerText = 'Un problème technique est survenu, veuillez réessayer plus tard.';	
+		if (navigator.language === 'fr') {
+			document.getElementById("echec").innerText = 'Un problème technique est survenu, veuillez réessayer plus tard.';				
+		} else {
+			document.getElementById("echec").innerText = 'There was a technical problem, please try again later.';	
+		}
 	}
 	document.getElementById('echec').removeAttribute("hidden");
 }

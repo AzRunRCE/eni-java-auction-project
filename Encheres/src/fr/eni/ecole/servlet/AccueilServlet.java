@@ -46,7 +46,7 @@ public class AccueilServlet extends HttpServlet {
 					RequestDispatcher dispatcher = request.getRequestDispatcher(Constantes.PAGE_INDEX);
 					dispatcher.forward(request, response);
 				} catch (BLLException e) {
-					response.sendError(404);
+					response.sendError(500);
 				}
 
 	}

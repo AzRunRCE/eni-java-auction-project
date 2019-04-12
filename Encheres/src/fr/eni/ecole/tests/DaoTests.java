@@ -12,9 +12,7 @@ import javax.sql.DataSource;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 

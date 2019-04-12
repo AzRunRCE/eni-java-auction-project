@@ -93,7 +93,7 @@ public class EnchereDAO implements IDAOEnchere {
 			preparedStatement.setInt(1,noArticle);
 			rs = preparedStatement.executeQuery();
 	    	if(rs.next()) {
-	    		UtilisateurDAO = AbstractDAOFactory.getFactory().getUtilisateurDAO();
+	    		UtilisateurDAO = AbstractDAOFactory.getFactory(dataSource).getUtilisateurDAO();
 	    		acheteur = UtilisateurDAO.find(rs.getInt("no_utilisateur"));
 	    		enchere = new Enchere(rs.getTimestamp("date_enchere").toLocalDateTime(),
 	    								rs.getInt("montant_enchere"),

@@ -3,7 +3,7 @@ var password = document.getElementById("inputPassword")
 
 function validatePassword(){
 if(password.value != confirm_password.value) {
-	if (navigator.language === 'fr') {
+	if (navigator.language.includes('fr') ) {
 		confirm_password.setCustomValidity("Les mot de passes de correspondent pas.");		
 	} else {
 		confirm_password.setCustomValidity("Passwords do not match.");	

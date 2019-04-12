@@ -102,15 +102,18 @@
 				<classpath refid="cp" />
 				<classpath refid="Encheres.classpath" />
 				 <compilerarg value="-Xlint"/>
-				 <compilerarg value="-Xmaxwarns"/>
+			<!--	 <compilerarg value="-Xmaxwarns"/> -->
 			</javac>
 			<echo>Compilation successful!</echo>
 		</target>
 		
 		<!-- Package the build into a JAR File after compilation & testing tasks are completed-->
 		<target name="builddist" depends="compile,test">
-			<jar destfile="${dist.dir}/ENI-Encheres.jar" basedir="${bin.dir}" excludes="**/*Tests*.class">
-			</jar>
+			<war destfile="dist/ENI-Encheres.war" webxml="WebContent/WEB-INF/web.xml">
+                <fileset dir="WebContent"/>
+                <lib dir="WebContent/WEB-INF/lib"/>
+                <classes dir="bin"/>
+            </war>
 		</target>
 		
 		

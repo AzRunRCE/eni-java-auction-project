@@ -75,7 +75,7 @@ ALTER DATABASE [DB_ENCHERES] SET DELAYED_DURABILITY = DISABLED
 EXEC sys.sp_db_vardecimal_storage_format N'DB_ENCHERES', N'ON'
 
 USE [DB_ENCHERES]
-GO;
+
 /****** Object:  Table [dbo].[ARTICLES_VENDUS]    Script Date: 11/04/2019 17:47:20 ******/
 SET ANSI_NULLS ON
 

@@ -28,6 +28,8 @@ before_script:
     #- ln -sfn /opt/mssql-tools/bin/sqlcmd /usr/bin/sqlcmd
     #- sqlcmd -S mssql -U sa -P "yourStrong(!)Password" -i script/create_bd_trocencheres.sql
     - sed -i -e 's/SQLPASSWORD/$GLOBAL_PASSWORD/g' build-CI.xml
+    - echo '$GLOBAL_PASSWORD'
+    - cat build-CI.xml
 stages:
   - build
 

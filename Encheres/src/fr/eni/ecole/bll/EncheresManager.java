@@ -18,7 +18,7 @@ public class EncheresManager {
 	}
 	
 	/**
-	 * 
+	 * @deprecated
 	 * @return une liste de AccueilDashboardTile
 	 * @throws BLLException 
 	 */

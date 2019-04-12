@@ -13,13 +13,29 @@ ENI Java Auction Project, a student projet to learn Java JEE development, whitho
 - git clone https://gitlab.com/AzzRun/eni-java-project-bid.git
 - ant builddist
 # Copy ${Project.dir}\dist\ENI-Encheres.war into Tomcat webapps installation folder
-- start tomcat
 ```
-
+- Open server.xml from tomcat installation path (conf) and append
+```xml
+   <Context docBase="PUT_UPLOAD_DIRECTORY" path="/EncheresImages"/>
+```
+- Open config.properties from projet path/ (inside war) 
+```properties
+  file_upload_path=PUT_UPLOAD_DIRECTORY
+```
 ## From Gitlab Artifacts/Release
 ```shell
 - Download the artifacts/release from gitlab
 # Copy ${Project.dir}\dist\ENI-Encheres.war into Tomcat webapps installation folder
+```
+- Open server.xml from tomcat installation path (conf) and append
+```xml
+   <Context docBase="PUT_UPLOAD_DIRECTORY" path="/EncheresImages"/>
+```
+- Open config.properties from projet path/ (inside war) 
+```properties
+  file_upload_path=PUT_UPLOAD_DIRECTORY
+```
+```shell
 - start tomcat
 ```
 
@@ -43,13 +59,13 @@ IDAOEnchere EnchereDAO = AbstractDAOFactory.getFactory().getEnchereDAO();
 ```
 
 
-Built With
+## Built With
 Apache ant - for automating software build processes
 
-Contributing
-Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests to us.
+## Contributing
+Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
-Versioning
+## Versioning
 We use GIT for versioning. For the versions available, see the tags on this repository.
 
 ## Team
@@ -61,10 +77,8 @@ We use GIT for versioning. For the versions available, see the tags on this repo
 
 
 
-License
-This project is licensed under the MIT License - see the LICENSE.md file for details
+## License
+This project is licensed under the MIT License - see the [license.md](./license.md) file for details
 
-Acknowledgments
-Hat tip to anyone whose code was used
-Inspiration
-etc
+## Donations 
+- AzzRun BTC 1HP2GCUkZv4f5hVEamnUHfBNfcy2HGWYot

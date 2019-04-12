@@ -1,13 +1,13 @@
 image: ubuntu
 
-services:
-  - name: microsoft/mssql-server-linux
-    alias: mssql
+#services:
+ # - name: microsoft/mssql-server-linux
+ #   alias: mssql
 
-variables:
+#variables:
   # Configure mysql environment variables (https://hub.docker.com/_/mysql/)
-  ACCEPT_EULA: Y
-  SA_PASSWORD: $GLOBAL_PASSWORD
+  #ACCEPT_EULA: Y
+  #SA_PASSWORD: $GLOBAL_PASSWORD
 
 before_script:
     - apt-get update &>/dev/null

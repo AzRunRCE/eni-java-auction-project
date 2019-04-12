@@ -5,6 +5,8 @@
 
 ENI Java Auction Project, a student projet to learn Java JEE development, whithout framework (Ex Spring).
 
+![Logo of the project](./screenshots/main.gif)
+
 # Getting Started
 ## From GIT
 ```shell

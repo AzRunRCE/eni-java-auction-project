@@ -7,6 +7,7 @@
 <fmt:message key="msg.title" bundle="${r}" var="title"/>
 
 <c:set var="title" scope="request" value="${ title }"/>
+<c:set var="localeCode" value="${pageContext.response.locale}" />
 <jsp:include page="../fragments/header.jsp"></jsp:include>
 <fmt:message key="msg.at" bundle="${r}" var="at"/>
 
@@ -48,7 +49,15 @@
 		<c:if test="${ date < dateDebutEnchere }"> 
 			<div class="alert alert-warning" role="alert">
 		  		<fmt:message key="msg.auction_not_started" bundle="${r}"></fmt:message> <fmt:parseDate value="${ dateDebutEnchere }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
-					<fmt:formatDate pattern="dd/MM/yyyy '${at}' HH'H'mm" value="${ parsedDateTime }" />
+
+				<c:choose> 
+					<c:when test="${localeCode == 'fr_FR' }"> 
+						<fmt:formatDate pattern="dd/MM/yyyy '${at}' HH'H'mm" value="${ parsedDateTime }" />
+					</c:when> 
+					<c:otherwise>
+						<fmt:formatDate pattern="dd/MM/YYYY '${at}' hh'H'mm a" value="${ parsedDateTime }" />
+					</c:otherwise> 
+				</c:choose>
 			</div>
 		</c:if>
 		<c:if test="${ credit <= montantEnchere && date < dateFinEnchere  }">
@@ -114,7 +123,14 @@
 						<td><fmt:message key="msg.end_of_auction" bundle="${r}"></fmt:message></td>
 						<td>
 							<fmt:parseDate value="${dateFinEnchere }" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
-							<fmt:formatDate pattern="dd/MM/yyyy '${at}' HH'H'mm" value="${ parsedDateTime }" />
+							<c:choose> 
+								<c:when test="${localeCode == 'fr_FR'}"> 
+									<fmt:formatDate pattern="dd/MM/yyyy '${at}' HH'H'mm" value="${ parsedDateTime }" />
+								</c:when> 
+								<c:otherwise>
+									<fmt:formatDate pattern="dd/MM/YYYY '${at}' hh'H'mm a" value="${ parsedDateTime }" />
+								</c:otherwise> 
+							</c:choose>
 						</td>
 					</tr>
 					<tr>

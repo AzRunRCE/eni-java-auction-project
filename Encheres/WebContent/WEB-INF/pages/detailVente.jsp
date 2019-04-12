@@ -215,7 +215,7 @@
 					<c:if test="${no_utilisateur != null}">
 						<div class="row">
 							<div class="col-md-6 mt-2">
-								<a href="./Sell?noArticle=${noArticle }" role="button" class="btn btn-light"><fmt:message key="msg.modify_button" bundle="${r}"></fmt:message></a>
+								<!--<a href="./Sell?noArticle=${noArticle }" role="button" class="btn btn-light"><fmt:message key="msg.modify_button" bundle="${r}"></fmt:message></a> -->
 							</div>
 						</div>
 					</c:if>

@@ -31,7 +31,7 @@ build:
     - ant -buildfile build-CI.xml
   artifacts:
     paths:
-    - Encheres/dist/*.jar
+    - Encheres/dist/*.war
     reports:
       junit: Encheres/testreports/*.xml
 

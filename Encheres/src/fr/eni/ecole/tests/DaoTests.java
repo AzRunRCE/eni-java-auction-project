@@ -39,9 +39,9 @@ public class DaoTests {
 	public static DataSource getMockDataSource(boolean setDBName) {
 
 		SQLServerDataSource ds = new SQLServerDataSource();
-		ds.setURL("jdbc:sqlserver://mssql:1433;");
+		ds.setURL("jdbc:sqlserver://51.77.193.14:1433;");
 		ds.setUser("sa");
-		ds.setPassword("yourStrong(!)Password");	
+		ds.setPassword(System.getProperty("SQL_PASSWORD"));  //"yourStrong(!)Password");	
 		if (setDBName)
 			ds.setURL(ds.getURL() + "databasename=DB_ENCHERES_UnitTests");
 		return  (DataSource)ds;

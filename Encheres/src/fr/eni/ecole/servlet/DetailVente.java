@@ -15,7 +15,6 @@ import fr.eni.ecole.beans.Enchere;
 import fr.eni.ecole.beans.Retrait;
 import fr.eni.ecole.beans.Utilisateur;
 import fr.eni.ecole.bll.BLLException;
-import fr.eni.ecole.bll.CategoriesManager;
 import fr.eni.ecole.bll.EncheresManager;
 import fr.eni.ecole.bll.UtilisateursManager;
 import fr.eni.ecole.bll.VentesManager;

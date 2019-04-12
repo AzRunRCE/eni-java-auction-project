@@ -102,21 +102,25 @@
 				<classpath refid="cp" />
 				<classpath refid="Encheres.classpath" />
 				 <compilerarg value="-Xlint"/>
-				 <compilerarg value="-Xmaxwarns"/>
+			<!--	 <compilerarg value="-Xmaxwarns"/> -->
 			</javac>
 			<echo>Compilation successful!</echo>
 		</target>
 		
 		<!-- Package the build into a JAR File after compilation & testing tasks are completed-->
 		<target name="builddist" depends="compile,test">
-			<jar destfile="${dist.dir}/ENI-Encheres.jar" basedir="${bin.dir}" excludes="**/*Tests*.class">
-			</jar>
+			<war destfile="dist/ENI-Encheres.war" webxml="WebContent/WEB-INF/web.xml">
+                <fileset dir="WebContent"/>
+                <lib dir="WebContent/WEB-INF/lib"/>
+                <classes dir="bin"/>
+            </war>
 		</target>
 		
 		
 		<!-- 	This task is Used to Unit-Test the Compiled Java Files -->
 		<target name="test">
 			<junit printsummary="yes" fork="true" haltonfailure="yes">
+			    <sysproperty key="SQL_PASSWORD" value="SQLPASSWORD"/>
 				<classpath refid="Encheres.classpath" />
 				<classpath refid="jUnit.cp" />
 				<formatter type="xml" />

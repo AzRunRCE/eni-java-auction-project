@@ -6,28 +6,28 @@ public interface DAO<T> {
 
    
   /**
-  * M�thode de cr�ation
+  * Méthode de création
   * @param obj
   * @return boolean 
   */
   public int create(T obj)throws DALException;
 
   /**
-  * M�thode pour effacer
+  * Méthode pour effacer
   * @param obj
   * @return boolean 
   */
   public int delete(T obj)throws DALException;
 
   /**
-  * M�thode de mise � jour
+  * Méthode de mise à jour
   * @param obj
   * @return boolean
   */
   public boolean update(T obj)throws DALException;
 
   /**
-  * M�thode de recherche des informations
+  * Méthode de recherche des informations
   * @param id
   * @return T
   */

@@ -9,6 +9,7 @@
 	margin-left: 0;
 	margin-right: 0;
 }
+
 #dashboard {
 	display: flex;
 	flex-direction: row;
@@ -16,14 +17,21 @@
 	align-items: center;
   	justify-content: center;
 }
+
 .dashboard-tile {
 	min-width: 320px; 
 	max-width: 530px;
 }
+
 .dashboard-tile .col-4{
 	display: flex;
 	align-items: center;
 }
+
+.dashboard-tile .col-4 img{
+	max-height: 180px;	
+}
+
 .dashboard-tile .card-title{
 	margin-bottom: .75rem;
 	text-decoration: underline;
@@ -36,7 +44,7 @@
 
 .detail img{
 	width: auto;
-	height: 195px;
+	max-height: 195px;
 }
 
 #filterForm input:invalid {

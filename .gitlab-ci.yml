@@ -1,38 +1,37 @@
 image: ubuntu
 
-services:
-  - name: microsoft/mssql-server-linux
-    alias: mssql
+#services:
+ # - name: microsoft/mssql-server-linux
+ #   alias: mssql
 
-variables:
+#variables:
   # Configure mysql environment variables (https://hub.docker.com/_/mysql/)
-  ACCEPT_EULA: Y
-  SA_PASSWORD: yourStrong(!)Password
+  #ACCEPT_EULA: Y
+  #SA_PASSWORD: $GLOBAL_PASSWORD
 
 before_script:
-    - apt-get update 
-    - apt-get install ant -y 
+    - apt-get update &>/dev/null
+    - apt-get install -y gnupg2 &>/dev/null
     - apt-get install wget -y &>/dev/null
+    - wget -qO - https://packages.microsoft.com/keys/microsoft.asc | iconv -f windows-1251 |  apt-key add -
+    - wget -qO - https://packages.microsoft.com/config/ubuntu/16.04/prod.list | iconv -f windows-1251 | tee /etc/apt/sources.list.d/msprod.list
+    - apt-get update &>/dev/null
+    - apt-get install ant -y &>/dev/null
     - export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8
     - export JAVA_OPTS=-Dfile.encoding=UTF8
-   #  - wget http://apache.crihan.fr/dist/tomcat/tomcat-8/v8.5.39/bin/apache-tomcat-8.5.39.tar.gz &>/dev/null
-   #  - mkdir tomcat8
-   #  - cd tomcat8
-   #  - mv ../apache-tomcat-8.5.39.tar.gz .
-   #  - tar xvzf apache-tomcat-8.5.39.tar.gz &>/dev/null
-   #  - export CATALINA_HOME=$(pwd)/apache-tomcat-8.5.39
-   #  - export PATH=$PATH:$CATALINA_HOME
+    - source ~/.bashrc
     - cd Encheres
+    - sed -i -e 's/SQLPASSWORD/'"$GLOBAL_PASSWORD"'/g' build-CI.xml
 stages:
   - build
 
-builds:
+build:
   stage: build
   script:
     - ant -buildfile build-CI.xml
   artifacts:
     paths:
-    - Encheres/dist/*.jar
+    - Encheres/dist/*.war
     reports:
       junit: Encheres/testreports/*.xml
 

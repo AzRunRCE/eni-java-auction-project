@@ -3,9 +3,6 @@ package fr.eni.ecole.DAL;
 
 import javax.sql.DataSource;
 
-import fr.eni.ecole.DAL.Impl.ArticleVenduDAO;
-import fr.eni.ecole.DAL.Impl.CategorieDAO;
-import fr.eni.ecole.DAL.Impl.EnchereDAO;
 import fr.eni.ecole.DAL.Interface.DAO;
 import fr.eni.ecole.DAL.Interface.IDAOArticleVendu;
 import fr.eni.ecole.DAL.Interface.IDAOCategorie;

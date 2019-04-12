@@ -1,17 +1,11 @@
 package fr.eni.ecole.util;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-
-import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 
 import fr.eni.ecole.DAL.DALException;
 
@@ -56,7 +50,7 @@ public class AccesBase {
 	
 	public static DataSource getDataSource() throws DALException {
 		InitialContext jndi = null;
-		Connection cnx = null;
+		//Connection cnx = null;
 		if (ds != null)
 		{
 			return ds;

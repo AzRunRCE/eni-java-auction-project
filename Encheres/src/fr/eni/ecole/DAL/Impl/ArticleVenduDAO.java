@@ -91,13 +91,13 @@ public class ArticleVenduDAO implements IDAOArticleVendu {
 	    		av.setMiseAPrix(result.getInt("prix_initial"));
 	    		av.setPrixVente(result.getInt("prix_vente"));
 	    		av.setChemin_image(result.getString("chemin_image"));
-	    		categorieDAO = AbstractDAOFactory.getFactory().getCategorieDAO();
+	    		categorieDAO = AbstractDAOFactory.getFactory(dataSource).getCategorieDAO();
 	    		categorie = categorieDAO.find(result.getInt("no_categorie"));
 	    		av.setCategorie(categorie);
-	    		retraitDAO = AbstractDAOFactory.getFactory().getRetraitDAO();
+	    		retraitDAO = AbstractDAOFactory.getFactory(dataSource).getRetraitDAO();
 	    		retrait = retraitDAO.find(result.getInt("no_article"));
 	    		av.setRetrait(retrait);
-	    		utilisateurDAO = AbstractDAOFactory.getFactory().getUtilisateurDAO();
+	    		utilisateurDAO = AbstractDAOFactory.getFactory(dataSource).getUtilisateurDAO();
 	    		utilisateur = utilisateurDAO.find(result.getInt("no_utilisateur"));
 	    		av.setVendeur(utilisateur);
 	    	}

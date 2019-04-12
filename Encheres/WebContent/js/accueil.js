@@ -6,14 +6,10 @@ var lister = function() {
         type: "GET",
         url: "/Encheres/webapi/enchere/",
         success: function (data) {
-            console.log('download was successful.');
-            console.log(data);
             createDashboard(data);
         },
         error: function (data) {
-            console.log('An error occurred.'); //error 500
             cleanDashboard();
-            console.log(data);
             echec(500)
         },
     });
@@ -39,9 +35,9 @@ function createDashboard(data) {
 				
 				let image = document.createElement('img');
 				if(enchere.chemin_image) {
-					image.setAttribute('src', 'http://localhost:8080/EncheresImages/'+enchere.chemin_image);
+					image.setAttribute('src', window.location.origin + '/EncheresImages/' + enchere.chemin_image);
 				} else {
-					image.setAttribute('src', 'http://localhost:8080/EncheresImages/default.jpg');					
+					image.setAttribute('src', window.location.origin + '/EncheresImages/default.jpg');					
 				}
 				image.setAttribute('class', 'card-img p-1');
 				
@@ -66,7 +62,7 @@ function createDashboard(data) {
 				endDate.setAttribute('class', 'card-text');
 				
 				let dateEnchere = moment(enchere.dateFinEnchere, moment.ISO_8601);
-				if (navigator.language === 'fr') {
+				if (navigator.language.includes('fr') ) {
 					dateEnchere.locale('fr');
 					endDate.innerText = "Fin de l'enchère : " + dateEnchere.format('DD/MM/YYYY - HH[H]mm');					
 				} else {
@@ -76,7 +72,7 @@ function createDashboard(data) {
 
 				let amount = document.createElement('p');
 				amount.setAttribute('class', 'card-text');
-				if (navigator.language === 'fr') {
+				if (navigator.language.includes('fr') ) {
 					amount.innerText = 'Prix : ' + enchere.montant + ' points';					
 				} else {
 					amount.innerText = 'Price : ' + enchere.montant + ' points';		
@@ -89,14 +85,14 @@ function createDashboard(data) {
 					let linkDetailVendeur = '/Encheres/Profil?userId=' + enchere.noVendeur;
 					linkVendeur.setAttribute('href', linkDetailVendeur);
 					
-					if (navigator.language === 'fr') {
+					if (navigator.language.includes('fr') ) {
 						linkVendeur.innerText = 'Vendeur : ' + enchere.pseudoVendeur;										
 					} else {
 						linkVendeur.innerText = 'Seller : ' + enchere.pseudoVendeur;	
 					}
 					pseudo.appendChild(linkVendeur);	
 				} else {
-					if (navigator.language === 'fr') {
+					if (navigator.language.includes('fr') ) {
 						pseudo.innerText = 'Vendeur : ' + enchere.pseudoVendeur;										
 					} else {
 						pseudo.innerText = 'Seller : ' + enchere.pseudoVendeur;	
@@ -139,13 +135,13 @@ function cleanDashboard() {
 
 function echec(codeReponse) {
 	if(codeReponse == '200' || codeReponse == null) {
-		if (navigator.language === 'fr') {
+		if (navigator.language.includes('fr') ) {
 			document.getElementById("echec").innerText = 'Aucun article ne semble correspondre aux filtres saisis.';				
 		} else {
 			document.getElementById("echec").innerText = 'No article seems to match the filters entered.';
 		}
 	} else if (codeReponse == '500') {
-		if (navigator.language === 'fr') {
+		if (navigator.language.includes('fr') ) {
 			document.getElementById("echec").innerText = 'Un problème technique est survenu, veuillez réessayer plus tard.';				
 		} else {
 			document.getElementById("echec").innerText = 'There was a technical problem, please try again later.';	
@@ -227,15 +223,11 @@ function addListeners() {
             url: frm.attr('action'),
             data: frm.serialize(),
             success: function (data) {
-                console.log('Submission was successful.');
-                console.log(data);
                 cleanDashboard();
                 createDashboard(data);
             },
             error: function (data) {
-                console.log('An error occurred.');
                 cleanDashboard();
-                console.log(data.status);
                 echec(500);
             },
         });

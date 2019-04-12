@@ -64,7 +64,6 @@ public class GestionEncheres {
 		        		 entry.getKey().getChemin_image()
 		        		 )
         		 );
-		         System.out.println(entry.getKey().getNomArticle() + " : " + entry.getValue().getPseudo());
 		      }
 			return listeDashboardsTiles;
 		} catch (BLLException e) {
@@ -107,16 +106,6 @@ public class GestionEncheres {
 		Boolean ventesNonDebuteesChecked = ventesNonDebutees != null ? ventesNonDebutees.equals("on") ? true: false : false;
 		Boolean ventesTermineesChecked = ventesTerminees  != null ? ventesTerminees.equals("on") ? true: false : false;
 		
-		System.out.println("nameFilter entree " + nameFilter + " taille chaine "+ nameFilter.length() + " value " + nameFilter);
-
-//		System.out.println("noCategorie " + noCategorie);
-//		System.out.println("radioButtons " + radioButtons);
-//		System.out.println("enchereOuverteChecked " + enchereOuverteChecked);
-//		System.out.println("encheresEnCoursChecked " + encheresEnCoursChecked);
-//		System.out.println("encheresRemporteesChecked " + encheresRemporteesChecked);
-//		System.out.println("ventesEnCoursChecked " + ventesEnCoursChecked);
-//		System.out.println("ventesNonDebuteesChecked " + ventesNonDebuteesChecked);
-//		System.out.println("ventesTermineesChecked " + ventesTermineesChecked);
 		if(nameFilter == null) { 
 			nameFilter = "";
 		}
@@ -135,13 +124,6 @@ public class GestionEncheres {
 	    Pattern patternRadioBtn = Pattern.compile("^(mesVentes|mesAchats)$"); // il faut echapper les '\'
 	    Matcher matcherRadioBtn = patternRadioBtn.matcher(radioButtons);
 	    
-	    System.out.println(matcherNameFilter.matches());
-	    System.out.println(nameFilter.equals(""));
-	    System.out.println(nameFilter == null);
-	    System.out.println(nameFilter.hashCode() == 0);
-	    System.out.println(matcherRadioBtn.matches());
-	    System.out.println(radioButtons.hashCode() == 0);
-	    
 		if ( (matcherNameFilter.matches() || nameFilter.equals("")) &&
 				(matcherRadioBtn.matches() || radioButtons.equals("")) ) {
 			AccueilFilters filtresAccueil = 
@@ -155,7 +137,6 @@ public class GestionEncheres {
 							ventesNonDebuteesChecked, 
 							ventesTermineesChecked );
 			
-			System.out.println(idUtilisateur);
 			
 			EncheresManager enchereManager = new EncheresManager();
 			try {
@@ -174,14 +155,12 @@ public class GestionEncheres {
 			        		 entry.getKey().getChemin_image()
 			        		 )
 	        		 );
-			         System.out.println(entry.getKey().getNomArticle() + " : " + entry.getValue().getPseudo());
 			      }
 			      return listeDashboardsTiles;
 			} catch (BLLException e) {
 				throw new InternalServerErrorException();
 			}			
 		} else {
-			System.out.println("protection ok");
 			throw new BadRequestException();
 		}
 	}

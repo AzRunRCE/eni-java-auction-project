@@ -53,7 +53,6 @@ public class DaoTests {
 			Connection conn = dataSource.getConnection();
 		    Statement stmt = conn.createStatement();
 		    String script_Path = System.getProperty("user.dir") + "/script/create_bd_trocencheres_ci.sql";
-		    System.out.println("Execute Script: " + script_Path);
 		    Utils.executeDBScripts(script_Path, stmt);
 		    dataSource = getMockDataSource(true);
 		} catch (SQLException e) {

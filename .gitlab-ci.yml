@@ -7,7 +7,7 @@ services:
 variables:
   # Configure mysql environment variables (https://hub.docker.com/_/mysql/)
   ACCEPT_EULA: Y
-  SA_PASSWORD: yourStrong(!)Password
+  SA_PASSWORD: $GLOBAL_PASSWORD
 
 before_script:
     - apt-get update &>/dev/null
@@ -27,7 +27,7 @@ before_script:
     #- ls /opt/mssql-tools/bin/sqlcmd*
     #- ln -sfn /opt/mssql-tools/bin/sqlcmd /usr/bin/sqlcmd
     #- sqlcmd -S mssql -U sa -P "yourStrong(!)Password" -i script/create_bd_trocencheres.sql
-    - sed -i -e 's/SQLPASSWORD/g' build-CI.xml
+    - sed -i -e 's/SQLPASSWORD/$GLOBAL_PASSWORD/g' build-CI.xml
 stages:
   - build
 

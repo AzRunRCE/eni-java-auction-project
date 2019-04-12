@@ -101,7 +101,7 @@ public class EnchereDAO implements IDAOEnchere {
 	    	}
 	    	return enchere;
 		} catch (SQLException e) {
-			throw new DALException("ProblÃ¨me avec la mÃ©thode selectById2", e);
+			throw new DALException("Problème avec la méthode selectById2", e);
 		} 
 	}
 	
@@ -110,7 +110,6 @@ public class EnchereDAO implements IDAOEnchere {
 		try(Connection connect = AccesBase.getConnection();
 				PreparedStatement preparedStatement = connect.prepareStatement(SELECT_ALL_WITHOUT_PARAM)) {
 
-			List<AccueilDashboardTile> listeMsgObjectsAccueil= new ArrayList<>();
 			Map<ArticleVendu, Utilisateur> mapUtilisateurArticleVendu = new LinkedHashMap<ArticleVendu, Utilisateur>();
 	    	ResultSet rs = preparedStatement.executeQuery();
 	    	while(rs.next()) {
@@ -125,19 +124,8 @@ public class EnchereDAO implements IDAOEnchere {
 	    		article.setPrixVente(rs.getInt("prix_vente"));
 	    		article.setNoArticle(rs.getInt("no_article"));
 	    		mapUtilisateurArticleVendu.put(article, user);
-	    		
-//	    		listeMsgObjectsAccueil.add(new AccueilDashboardTile( 
-//	    										rs.getString("nom_article"), 
-//	    										rs.getTimestamp("date_fin_encheres").toLocalDateTime().toString(), 
-//	    										rs.getInt("prix_vente"),
-//	    										rs.getString("pseudo"),	
-//	    										rs.getInt("no_utilisateur"), 
-//	    										rs.getInt("no_article"),
-//	    										rs.getString("chemin_image")
-//		    									)
-//	    		);    
+
 	    	}
-	    	//return listeMsgObjectsAccueil;
 	    	return mapUtilisateurArticleVendu;
 		} catch (SQLException e) {
 			throw new DALException("Erreur dans selectAllWithoutParameters", e);
@@ -160,7 +148,6 @@ public class EnchereDAO implements IDAOEnchere {
 		requeteParametree.append(SELECT_ALL_WITHOUT_PARAM);
 		
 		if(accueilFilters.getRadioButtons()!=null && accueilFilters.getRadioButtons().equals("mesVentes")) {
-			System.out.println("mesVentes");
 			requeteParametree.append(VENTES);
 			requeteParametree = constructSQLForNameAndCategorie(requeteParametree, accueilFilters);
 
@@ -182,7 +169,6 @@ public class EnchereDAO implements IDAOEnchere {
 																		accueilFilters, 
 																		MES_ENCHERES_OU_VENTES_COURS, 
 																		MES_VENTES_NON_COMMENCEES);				
-				System.out.println(requeteParametree.toString());
 				
 			} else if (ventesEnCoursChecked && !ventesNonDebuteesChecked && ventesTermineesChecked) {
 				// on va devoir faire un union
@@ -190,7 +176,6 @@ public class EnchereDAO implements IDAOEnchere {
 																		accueilFilters, 
 																		MES_ENCHERES_OU_VENTES_COURS, 
 																		MES_VENTES_TERMINEES);
-				System.out.println(requeteParametree.toString());
 				
 			} else if (!ventesEnCoursChecked && ventesNonDebuteesChecked && ventesTermineesChecked) {
 				// on va devoir faire un union
@@ -198,35 +183,30 @@ public class EnchereDAO implements IDAOEnchere {
 																		accueilFilters, 
 																		MES_VENTES_NON_COMMENCEES, 
 																		MES_VENTES_TERMINEES);
-				System.out.println(requeteParametree.toString());
 				
 			} else if (ventesEnCoursChecked && !ventesNonDebuteesChecked && !ventesTermineesChecked) {
 				//cas simple
 				requeteParametree = constructSQLForMesVentesSimple(requeteParametree,
 																	accueilFilters, 
 																	MES_ENCHERES_OU_VENTES_COURS);
-				System.out.println(requeteParametree.toString());
 					
 			} else if (!ventesEnCoursChecked && ventesNonDebuteesChecked && !ventesTermineesChecked) {
 				//cas simple
 				requeteParametree = constructSQLForMesVentesSimple(requeteParametree,
 																	accueilFilters, 
 																	MES_VENTES_NON_COMMENCEES);
-				System.out.println(requeteParametree.toString());
 				
 			} else if (!ventesEnCoursChecked && !ventesNonDebuteesChecked && ventesTermineesChecked) {
 				//cas simple
 				requeteParametree = constructSQLForMesVentesSimple(requeteParametree,
 																	accueilFilters, 
 																	MES_VENTES_TERMINEES);
-				System.out.println(requeteParametree.toString());
 					
 			} else {
 				//aucun champ selectionne parmi les checkbox
 			}
 
 		} else if (accueilFilters.getRadioButtons() != null && accueilFilters.getRadioButtons().equals("mesAchats")) {
-			System.out.println("mesAchats");
 			requeteParametree.append(LEFT_JOIN_ENCHERES);
 			requeteParametree = constructSQLForNameAndCategorie(requeteParametree, accueilFilters);
 			if(!whereAlreadySet) {
@@ -267,7 +247,6 @@ public class EnchereDAO implements IDAOEnchere {
 					requeteParametree.append(AND);
 					requeteParametree.append(MES_ENCHERES_REMPORTEES);
 				}
-				System.out.println(requeteParametree.toString());
 			} else if (!encheresOuverteChecked && encheresEnCoursChecked && encheresRemporteesChecked) {
 				//On veut uniquement mes requetes en cours et remportees - UNION
 				
@@ -301,7 +280,6 @@ public class EnchereDAO implements IDAOEnchere {
 
 					requeteParametree.append(MES_ENCHERES_REMPORTEES);
 				}
-				System.out.println(requeteParametree.toString());
 			} else if ( (encheresOuverteChecked && !encheresEnCoursChecked && !encheresRemporteesChecked)
 					|| (encheresOuverteChecked && encheresEnCoursChecked && !encheresRemporteesChecked)) {
 				//Toutes les encheres en cours
@@ -313,14 +291,12 @@ public class EnchereDAO implements IDAOEnchere {
 					requeteParametree.append(AND);
 					requeteParametree.append(TOUTES_ENCHERES_OUVERTES);
 				}
-				System.out.println(requeteParametree.toString());
 			} else if (!encheresOuverteChecked && encheresEnCoursChecked && !encheresRemporteesChecked) {
 				//cas simple
 				requeteParametree = constructSQLForMesEncheresSimple(requeteParametree,
 																	accueilFilters, 
 																	MES_ENCHERES_OU_VENTES_COURS, 
 																	idUtilisateur);
-				System.out.println(requeteParametree.toString());
 
 			} else if (!encheresOuverteChecked && !encheresEnCoursChecked && encheresRemporteesChecked) {
 				//cas simple
@@ -328,12 +304,10 @@ public class EnchereDAO implements IDAOEnchere {
 																	accueilFilters, 
 																	MES_ENCHERES_REMPORTEES, 
 																	idUtilisateur);
-				System.out.println(requeteParametree.toString());
 			} 
 		} else {
 			// requete en mode non connecte
 			requeteParametree = constructSQLForNameAndCategorie(requeteParametree, accueilFilters);
-			System.out.println(requeteParametree.toString());
 		}
 		
 		try(Connection connect = AccesBase.getConnection();
@@ -341,8 +315,6 @@ public class EnchereDAO implements IDAOEnchere {
 															requeteParametree.toString() + 
 															GROUP_BY_ARTICLE_ID)
 						) {
-			System.out.println(requeteParametree.toString() + GROUP_BY_ARTICLE_ID);
-			//List<AccueilDashboardTile> listeMsgObjectsAccueil= new ArrayList<>();
 			Map<ArticleVendu, Utilisateur> mapUtilisateurArticleVendu = new LinkedHashMap<ArticleVendu, Utilisateur>();
 	    	ResultSet rs = preparedStatement.executeQuery();
 	    	while(rs.next()) {
@@ -357,16 +329,6 @@ public class EnchereDAO implements IDAOEnchere {
 	    		article.setPrixVente(rs.getInt("prix_vente"));
 	    		article.setNoArticle(rs.getInt("no_article"));
 	    		mapUtilisateurArticleVendu.put(article, user);
-//	    		listeMsgObjectsAccueil.add(new AccueilDashboardTile( 
-//	    										rs.getString("nom_article"), 
-//	    										rs.getTimestamp("date_fin_encheres").toLocalDateTime().toString(), 
-//	    										rs.getInt("prix_vente"),
-//	    										rs.getString("pseudo"),	
-//	    										rs.getInt("no_utilisateur"), 
-//	    										rs.getInt("no_article"),
-//	    										rs.getString("chemin_image")
-//		    									)
-//	    		);    
 	    	}
 	    	return mapUtilisateurArticleVendu;
 		} catch (SQLException e) {

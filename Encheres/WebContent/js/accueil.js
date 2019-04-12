@@ -6,14 +6,10 @@ var lister = function() {
         type: "GET",
         url: "/Encheres/webapi/enchere/",
         success: function (data) {
-            console.log('download was successful.');
-            console.log(data);
             createDashboard(data);
         },
         error: function (data) {
-            console.log('An error occurred.'); //error 500
             cleanDashboard();
-            console.log(data);
             echec(500)
         },
     });
@@ -39,9 +35,9 @@ function createDashboard(data) {
 				
 				let image = document.createElement('img');
 				if(enchere.chemin_image) {
-					image.setAttribute('src', 'http://localhost:8080/EncheresImages/'+enchere.chemin_image);
+					image.setAttribute('src', window.location.origin + '/EncheresImages/' + enchere.chemin_image);
 				} else {
-					image.setAttribute('src', 'http://localhost:8080/EncheresImages/default.jpg');					
+					image.setAttribute('src', window.location.origin + '/EncheresImages/default.jpg');					
 				}
 				image.setAttribute('class', 'card-img p-1');
 				
@@ -227,15 +223,11 @@ function addListeners() {
             url: frm.attr('action'),
             data: frm.serialize(),
             success: function (data) {
-                console.log('Submission was successful.');
-                console.log(data);
                 cleanDashboard();
                 createDashboard(data);
             },
             error: function (data) {
-                console.log('An error occurred.');
                 cleanDashboard();
-                console.log(data.status);
                 echec(500);
             },
         });

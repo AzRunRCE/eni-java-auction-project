@@ -99,7 +99,6 @@ public class Sell extends HttpServlet {
              Properties prop = new Properties();
 
              if (input == null) {
-                 System.out.println("Sorry, unable to find config.properties");
                  return;
              }
 
@@ -107,7 +106,6 @@ public class Sell extends HttpServlet {
              prop.load(input);
 
              //get the property value and print it out
-             System.out.println(prop.getProperty("file_upload_path"));
              path = prop.getProperty("file_upload_path");
 
          } catch (IOException ex) {
@@ -115,17 +113,13 @@ public class Sell extends HttpServlet {
          }
     	 
         final Part filePart = request.getPart("inputImage");
-        System.out.println("file "+filePart);
         final String fileName = getFileName(filePart);
         final String fileType = filePart.getHeader("content-type").split("/")[1];
-        System.out.println("fileType " + fileType);
-        System.out.println("fileName " + fileName);
 
         String newFileName = LocalDateTime
         		.now()
         		.format(DateTimeFormatter.ofPattern("yyyyMMddhhmmss"));
         newFileName +="."+fileType;
-        System.out.println(newFileName);
         /////////
 	    
 		Boolean isLogged = request.getSession().getAttribute(Constantes.SESS_NUM_UTILISATEUR) != null;
@@ -206,8 +200,7 @@ public class Sell extends HttpServlet {
         LOGGER.log(Level.INFO, "Part Header = {0}", partHeader);
         for (String content : part.getHeader("content-disposition").split(";")) {
             if (content.trim().startsWith("filename")) {
-            	System.out.println(content.substring(
-                        content.indexOf('=') + 1).trim().replace("\"", ""));
+
                 return content.substring(
                         content.indexOf('=') + 1).trim().replace("\"", "");
             }

@@ -8,6 +8,7 @@
 
 <c:set var="title" scope="request" value="${ title }"/>
 <c:set var="localeCode" value="${pageContext.response.locale}" />
+<c:set var="URI" value="${pageContext.request.serverName }" />
 <jsp:include page="../fragments/header.jsp"></jsp:include>
 <fmt:message key="msg.at" bundle="${r}" var="at"/>
 
@@ -71,10 +72,10 @@
 		<div class="col-md-3 mb-2">
 			<div class="detail">
 				<c:if test="${cheminImage != null }">
-					<img src="http://localhost:8080/EncheresImages/${cheminImage }" class="img-thumbnail" alt="${cheminImage }">
+					<img src="http://${URI }:8080/EncheresImages/${cheminImage }" class="img-thumbnail" alt="${cheminImage }">
 				</c:if>
 				<c:if test="${cheminImage == null }">
-					<img src="http://localhost:8080/EncheresImages/default.jpg" class="img-thumbnail" alt="image alternative">
+					<img src="http://${URI }:8080/EncheresImages/default.jpg" class="img-thumbnail" alt="image alternative">
 				</c:if>
 			</div>
 		</div>

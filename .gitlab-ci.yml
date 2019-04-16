@@ -28,6 +28,11 @@ before_script:
     - ln -sfn /opt/mssql-tools/bin/sqlcmd /usr/bin/sqlcmd
     - locale-gen en_US.UTF-8
     - update-locale LANG=en_US.UTF-8
+    - add-apt-repository ppa:ubuntu-toolchain-r/test
+    - apt-get update
+    - apt-get install gcc-4.9
+    - apt-get upgrade libstdc++6
+    - strings /usr/lib/x86_64-linux-gnu/libstdc++.so.6 | grep GLIBCXX
     - sqlcmd -S mssql -i script/create_bd_trocencheres.sql -U sa -P "$GLOBAL_PASSWORD"
 stages:
   - build

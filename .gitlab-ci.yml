@@ -11,7 +11,7 @@ variables:
 
 before_script:
     - apt-get update &>/dev/null
-    - apt-get install  gnupg2 python3-pip python-pip curl wget -y &>/dev/null
+    - apt-get install  gnupg2 python3-pip python-pip curl wget software-properties-common -y &>/dev/null
     - apt-get update &>/dev/null
     - apt-get install ant -y &>/dev/null
     - export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8
@@ -28,13 +28,10 @@ before_script:
     - ln -sfn /opt/mssql-tools/bin/sqlcmd /usr/bin/sqlcmd
     - locale-gen en_US.UTF-8
     - update-locale LANG=en_US.UTF-8
-    - apt-get remove msodbcsql
-    - apt-cache madison msodbcsql
-    - apt-get install msodbcsql=13.1.9.2-1
-    - apt-cache madison mssql-tools
-    - ACCEPT_EULA=Y apt-get install mssql-tools=14.0.6.0-1
-    - apt-mark hold mssql-tools
-    - apt-mark hold msodbcsql
+    - add-apt-repository ppa:ubuntu-toolchain-r/test
+    - apt-get update
+    - apt-get install gcc-4.9
+    - apt-get upgrade libstdc++6
     - sqlcmd -S mssql -i script/create_bd_trocencheres.sql -U sa -P "$GLOBAL_PASSWORD"
 stages:
   - build

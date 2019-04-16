@@ -11,10 +11,7 @@ image: ubuntu
 
 before_script:
     - apt-get update &>/dev/null
-    - apt-get install -y gnupg2 &>/dev/null
-    - apt-get install wget -y &>/dev/null
-    - wget -qO - https://packages.microsoft.com/keys/microsoft.asc | iconv -f windows-1251 |  apt-key add -
-    - wget -qO - https://packages.microsoft.com/config/ubuntu/16.04/prod.list | iconv -f windows-1251 | tee /etc/apt/sources.list.d/msprod.list
+    - apt-get install  gnupg2 python3-pip python-pip curl wget -y &>/dev/null
     - apt-get update &>/dev/null
     - apt-get install ant -y &>/dev/null
     - export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8
@@ -22,6 +19,16 @@ before_script:
     - source ~/.bashrc
     - cd Encheres
     - sed -i -e 's/SQLPASSWORD/'"$GLOBAL_PASSWORD"'/g' build-CI.xml
+    - wget -qO - https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+    - wget -qO - https://packages.microsoft.com/config/ubuntu/16.04/prod.list | tee /etc/apt/sources.list.d/msprod.list
+    - apt-get update && apt-get install locales mssql-tools unixodbc-dev -y
+    - echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile
+    - echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc
+    - source ~/.bashrc
+    - ln -sfn /opt/mssql-tools/bin/sqlcmd /usr/bin/sqlcmd
+    - locale-gen en_US.UTF-8
+    - update-locale LANG=en_US.UTF-8
+    - sqlcmd -S mssql -i script/create_bd_trocencheres.sql -U sa -p $GLOBAL_PASSWORD
 stages:
   - build
 

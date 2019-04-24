@@ -70,9 +70,9 @@ We use GIT for versioning. For the versions available, see the tags on this repo
 
 ## Team
 
-| <a href="http://github.com/AzRunRCE" target="_blank">**Quentin Martinez @AzzRun**</a> | <a href="https://gitlab.com/fbnctn" target="_blank">**Fabien Catin @fbnctn**</a> | <a href="https://gitlab.com/ApoZLd" target="_blank">**Romain @ApoZLd**</a> |
+| <a href="http://github.com/AzRunRCE" target="_blank">**Quentin Martinez @AzRunRCE**</a> | <a href="https://gitlab.com/fbnctn" target="_blank">**Fabien Catin @fbnctn**</a> | <a href="https://gitlab.com/ApoZLd" target="_blank">**Romain @ApoZLd**</a> |
 | :---: |:---:| :---:|
-| [![ Quentin Martinez @AzzRun](https://avatars0.githubusercontent.com/u/20741531?s=200)](http://azrunsoft.com)    | [![Fabien Catin @fbnctn ](https://secure.gravatar.com/avatar/75be2983e928aaf4f3d30e9ddff02cae?s=180&d=identicon)](https://gitlab.com/fbnctn) | [![Romain @ApoZLd](https://assets.gitlab-static.net/uploads/-/system/user/avatar/3144065/avatar.png?width=90)](https://gitlab.com/ApoZLd)  |
+| [![ Quentin Martinez @AzRunRCE](https://avatars0.githubusercontent.com/u/20741531?s=200)](http://azrunsoft.com)    | [![Fabien Catin @fbnctn ](https://secure.gravatar.com/avatar/75be2983e928aaf4f3d30e9ddff02cae?s=180&d=identicon)](https://gitlab.com/fbnctn) | [![Romain @ApoZLd](https://assets.gitlab-static.net/uploads/-/system/user/avatar/3144065/avatar.png?width=90)](https://gitlab.com/ApoZLd)  |
 | <a href="http://github.com/AzRunRCE" target="_blank">`github.com/AzRunRCE`</a> | <a href="https://gitlab.com/fbnctn" target="_blank">`gitlab.com/fbnctn`</a> | <a href="https://gitlab.com/ApoZLd" target="_blank">`gitlab.com/ApoZLd`</a> |
 
 
@@ -81,4 +81,4 @@ We use GIT for versioning. For the versions available, see the tags on this repo
 This project is licensed under the MIT License - see the [license.md](./license.md) file for details
 
 ## Donations 
-- AzzRun BTC 1HP2GCUkZv4f5hVEamnUHfBNfcy2HGWYot
+- AzRun BTC 1HP2GCUkZv4f5hVEamnUHfBNfcy2HGWYot
